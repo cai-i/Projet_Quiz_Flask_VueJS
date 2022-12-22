@@ -5,7 +5,7 @@ from flask_expects_json import expects_json
 from schema import login, question
 
 from services.admin import verify_admin_pw
-from services.Questions_Answers import add_question, get_question_by_id, get_question_by_position
+from services.Questions_Answers import add_question, get_question_by_id, get_question_by_position, remove_question, remove_all_questions#, change_question
 from db.init_db import init_db
 
 # instance d'application Flask 
@@ -23,6 +23,10 @@ CORS(app)
 def hello_world():
 	x = 'you'
 	return f"Hello, {x}"
+
+@app.route('/rebuild-db', methods=['POST'])
+def create_db():
+	return init_db()
 
 # exemple de json qui peut être retourné à l'url : /quiz-info
 json_ex = {
@@ -62,17 +66,24 @@ def get_question_given_id(question_id):
 @app.route('/questions', methods=['GET'])
 def get_question_given_position():
 	position = request.args.get('position')
-	return get_question_by_id(position)
+	return get_question_by_position(position)
 
 @app.route('/questions', methods=['POST'])
 @expects_json(question)
 def create_question():
 	return add_question()
 
-@app.route('/rebuild-db', methods=['POST'])
-def create_db():
-	return init_db()
+@app.route('/questions/<question_id>', methods=['DELETE'])
+def delete_question(question_id):
+	return remove_question(question_id)
 
+@app.route('/questions/all', methods=['DELETE'])
+def delete_all_questions():
+	return remove_all_questions()
+
+# @app.route('/questions/<question_id>', methods=['PUT'])
+# def update_question(question_id):
+# 	return change_question(question_id)
 
 if __name__ == "__main__":
     app.run()
