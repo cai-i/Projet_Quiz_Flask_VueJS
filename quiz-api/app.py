@@ -6,6 +6,7 @@ from schema import login, question
 
 from services.admin import verify_admin_pw
 from services.Questions_Answers import add_question
+from db.init_db import init_db
 
 # instance d'application Flask 
 app = Flask(__name__)
@@ -58,6 +59,10 @@ def verify_pw():
 # @expects_json(question)
 def create_question():
 	return add_question()
+
+@app.route('/rebuild-db', methods=['POST'])
+def create_db():
+	return init_db()
 
 
 if __name__ == "__main__":
