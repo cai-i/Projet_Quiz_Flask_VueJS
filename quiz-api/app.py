@@ -5,7 +5,7 @@ from flask_expects_json import expects_json
 from schema import login, question
 
 from services.admin import verify_admin_pw
-from services.Questions_Answers import add_question, get_question_by_id, get_question_by_position, remove_question, remove_all_questions#, change_question
+from services.Questions_Answers import add_question, get_question_by_id, get_question_by_position, remove_question, remove_all_questions, change_question
 from db.init_db import init_db
 
 # instance d'application Flask 
@@ -81,9 +81,9 @@ def delete_question(question_id):
 def delete_all_questions():
 	return remove_all_questions()
 
-# @app.route('/questions/<question_id>', methods=['PUT'])
-# def update_question(question_id):
-# 	return change_question(question_id)
+@app.route('/questions/<question_id>', methods=['PUT'])
+def update_question(question_id):
+	return change_question(question_id)
 
 if __name__ == "__main__":
     app.run()

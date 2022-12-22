@@ -29,6 +29,11 @@ def get_answers_by_questionId(questionId) :
         else :
             answer["isCorrect"] = True
     return possibleAnswers
+
+def create_possibleAnswers(possibleAnswers, question_id, conn):
+    for answer in possibleAnswers :
+        conn.execute('INSERT INTO possibleAnswers (text, isCorrect, questionId) VALUES (?, ?, ?)',
+                         (answer["text"], answer["isCorrect"], question_id))
         
 # convertit un objet json en objet Question
 def json_to_question(json_obj):
@@ -44,6 +49,12 @@ def question_to_json(question_obj):
         "possibleAnswers": get_answers_by_questionId(question_obj[0])
     }
     return json_obj
+
+def get_all_question() :
+    conn = db_connection()
+    questions = conn.execute('SELECT * FROM questions').fetchall()
+    conn.close()
+    return questions
 
 def get_question_by_id(question_id : int) :
     conn = db_connection()
@@ -75,7 +86,7 @@ def add_question():
     # validation du token envoyé en paramètre :
     if not token :
         return 'Unauthorized', 401
-    # récupèrer un l'objet json envoyé dans le body de la requète
+    # récupèrer un l'objet json envoyé dans le body de la requête
     payload = request.get_json()
     # récupère les données :
     question = json_to_question(payload)
@@ -86,12 +97,10 @@ def add_question():
                          (question.text, question.title, question.image, question.position))
     conn.commit()
     conn.rollback()
-    # récupère la question créée
+    # récupère l'id de la question créée
     question_id = get_question_id_by_position(question.position)
     # création des possibleAnswers
-    for answer in question.possibleAnswers :
-        conn.execute('INSERT INTO possibleAnswers (text, isCorrect, questionId) VALUES (?, ?, ?)',
-                         (answer["text"], answer["isCorrect"], question_id))
+    create_possibleAnswers(question.possibleAnswers, question_id, conn)
     conn.commit()
     conn.rollback()
     conn.close()
@@ -125,10 +134,8 @@ def remove_all_questions():
         return 'Unauthorized', 401
     # ouvre connexion à la db
     conn = db_connection()
-    # récupère toutes les questions de la base de données
-    questions = conn.execute('SELECT * FROM questions').fetchall()
     # parcourt chaque question
-    for question in questions :
+    for question in get_all_question() :
         # suppression des réponses associées
         conn.execute('DELETE FROM possibleAnswers WHERE questionId = ?', (question[0],))
         # suppression des questions
@@ -138,30 +145,61 @@ def remove_all_questions():
     return {}, 204
 
 
-# def change_question():
-#     # Récupérer le token envoyé en paramètre
-#     token = request.headers.get('Authorization')
-#     # validation du token envoyé en paramètre :
-#     if not token :
-#         return 'Unauthorized', 401
-#     # récupèrer un l'objet json envoyé dans le body de la requète
-#     payload = request.get_json()
-#     # récupère les données :
-#     question = json_to_question(payload)
-#     # ouvre connexion à la db
-#     conn = db_connection()
-#     # création de la question
-#     conn.execute('INSERT INTO questions (text, title, image, position) VALUES (?, ?, ?, ?)',
-#                          (question.text, question.title, question.image, question.position))
-#     conn.commit()
-#     conn.rollback()
-#     # récupère la question créée
-#     question_id = get_question_id_by_position(question.position)
-#     # création des possibleAnswers
-#     for answer in question.possibleAnswers :
-#         conn.execute('INSERT INTO possibleAnswers (text, isCorrect, questionId) VALUES (?, ?, ?)',
-#                          (answer["text"], answer["isCorrect"], question_id))
-#     conn.commit()
-#     conn.rollback()
-#     conn.close()
-#     return { "id" : question_id}, 200
+def change_question(question_id):
+
+    # Récupérer le token envoyé en paramètre
+    token = request.headers.get('Authorization')
+    # validation du token envoyé en paramètre :
+    if not token :
+        return 'Unauthorized', 401
+    # vérifie que la question qui doit être supprimée est dans la base de données
+    old_question = get_question_by_id(question_id)
+    if len(old_question) == 2:
+        return f"Question with id {question_id} not found", 404
+    
+    # récupèrer un l'objet json envoyé dans le body de la requête
+    payload = request.get_json()
+    # récupère les données :
+    new_question = json_to_question(payload)
+
+    # ouvre connexion à la db
+    conn = db_connection()
+
+    # changement des positions de l'ensemble des questions 
+    # entre l'ancienne et la nouvelle position si cette dernière change
+    old_position = old_question["position"]
+    new_position = new_question.position
+    if old_position != new_position :
+        # libère l'ancienne place en se mettant en dernière position
+        last_position = conn.execute('SELECT MAX(position) FROM questions').fetchone()[0]
+        conn.execute('UPDATE questions SET position = ? WHERE id= ?', (last_position+1, question_id,))
+        # décide des positions à décaler et de la direction de décalage
+        intervalle = ()
+        direction = 0
+        if old_position > new_position :
+            intervalle = intervalle + (new_position, old_position-1)
+            direction = 1
+        else :
+            intervalle = intervalle + (old_position+1, new_position)
+            direction = -1
+        # décale la position des autres questions :
+        question_need_to_change_position = conn.execute(
+            'SELECT * FROM questions WHERE position BETWEEN ? and ?', intervalle
+        ).fetchall()
+        for question in question_need_to_change_position :
+            q_id = question[0]
+            q_position = question_to_json(question)["position"]
+            conn.execute('UPDATE questions SET position = ? WHERE id = ?', (q_position+direction, q_id,))
+    
+    # changement de la question
+    conn.execute('UPDATE questions SET text = ?, title = ?, image = ?, position = ? WHERE id = ?',
+                         (new_question.text, new_question.title, new_question.image, new_position, question_id))
+
+    # changement des possiblesAnswers (choix de tous supprimer puis recréer avec les nouvelles)
+    conn.execute('DELETE FROM possibleAnswers WHERE questionId = ?', (question_id, ))
+    create_possibleAnswers(new_question.possibleAnswers, question_id, conn)
+    
+    conn.commit()
+    conn.rollback()
+    conn.close()
+    return {}, 204
