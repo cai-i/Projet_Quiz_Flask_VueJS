@@ -1,11 +1,11 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from flask_expects_json import expects_json
 
 from schema import login, question
 
 from services.admin import verify_admin_pw
-from services.Questions_Answers import add_question
+from services.Questions_Answers import add_question, get_question_by_id, get_question_by_position
 from db.init_db import init_db
 
 # instance d'application Flask 
@@ -55,8 +55,17 @@ def get_quiz_info():
 def verify_pw():
 	return verify_admin_pw()
 
+@app.route('/questions/<question_id>', methods=['GET'])
+def get_question_given_id(question_id):
+	return get_question_by_id(question_id)
+
+@app.route('/questions', methods=['GET'])
+def get_question_given_position():
+	position = request.args.get('position')
+	return get_question_by_id(position)
+
 @app.route('/questions', methods=['POST'])
-# @expects_json(question)
+@expects_json(question)
 def create_question():
 	return add_question()
 

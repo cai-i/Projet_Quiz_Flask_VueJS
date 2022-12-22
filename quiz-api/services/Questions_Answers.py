@@ -1,28 +1,6 @@
 from flask import request
 import sqlite3
 
-# class Question
-class Question :
-    def __init__(self, title : str, text : str, image : str, position : int, possibleAnswers):
-        self.title = title
-        self.text = text
-        self.image = image
-        self.position = position
-        self.possibleAnswers = possibleAnswers
-        
-def json_to_question(json_obj):
-    return Question(json_obj["text"], json_obj["title"], json_obj["image"], json_obj["position"], json_obj["possibleAnswers"])
-
-def question_to_json(question_obj):
-    json_obj = {
-        "text": question_obj.text,
-        "title": question_obj.title,
-        "image": question_obj.image,
-        "position": question_obj.position,
-        "possibleAnswers": question_obj.possibleAnswer
-    }
-    return json_obj
-
 # connection à la base de donnée
 def db_connection():
     # create a connection
@@ -31,13 +9,62 @@ def db_connection():
     conn.execute("begin")
     return conn # pr accéder à base de données
 
+# class Question
+class Question :
+    def __init__(self, title : str, text : str, image : str, position : int, possibleAnswers):
+        self.title = title
+        self.text = text
+        self.image = image
+        self.position = position
+        self.possibleAnswers = possibleAnswers
+
+def get_answers_by_questionId(questionId) :
+    conn = db_connection()
+    possibleAnswers = conn.execute('SELECT * FROM possibleAnswers WHERE questionId = ?', (questionId,)).fetchall()
+    conn.close()
+    possibleAnswers = [{"id" : x[0], "text" : x[1], "isCorrect" : x[2], "questionId" : x[3]} for x in possibleAnswers]
+    print(f" !!!!!!!!!!!!! PAY ATTENTION !!!!!!!!!!!!!! : {possibleAnswers}")
+    for answer in possibleAnswers:
+        if answer["isCorrect"] == 0 :
+            answer["isCorrect"] = False
+        else :
+            answer["isCorrect"] = True
+    return possibleAnswers
+        
+def json_to_question(json_obj):
+    return Question(json_obj["text"], json_obj["title"], json_obj["image"], json_obj["position"], json_obj["possibleAnswers"])
+
+def question_to_json(question_obj):
+    json_obj = {
+        "text": question_obj[2],
+        "title": question_obj[1],
+        "image": question_obj[3],
+        "position": question_obj[4],
+        "possibleAnswers": get_answers_by_questionId(question_obj[0])
+    }
+    return json_obj
+
+def get_question_by_id(question_id : int) :
+    conn = db_connection()
+    question = conn.execute('SELECT * FROM questions WHERE id = ?', (question_id,)).fetchone()
+    conn.close()
+    if question is None:
+        return f"question with position {question_id} not found", 404
+    return question_to_json(question)
+
 def get_question_by_position(position : int) :
     conn = db_connection()
     question = conn.execute('SELECT * FROM questions WHERE position = ?', (position,)).fetchone()
     conn.close()
-    # if question is None:
-    #     return f"question with position {position} not found", 404
-    return question
+    if question is None:
+        return f"question with position {position} not found", 404
+    return question_to_json(question)
+
+def get_question_id_by_position(position : int) :
+    conn = db_connection()
+    question = conn.execute('SELECT * FROM questions WHERE position = ?', (position,)).fetchone()
+    conn.close()
+    return question[0]
 
 def add_question():
     # Récupérer le token envoyé en paramètre
@@ -57,9 +84,7 @@ def add_question():
     conn.commit()
     conn.rollback()
     # récupère la question créée
-    question_added = get_question_by_position(question.position)
-    print(f" !!!!!!!!!!!!! PAY ATTENTION !!!!!!!!!!!!!! : {question_added}")
-    question_id = question_added[0]
+    question_id = get_question_id_by_position(question.position)
     # création des possibleAnswers
     for answer in question.possibleAnswers :
         conn.execute('INSERT INTO possibleAnswers (text, isCorrect, questionId) VALUES (?, ?, ?)',
@@ -68,4 +93,3 @@ def add_question():
     conn.rollback()
     conn.close()
     return { "id" : question_id}, 200
-    
