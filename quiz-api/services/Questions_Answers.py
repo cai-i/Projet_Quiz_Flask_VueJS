@@ -25,12 +25,19 @@ def question_to_json(question_obj):
 
 # connection à la base de donnée
 def db_connection():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
-        # pr avoir accès basé sur le nom des colonnes
-        # => renverra des lignes qui se comporteront 
-        # comme des dictionnaires Python
+    # create a connection
+    conn = sqlite3.connect('db/database.db')
+    conn.isolation_level = None
+    conn.execute("begin")
     return conn # pr accéder à base de données
+
+def get_question_by_position(position : int) :
+    conn = db_connection()
+    question = conn.execute('SELECT * FROM questions WHERE position = ?', (position,)).fetchone()
+    conn.close()
+    # if question is None:
+    #     return f"question with position {position} not found", 404
+    return question
 
 def add_question():
     # Récupérer le token envoyé en paramètre
@@ -44,10 +51,21 @@ def add_question():
     question = json_to_question(payload)
     # ouvre connexion à la db
     conn = db_connection()
-    # exécute requête SQL
-    conn.execute('INSERT INTO questions (text, title, image, position, possibleAnswers) VALUES (?, ?, ?, ?, ?)',
-                         (question.text, question.title, question.image, question.position, question.possibleAnswers))
+    # création de la question
+    conn.execute('INSERT INTO questions (text, title, image, position) VALUES (?, ?, ?, ?)',
+                         (question.text, question.title, question.image, question.position))
     conn.commit()
+    conn.rollback()
+    # récupère la question créée
+    question_added = get_question_by_position(question.position)
+    print(f" !!!!!!!!!!!!! PAY ATTENTION !!!!!!!!!!!!!! : {question_added}")
+    question_id = question_added[0]
+    # création des possibleAnswers
+    for answer in question.possibleAnswers :
+        conn.execute('INSERT INTO possibleAnswers (text, isCorrect, questionId) VALUES (?, ?, ?)',
+                         (answer["text"], answer["isCorrect"], question_id))
+    conn.commit()
+    conn.rollback()
     conn.close()
-    return id
+    return { "id" : question_id}, 200
     

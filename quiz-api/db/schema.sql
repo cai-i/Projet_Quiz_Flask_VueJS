@@ -15,6 +15,6 @@ CREATE TABLE possibleAnswers (
     "text" TEXT NOT NULL,
     "isCorrect" INTEGER NOT NULL,
     "questionId" INTEGER NOT NULL,
-    FOREIGN KEY("questionId") REFERENCES "questions"("id"),
+    FOREIGN KEY("questionId") REFERENCES questions("id"),
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
