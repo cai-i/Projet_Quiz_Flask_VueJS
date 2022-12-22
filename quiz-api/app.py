@@ -1,49 +1,63 @@
-from flask import Flask, request
+from flask import Flask
 from flask_cors import CORS
 from flask_expects_json import expects_json
 
-from schema import login
-from jwt_utils import build_token
+from schema import login, question
 
+from services.admin import verify_admin_pw
+from services.Questions_Answers import add_question
+
+# instance d'application Flask 
 app = Flask(__name__)
+	#__name__ : nom du module Python actuel
+		#indique à l'instance où il se trouve
 CORS(app)
 
+# @app.routeest un décorateur 
+	# qui transforme une fonction Python standard 
+	# en une fonction d'affichage Flask
+	# qui convertit la valeur de retour de la fonction 
+	# en une réponse HTTP à afficher par un client HTTP (ex : navigateur web)
 @app.route('/')
 def hello_world():
-	x = 'world you'
+	x = 'you'
 	return f"Hello, {x}"
 
-@app.route('/quiz-info', methods=['GET'])
-def GetQuizInfo():
-	return {"size": 3, "scoreEntry": [
-		{
-			"playerName" : "Emilie",
-			"score" : 98
-		},
-		{
-			"playerName" : "Emilie 2",
-			"score" : 21
-		},
-		{
-			"playerName" : "Emilie 3",
-			"score" : 68
+# exemple de json qui peut être retourné à l'url : /quiz-info
+json_ex = {
+			"scores": [
+				{
+					"date": "18/04/2022 11:57:48",
+					"playerName": "Emil",
+					"score": 10
+				},
+				{
+					"date": "18/04/2022 11:57:48",
+					"playerName": "Dora",
+					"score": 8
+				},
+				{
+					"date": "18/04/2022 11:57:49",
+					"playerName": "Gustav",
+					"score": 7
+				}
+			],
+			"size": 10
 		}
-	]}, 200
 
-# pw = {"password" : "flask2023"}
-pw = "flask2023"
+@app.route('/quiz-info', methods=['GET'])
+def get_quiz_info():
+	return {"size": 0, "scores": []}, 200
 
 @app.route('/login', methods=['POST'])
 @expects_json(login)
-def verify_admin_pw():
-	payload = request.get_json()
-	if payload["password"] == pw :
-		token = build_token()
-		return { "token" : token }
-	else : 
-		return 'Unauthorized', 401
+def verify_pw():
+	return verify_admin_pw()
 
-# @app.route('/questions', methods=['POST'])
+@app.route('/questions', methods=['POST'])
+# @expects_json(question)
+def create_question():
+	return add_question()
 
 
 if __name__ == "__main__":
