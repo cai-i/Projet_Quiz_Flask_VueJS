@@ -73,11 +73,67 @@ def get_question_by_position(position : int) :
     return question_to_json(question)
 
 # retourne l'id d'une question si sa position est donnée
-def get_question_id_by_position(position : int) :
-    conn = db_connection()
+def get_question_id_by_position(conn, position : int) :
     question = conn.execute('SELECT * FROM questions WHERE position = ?', (position,)).fetchone()
-    conn.close()
     return question[0]
+
+# retourne la position d'une question si son id est donnée
+def get_question_position_by_id(conn, question_id : int) :
+    question = conn.execute('SELECT * FROM questions WHERE id = ?', (question_id,)).fetchone()
+    return question[-1]
+
+def handlePosition(conn, question_id, old_position, new_position) :
+
+    # intervalle des questions à décaler et direction de décalage
+    intervalle = ()
+    direction = 0
+    # position de la denrière question
+    last_position = conn.execute('SELECT MAX(position) FROM questions').fetchone()[0]
+
+    # décide des positions à décaler et de la direction de décalage :
+
+    if old_position == -1:
+        if question_id == -1: # CAS : add question
+            print("!!!!!!!!!!!!!!! ADD QUESTION !!!!!!!!!!!!! ")
+            if (not last_position) or (new_position == last_position+1) :
+                return None
+            intervalle = intervalle + (new_position, last_position)
+            direction = 1
+            print(f"intervalle : {intervalle}, direction : {direction}")
+        else :  #-------------- CAS : delete question
+            if (not last_position) or (new_position == last_position):
+                return None
+            intervalle = intervalle + (new_position+1, last_position)
+            direction = -1
+    else : # ------------------ CAS : update question
+        if old_position == new_position :
+            return None
+        # libère l'ancienne place en se mettant en dernière position
+        conn.execute('UPDATE questions SET position = ? WHERE id= ?', (last_position+1, question_id,))
+        if old_position > new_position :
+            intervalle = intervalle + (new_position, old_position-1)
+            direction = 1
+        else :
+            intervalle = intervalle + (old_position+1, new_position)
+            direction = -1
+
+    # décale la position des autres questions :
+
+    if direction == 1:
+        question_need_to_change_position = conn.execute(
+            'SELECT * FROM questions WHERE position BETWEEN ? and ? ORDER BY position DESC', intervalle
+        ).fetchall()
+    if direction == -1 :
+        question_need_to_change_position = conn.execute(
+            'SELECT * FROM questions WHERE position BETWEEN ? and ? ORDER BY position ASC', intervalle
+        ).fetchall()
+
+    for question in question_need_to_change_position :
+        question_id = question[0]
+        question_position = question_to_json(question)["position"]
+        print(f"position : {question_position}, new : {question}")
+        conn.execute('UPDATE questions SET position = ? WHERE id = ?', (question_position+direction, question_id,))
+
 
 # ajout d'une question et de ses possibleAnswers dans les tables de la base de données
 def add_question():
@@ -92,13 +148,15 @@ def add_question():
     question = json_to_question(payload)
     # ouvre connexion à la db
     conn = db_connection()
+    # prise en charge des positions
+    handlePosition(conn=conn, question_id=-1, old_position=-1, new_position=question.position)
     # création de la question
     conn.execute('INSERT INTO questions (text, title, image, position) VALUES (?, ?, ?, ?)',
                          (question.text, question.title, question.image, question.position))
     conn.commit()
     conn.rollback()
     # récupère l'id de la question créée
-    question_id = get_question_id_by_position(question.position)
+    question_id = get_question_id_by_position(conn, question.position)
     # création des possibleAnswers
     create_possibleAnswers(question.possibleAnswers, question_id, conn)
     conn.commit()
@@ -118,10 +176,13 @@ def remove_question(question_id):
         return f"Question with id {question_id} not found", 404
     # ouvre connexion à la db
     conn = db_connection()
+    question_position = get_question_position_by_id(conn, question_id)
     # suppression des réponses associées
     conn.execute('DELETE FROM possibleAnswers WHERE questionId = ?', (question_id,))
     # suppression des questions
     conn.execute('DELETE FROM questions WHERE id = ?', (question_id,))
+    # prise en charge des positions
+    handlePosition(conn=conn, question_id=question_id, old_position=-1, new_position=question_position)
     conn.commit()
     conn.rollback()
     return {}, 204
@@ -169,35 +230,26 @@ def change_question(question_id):
     # entre l'ancienne et la nouvelle position si cette dernière change
     old_position = old_question["position"]
     new_position = new_question.position
-    if old_position != new_position :
-        # libère l'ancienne place en se mettant en dernière position
-        last_position = conn.execute('SELECT MAX(position) FROM questions').fetchone()[0]
-        conn.execute('UPDATE questions SET position = ? WHERE id= ?', (last_position+1, question_id,))
-        # décide des positions à décaler et de la direction de décalage
-        intervalle = ()
-        direction = 0
-        if old_position > new_position :
-            intervalle = intervalle + (new_position, old_position-1)
-            direction = 1
-        else :
-            intervalle = intervalle + (old_position+1, new_position)
-            direction = -1
-        # décale la position des autres questions :
-        question_need_to_change_position = conn.execute(
-            'SELECT * FROM questions WHERE position BETWEEN ? and ?', intervalle
-        ).fetchall()
-        for question in question_need_to_change_position :
-            q_id = question[0]
-            q_position = question_to_json(question)["position"]
-            conn.execute('UPDATE questions SET position = ? WHERE id = ?', (q_position+direction, q_id,))
+    handlePosition(conn=conn, question_id= question_id, old_position=old_position, new_position=new_position)
     
     # changement de la question
     conn.execute('UPDATE questions SET text = ?, title = ?, image = ?, position = ? WHERE id = ?',
                          (new_question.text, new_question.title, new_question.image, new_position, question_id))
 
-    # changement des possiblesAnswers (choix de tous supprimer puis recréer avec les nouvelles)
-    conn.execute('DELETE FROM possibleAnswers WHERE questionId = ?', (question_id, ))
-    create_possibleAnswers(new_question.possibleAnswers, question_id, conn)
+    # changement des possiblesAnswers (choix de tous supprimer puis recréer avec les nouvelles si les réponses changes)
+    for  answer in old_question["possibleAnswers"]:
+        del answer["id"]
+        del answer["questionId"]
+    old_possibleAnswers = old_question["possibleAnswers"]
+    new_possibleAnswers = new_question.possibleAnswers
+    print(f"!!!!!!!!!!!!!!!! INSIDE ADD FCT !!!!!!!!!!!!!!!")
+    print(f"old_answers : {old_possibleAnswers}")
+    print(f"new_answers : {new_possibleAnswers}")
+    if old_possibleAnswers != new_possibleAnswers :
+        print(" =>   DIFFERENT")
+        conn.execute('DELETE FROM possibleAnswers WHERE questionId = ?', (question_id, ))
+        create_possibleAnswers(new_question.possibleAnswers, question_id, conn)
+    print("!!!!!!! END !!!!!!!!!!")
     
     conn.commit()
     conn.rollback()
