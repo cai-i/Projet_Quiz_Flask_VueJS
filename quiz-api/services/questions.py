@@ -74,13 +74,13 @@ def get_question_by_position(position : int) :
 
 # retourne l'id d'une question si sa position est donnée
 def get_question_id_by_position(conn, position : int) :
-    question = conn.execute('SELECT * FROM questions WHERE position = ?', (position,)).fetchone()
+    question = conn.execute('SELECT id FROM questions WHERE position = ?', (position,)).fetchone()
     return question[0]
 
 # retourne la position d'une question si son id est donnée
 def get_question_position_by_id(conn, question_id : int) :
-    question = conn.execute('SELECT * FROM questions WHERE id = ?', (question_id,)).fetchone()
-    return question[-1]
+    question = conn.execute('SELECT position FROM questions WHERE id = ?', (question_id,)).fetchone()
+    return question[0]
 
 def handlePosition(conn, question_id, old_position, new_position) :
 
@@ -94,12 +94,10 @@ def handlePosition(conn, question_id, old_position, new_position) :
 
     if old_position == -1:
         if question_id == -1: # CAS : add question
-            print("!!!!!!!!!!!!!!! ADD QUESTION !!!!!!!!!!!!! ")
             if (not last_position) or (new_position == last_position+1) :
                 return None
             intervalle = intervalle + (new_position, last_position)
             direction = 1
-            print(f"intervalle : {intervalle}, direction : {direction}")
         else :  #-------------- CAS : delete question
             if (not last_position) or (new_position == last_position):
                 return None
@@ -131,7 +129,6 @@ def handlePosition(conn, question_id, old_position, new_position) :
     for question in question_need_to_change_position :
         question_id = question[0]
         question_position = question_to_json(question)["position"]
-        print(f"position : {question_position}, new : {question}")
         conn.execute('UPDATE questions SET position = ? WHERE id = ?', (question_position+direction, question_id,))
 
 
@@ -242,14 +239,9 @@ def change_question(question_id):
         del answer["questionId"]
     old_possibleAnswers = old_question["possibleAnswers"]
     new_possibleAnswers = new_question.possibleAnswers
-    print(f"!!!!!!!!!!!!!!!! INSIDE ADD FCT !!!!!!!!!!!!!!!")
-    print(f"old_answers : {old_possibleAnswers}")
-    print(f"new_answers : {new_possibleAnswers}")
     if old_possibleAnswers != new_possibleAnswers :
-        print(" =>   DIFFERENT")
         conn.execute('DELETE FROM possibleAnswers WHERE questionId = ?', (question_id, ))
         create_possibleAnswers(new_question.possibleAnswers, question_id, conn)
-    print("!!!!!!! END !!!!!!!!!!")
     
     conn.commit()
     conn.rollback()

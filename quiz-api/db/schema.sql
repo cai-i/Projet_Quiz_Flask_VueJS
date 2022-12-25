@@ -28,16 +28,3 @@ CREATE TABLE participants (
     "date" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
-
-DROP TABLE IF EXISTS participantsAnswers;
-
-CREATE TABLE participantsAnswers (
-    "id" INTEGER NOT NULL UNIQUE,
-    "participantId" INTEGER NOT NULL,
-    "questionPosition" INTEGER NOT NULL,
-    "answerId" INTEGER NOT NULL,
-    FOREIGN KEY("participantId") REFERENCES participants("id"),
-    FOREIGN KEY("questionPosition") REFERENCES questions("position"),
-    FOREIGN KEY("answerId") REFERENCES possibleAnswers("id"),
-	PRIMARY KEY("id" AUTOINCREMENT)
-);

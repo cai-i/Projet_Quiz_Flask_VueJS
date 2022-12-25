@@ -6,6 +6,7 @@ from schema import login, question
 
 from services.admin import verify_admin_pw
 from services.questions import add_question, get_question_by_id, get_question_by_position, remove_question, remove_all_questions, change_question
+from services.quiz_participants import quiz_info, submit_answers, remove_all_participants
 from db.init_db import init_db
 
 # instance d'application Flask 
@@ -28,31 +29,9 @@ def hello_world():
 def create_db():
 	return init_db()
 
-# exemple de json qui peut être retourné à l'url : /quiz-info
-json_ex = {
-			"scores": [
-				{
-					"date": "18/04/2022 11:57:48",
-					"playerName": "Emil",
-					"score": 10
-				},
-				{
-					"date": "18/04/2022 11:57:48",
-					"playerName": "Dora",
-					"score": 8
-				},
-				{
-					"date": "18/04/2022 11:57:49",
-					"playerName": "Gustav",
-					"score": 7
-				}
-			],
-			"size": 10
-		}
-
 @app.route('/quiz-info', methods=['GET'])
 def get_quiz_info():
-	return {"size": 0, "scores": []}, 200
+	return quiz_info()
 
 @app.route('/login', methods=['POST'])
 @expects_json(login)
@@ -84,6 +63,14 @@ def delete_all_questions():
 @app.route('/questions/<question_id>', methods=['PUT'])
 def update_question(question_id):
 	return change_question(question_id)
+
+@app.route('/participations', methods=['POST'])
+def submit_participant_answers():
+	return submit_answers()
+
+@app.route('/participations/all', methods=['DELETE'])
+def delete_all_participants():
+	return remove_all_participants()
 
 if __name__ == "__main__":
     app.run()
