@@ -1,28 +1,6 @@
 from flask import request
 
 from .questions import db_connection, get_all_question, get_question_id_by_position
-	
-# exemple de json qui peut être retourné à l'url : /quiz-info
-json_ex = {
-			"scores": [
-				{
-					"date": "18/04/2022 11:57:48",
-					"playerName": "Emil",
-					"score": 10
-				},
-				{
-					"date": "18/04/2022 11:57:48",
-					"playerName": "Dora",
-					"score": 8
-				},
-				{
-					"date": "18/04/2022 11:57:49",
-					"playerName": "Gustav",
-					"score": 7
-				}
-			],
-			"size": 10
-		}
 
 def quiz_info():
 	nb_question = len(get_all_question())
