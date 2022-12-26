@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask_expects_json import expects_json
 
-from schema import login, question
+from schema import login, question, participation
 
 from services.admin import verify_admin_pw
 from services.questions import add_question, get_question_by_id, get_question_by_position, remove_question, remove_all_questions, change_question
@@ -61,10 +61,12 @@ def delete_all_questions():
 	return remove_all_questions()
 
 @app.route('/questions/<question_id>', methods=['PUT'])
+@expects_json(question)
 def update_question(question_id):
 	return change_question(question_id)
 
 @app.route('/participations', methods=['POST'])
+@expects_json(participation)
 def submit_participant_answers():
 	return submit_answers()
 
