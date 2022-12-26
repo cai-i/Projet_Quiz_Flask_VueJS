@@ -8,4 +8,4 @@ Pour pouvoir ajouter des questions et leurs réponses possibles dans la base de 
 * aller sur Postman pour executer les 2 tests "add question"
 * aller regarder sur SQLite Browser que les données ont bien été ajoutées
 
-PS : les tests "get question by id" et "get question by position" marche aussi normalement
+PS : les autres tests  marchent aussi normalement
