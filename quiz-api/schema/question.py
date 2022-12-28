@@ -1,6 +1,7 @@
 question = {
     "type": "object",
     "properties": {
+        "id": {"type": "number"},
         "text": {"type": "string"},
         "title": {"type": "string"},
         "image": {"type": "string"},
