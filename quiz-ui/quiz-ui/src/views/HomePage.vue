@@ -1,3 +1,8 @@
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+</script>
+
+
 <template>
   <h1>Home page</h1>
   <div v-for="scoreEntry in registeredScores">
@@ -19,7 +24,7 @@ export default {
     console.log(quizApiService.getQuizInfo())
     var quizInfoPromise = quizApiService.getQuizInfo();
     var quizInfoApiResult = await quizInfoPromise;
-    this.registeredScores = quizInfoApiResult.data.scoreEntry;
+    this.registeredScores = quizInfoApiResult.data.scores;
 		console.log("Composant Home page 'created'");
   }
 };
