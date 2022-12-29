@@ -34,14 +34,3 @@ export default {
   }
 }
 </script>
-
-
-
-<style scoped>
-
-  #username label, input {
-    display: block;
-    margin: 8px 0px;
-  }
-
-</style>

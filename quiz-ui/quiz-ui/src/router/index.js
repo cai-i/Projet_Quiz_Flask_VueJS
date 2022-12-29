@@ -30,6 +30,11 @@ const router = createRouter({
       path: '/questions',
       name: 'questions',
       component: QuestionsPage
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/Admin.vue')
     }
   ]
 })

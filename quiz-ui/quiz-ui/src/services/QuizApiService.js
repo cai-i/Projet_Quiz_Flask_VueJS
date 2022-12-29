@@ -35,5 +35,8 @@ export default {
   },
   getAllQuestion() {
     return this.call("get", "questions/all")
+  },
+  getToken(pw) {
+    return this.call("post", "login", {"password": pw});
   }
 };

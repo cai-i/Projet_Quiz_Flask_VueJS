@@ -1,8 +1,8 @@
 <template>
   <h1>Home page</h1>
-  <div v-for="scoreEntry in registeredScores">
+  <!-- <div v-for="scoreEntry in registeredScores">
     {{ scoreEntry.playerName }} - {{ scoreEntry.score }}
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -12,15 +12,15 @@ export default {
   name: "HomePage",
   data() {
     return {
-      registeredScores : []
+      registeredScores : [],
     };
   },
   async created() {
-    console.log(quizApiService.getQuizInfo())
-    var quizInfoPromise = quizApiService.getQuizInfo();
-    var quizInfoApiResult = await quizInfoPromise;
-    this.registeredScores = quizInfoApiResult.data.scores;
-		console.log("Composant Home page 'created'");
+    // console.log(quizApiService.getQuizInfo())
+    // var quizInfoPromise = quizApiService.getQuizInfo();
+    // var quizInfoApiResult = await quizInfoPromise;
+    // this.registeredScores = quizInfoApiResult.data.scores;
+		// console.log("Composant Home page 'created'");
   }
 };
 </script>
