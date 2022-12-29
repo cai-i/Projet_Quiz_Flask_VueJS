@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
   </header>
 
     <div class="wrapper">
@@ -13,23 +13,20 @@ import { RouterLink, RouterView } from 'vue-router'
       <i class="fa-solid fa-house"></i>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About us</RouterLink>
+        <RouterLink to="/start-new-quiz-page">Démarrer le quiz !</RouterLink>
       </nav>
     </div>
 
-    <div >
-        <RouterLink to="/start-new-quiz-page">Démarrer le quiz !</RouterLink>
-    </div>
-    
   <!-- route outlet -->
   <!-- component matched by the route will render here -->
   <router-view></router-view>
 
 </template>
 
+
+
+
 <style scoped>
-
-
-
 header {
   line-height: 1.5;
   max-height: 100vh;
