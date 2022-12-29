@@ -19,7 +19,7 @@ export default {
     console.log(quizApiService.getQuizInfo())
     var quizInfoPromise = quizApiService.getQuizInfo();
     var quizInfoApiResult = await quizInfoPromise;
-    this.registeredScores = quizInfoApiResult.data.scoreEntry;
+    this.registeredScores = quizInfoApiResult.data.scores;
 		console.log("Composant Home page 'created'");
   }
 };

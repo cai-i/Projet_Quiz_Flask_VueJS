@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-	baseURL: `${import.meta.env.VITE_API_URL}`,
+  baseURL: `${import.meta.env.VITE_API_URL}`,
   json: true
 });
 
@@ -31,6 +31,9 @@ export default {
     return this.call("get", "quiz-info");
   },
   getQuestion(position) {
-    // not implemented
+    return this.call("get", "questions")
+  },
+  getAllQuestion() {
+    return this.call("get", "questions/all")
   }
 };

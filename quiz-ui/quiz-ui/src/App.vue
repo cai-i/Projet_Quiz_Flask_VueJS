@@ -4,21 +4,27 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <div class="d-grid gap-3">
-      <div class="p-2 border">Grid item 1</div>
-      <div class="p-2 bg-light border">Grid item 2</div>
-      <div class="p-2 bg-light border">Grid item 3</div>
-    </div>
+    
+  </header>
 
     <div class="wrapper">
       <nav>
+      <font-awesome-icon icon="fa-brands fa-house" />
+      <i class="fa-solid fa-house"></i>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/about">About us</RouterLink>
+        <RouterLink to="/start-new-quiz-page">Démarrer le quiz !</RouterLink>
       </nav>
     </div>
-  </header>
+
+  <!-- route outlet -->
+  <!-- component matched by the route will render here -->
+  <router-view></router-view>
 
 </template>
+
+
+
 
 <style scoped>
 header {
@@ -81,5 +87,12 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
+  
+
+
 }
+
+
 </style>
+
+

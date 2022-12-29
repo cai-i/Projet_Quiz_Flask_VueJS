@@ -42,6 +42,7 @@ def json_to_question(json_obj):
 # convertit un objet Question en json avec en plus les possibleAnswers
 def question_to_json(question_obj):
     json_obj = {
+        "id": question_obj[0],
         "text": question_obj[2],
         "title": question_obj[1],
         "image": question_obj[3],
