@@ -1,8 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
-
 <template>
   <h1>Home page</h1>
   <div v-for="scoreEntry in registeredScores">
