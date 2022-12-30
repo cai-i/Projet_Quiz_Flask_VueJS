@@ -1,18 +1,23 @@
 <template>
+<div class="text-center shadow-md border rounded px-8 pb-8 bg-white bg-opacity-50">
 
-  
+  <div class="mt-6 grid place-content-center">
+    {{this.question.questionTitle}}
+  </div>
 
-  <img v-if="this.question.questionImage" :src="questionImage" />
-  
-{{this.question.questionTitle}}
+  <div class="block text-rose-700 text-sm font-bold mb-8 ">
+    {{this.question.questionText}}
+  </div>
 
-{{this.question.questionText}}
-
-  <div v-for="answer in this.question.possibleAnswers" >
+  <div class="bg-white bg-opacity-50 m-2 p-2 shadow-md border rounded " v-for="answer in this.question.possibleAnswers" >
     <a @click="$emit('click-on-answer', answer.isCorrect)">{{answer.text}}</a>
   </div>
 
-
+  <div class="max-w-md max-h-fit mt-6 m-auto">
+    <img v-if="this.question.questionImage" :src="this.question.questionImage" />
+  </div>
+  
+</div>
 </template>
 
 <script>

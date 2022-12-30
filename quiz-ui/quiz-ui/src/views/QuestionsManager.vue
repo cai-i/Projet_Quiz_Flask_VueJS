@@ -1,11 +1,19 @@
 <template>
-  <header>
-    <h1>QuizPage</h1>
-  </header>
+<div :style="myStyle">
 
-<h1>Question {{ this.currentQuestionPosition }} / {{ this.totalNumberOfQuestion }}</h1>
-<QuestionDisplay :question=currentQuestion @click-on-answer="answerClickedHandler" />
- 
+  <h1 class="py-8 px-8 text-xl font-bold text-red-800">
+    QuizPage
+  </h1>
+
+  <h1 class="mt-6">
+    Question {{ this.currentQuestionPosition }} / {{ this.totalNumberOfQuestion }}
+  </h1>
+
+  <div class="py-8 px-8">
+  <QuestionDisplay :question=currentQuestion @click-on-answer="answerClickedHandler" />
+  </div>
+
+</div>
 </template>
 
 
@@ -30,6 +38,12 @@ export default {
         questionText:"",
         questionImage:"",
         possibleAnswers:[],
+      },
+      myStyle: { 
+        textAlign: "center",
+        paddingBottom:"10em",
+        backgroundSize: "100% auto",
+        backgroundImage: "url(https://wallpaper.dog/large/20523548.jpg)"
       }
     };
   },

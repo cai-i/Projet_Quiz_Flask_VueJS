@@ -1,17 +1,18 @@
 <template>
-  <h1>Home page</h1>
+<div class="text-center">
 
+  <h1 class="pt-12 pb-6">Home page</h1>
 
-  <div v-if="myName" >
-<br>
+  <div class="p-6" v-if="myName" >
   Mon propre score : 
   {{myScoreString}}
   </div>
-<br>
 
   <div v-for="scoreEntry in registeredScores">
     {{ scoreEntry.playerName }} - {{ scoreEntry.score }}
   </div>
+
+</div>
 </template>
 
 <script>
