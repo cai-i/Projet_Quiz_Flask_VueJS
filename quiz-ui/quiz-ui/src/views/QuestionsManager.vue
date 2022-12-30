@@ -4,27 +4,16 @@
   </header>
 
 <h1>Question {{ this.currentQuestionPosition }} / {{ this.totalNumberOfQuestion }}</h1>
-<!--
--->
-<QuestionDisplay :question="currentQuestion" @click-on-answer="answerClickedHandler" />
-
-
-<!--
-<QuestionDisplay :question.questionTitle="questionTitle"
-  :question.questionText="questionText"
-  :question.questionImage="questionImage"
-  :question.possibleAnswers="possibleAnswers"
-   @click-on-answer="answerClickedHandler" />
-
--->
-
+<QuestionDisplay :question=currentQuestion @click-on-answer="answerClickedHandler" />
+ 
 </template>
 
 
 
 <script>
-import quizApiService from "@/services/QuizApiService";
 import QuestionDisplay from '../views/QuestionDisplay.vue'
+import quizApiService from "@/services/QuizApiService";
+import participationStorageService from "@/services/ParticipationStorageService";
 
 export default {
   name: "QuestionsPage",
@@ -32,17 +21,15 @@ export default {
     QuestionDisplay
   },
   data() {
-    answers:[];
     return {
       totalNumberOfQuestion:0,
       currentQuestionPosition:1,
-      post:{
-        currentQuestion: {
-          questionTitle:"",
-          questionText:"",
-          questionImage:"",
-          possibleAnswers:[],
-        }
+      currentScore:0,
+      currentQuestion: {
+        questionTitle:"",
+        questionText:"",
+        questionImage:"",
+        possibleAnswers:[],
       }
     };
   },
@@ -57,22 +44,24 @@ export default {
       console.log("load Question By Position");
       var quizInfoPromise = quizApiService.getQuestion(this.currentQuestionPosition);
       var quizInfoApiResult = await quizInfoPromise;
-      console.log(quizInfoApiResult);
-      this.questionTitle = quizInfoApiResult.data.title;
-      this.questionText = quizInfoApiResult.data.text;
-      this.questionImage = quizInfoApiResult.data.image;
-      this.possibleAnswers = quizInfoApiResult.data.possibleAnswers;
-      console.log(this.questionTitle);
+      this.currentQuestion.questionTitle = quizInfoApiResult.data.title;
+      this.currentQuestion.questionText = quizInfoApiResult.data.text;
+      this.currentQuestion.questionImage = quizInfoApiResult.data.image;
+      this.currentQuestion.possibleAnswers = quizInfoApiResult.data.possibleAnswers;
     },
-    async answerClickedHandler(answerPosition) {
-      console.log("answer Clicked Handler");     
-      //this.answers.push(answerPosition);
-      this.currentQuestionPosition ++;
+    async answerClickedHandler(answerCorrect) {
+      console.log("answer Clicked Handler");  
+      if (answerCorrect)
+        this.currentScore++;
+      this.currentQuestionPosition++;
+      if (this.currentQuestionPosition>this.totalNumberOfQuestion)
+        return this.endQuiz();
       this.loadQuestionByPosition();
     },
     async endQuiz() {
       console.log("end Quiz");
-      
+      participationStorageService.saveParticipationScore(this.currentScore);
+      this.$router.push('/');
     }
   }
 };

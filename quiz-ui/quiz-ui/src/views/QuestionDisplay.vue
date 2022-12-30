@@ -1,27 +1,18 @@
 <template>
 
   
-  <!--div v-for="answer in question.possibleAnswers": key="answer.id">
-    <a @click="$emit('click-on-answer', 2)">{{answer}}</a>
-  </div-->
 
-  <img v-if="questionImage" :src="questionImage" />
+  <img v-if="this.question.questionImage" :src="questionImage" />
   
+{{this.question.questionTitle}}
 
-  {{this.type}}
-  <br>
+{{this.question.questionText}}
 
-  {{this}}
-  {{this.question}}
-  {{this.questionText+"1"}}
-  {{this.questionTitle}}
+  <div v-for="answer in this.question.possibleAnswers" >
+    <a @click="$emit('click-on-answer', answer.isCorrect)">{{answer.text}}</a>
+  </div>
 
 
-  <button>
-    <a @click="$emit('click-on-answer', 2)">answer1</a>
-  </button>
-
-prout
 </template>
 
 <script>
@@ -34,14 +25,6 @@ export default {
       type: Object
     }
   },
-  emits: ["click-on-answer"],
-  data() {
-    return{
-      question:{
-        questionText:this.questionText,
-        questionTitle:this.questionTitle
-      }
-    };
-  }
+  emits: ["click-on-answer"]
 };
 </script>
