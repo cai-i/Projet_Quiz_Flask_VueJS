@@ -46,6 +46,7 @@ const router = createRouter({
       name: 'aminList',
       component: () => import('../views/QuestionList.vue')
     }
+
   ]
 })
 

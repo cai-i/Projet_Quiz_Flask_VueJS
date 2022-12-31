@@ -35,5 +35,8 @@ export default {
   },
   getToken(pw) {
     return this.call("post", "login", {"password": pw});
+  },
+  submitAnswers(playerName, answers) {
+    return this.call("post", "participations", { "playerName": playerName, "answers": answers });
   }
 };
