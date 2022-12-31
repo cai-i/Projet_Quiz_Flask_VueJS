@@ -15,22 +15,18 @@
       </div>
     </div>
 
-    <div
-      class="bg-white bg-opacity-80 m-2 p-2 shadow-md border rounded"
+    <button
+      class="bg-white bg-opacity-80 hover:bg-opacity-100 m-2 p-2 shadow-md border rounded block w-full hover:font-bold"
       v-for="answer in this.question.possibleAnswers"
+      @click="
+        $emit(
+          'click-on-answer',
+          this.question.possibleAnswers.indexOf(answer) + 1
+        )
+      "
     >
-      <a
-        @click="
-          $emit(
-            'click-on-answer',
-            this.question.possibleAnswers.indexOf(answer) + 1,
-            answer.isCorrect
-          )
-        "
-      >
-        {{ answer.text }}
-      </a>
-    </div>
+      {{ answer.text }}
+    </button>
 
     <div class="max-w-md max-h-fit mt-6 m-auto">
       <img

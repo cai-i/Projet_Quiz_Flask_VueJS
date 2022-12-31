@@ -5,16 +5,46 @@
       :style="myTextStrokeRule"
     >
       Notre quiz saura t-il vous mettre en PLS ?
+
+      <div class="font-bold text-black text-lg" v-if="username">
+        Joueur : {{ this.username }} ne semble pas encore foutu
+      </div>
     </h1>
 
-    <h1
+    <div
       class="mt-2 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
     >
       Question {{ this.currentQuestionPosition }} /
       {{ this.totalNumberOfQuestion }}
-    </h1>
+    </div>
 
-    <div class="py-8 px-8">
+    <div class="font-bold text-yellow-900">
+      <button
+        class="m-4 ml-8 w-2/5 p-3 float-left rounded bg-cyan-500 bg-opacity-80 hover:bg-opacity-100 hover:text-black"
+        @click="
+          if (this.currentQuestionPosition - 1 > 0) {
+            this.currentQuestionPosition--;
+            loadQuestionByPosition();
+          }
+        "
+      >
+        Précédent
+      </button>
+
+      <button
+        class="m-4 mr-8 w-2/5 p-3 float-right rounded bg-cyan-500 bg-opacity-80 hover:bg-opacity-100 hover:text-black"
+        @click="
+          if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
+            this.currentQuestionPosition++;
+            loadQuestionByPosition();
+          }
+        "
+      >
+        Suivant
+      </button>
+    </div>
+
+    <div class="mt-20 px-8">
       <QuestionDisplay
         :question="currentQuestion"
         @click-on-answer="answerClickedHandler"
@@ -37,8 +67,8 @@ export default {
     return {
       totalNumberOfQuestion: 0,
       currentQuestionPosition: 1,
+      username: null,
       answers: [],
-      currentScore: 0,
       currentQuestion: {
         questionTitle: "",
         questionText: "",
@@ -49,6 +79,7 @@ export default {
         textAlign: "center",
         paddingBottom: "10em",
         backgroundSize: "100% auto",
+        backgroundAttachment: "fixed, scroll, local",
         backgroundImage: "url(https://wallpaper.dog/large/20523548.jpg)",
       },
       myTextStrokeRule: {
@@ -63,6 +94,7 @@ export default {
     var quizInfoPromise = quizApiService.getQuizInfo();
     var quizInfoApiResult = await quizInfoPromise;
     this.totalNumberOfQuestion = quizInfoApiResult.data.size;
+    this.username = participationStorageService.getPlayerName();
     this.answers = Array(this.totalNumberOfQuestion).fill(0);
     this.loadQuestionByPosition();
   },
@@ -79,27 +111,24 @@ export default {
       this.currentQuestion.possibleAnswers =
         quizInfoApiResult.data.possibleAnswers;
     },
-    async answerClickedHandler(answer, answerCorrect) {
+    async answerClickedHandler(answer) {
       console.log("answer Clicked Handler");
       this.answers[this.currentQuestionPosition - 1] = answer;
-      this.currentQuestionPosition++;
-      //if (answerCorrect)
-      //  this.currentScore++;
-      if (this.currentQuestionPosition > this.totalNumberOfQuestion)
+      if (this.currentQuestionPosition + 1 > this.totalNumberOfQuestion)
         return this.endQuiz();
+      this.currentQuestionPosition++;
       this.loadQuestionByPosition();
     },
     async endQuiz() {
       console.log("end Quiz");
-      //var score = this.currentScore;
       var username = participationStorageService.getPlayerName();
       var quizInfoPromise = quizApiService.submitAnswers(
-        username,
+        this.username,
         this.answers
       );
-      var quizInfoApiResult = await quizInfoPromise;
-      var score = quizInfoApiResult.data.score;
-      participationStorageService.saveParticipationScore(score);
+      //var quizInfoApiResult = await quizInfoPromise;
+      //var score = quizInfoApiResult.data.score;
+      //participationStorageService.saveParticipationScore(score);
       this.$router.push("/");
     },
   },
