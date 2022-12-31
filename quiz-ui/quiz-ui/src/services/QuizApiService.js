@@ -31,9 +31,9 @@ export default {
     return this.call("get", "quiz-info");
   },
   getQuestion(position) {
-    return this.call("get", "questions")
+    return this.call("get", "questions?position=" + position);
   },
-  getAllQuestion() {
-    return this.call("get", "questions/all")
+  submitAnswers(playerName, answers) {
+    return this.call("post", "participations", { "playerName": playerName, "answers": answers });
   }
 };

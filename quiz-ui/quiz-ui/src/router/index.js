@@ -29,8 +29,9 @@ const router = createRouter({
     {
       path: '/questions',
       name: 'questions',
-      component: QuestionsPage
+      component: QuestionsPage,
     }
+
   ]
 })
 

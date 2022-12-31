@@ -1,15 +1,23 @@
 <template>
-  <header>
+<div :style="myStyle">
 
-  <h1>NewQuizPage</h1>
+  <h1 class="py-8 px-8 text-3xl font-bold text-red-800" :style="myTextStrokeRule">NewQuizPage</h1>
 
-  <form id="username" action="" method="post">
-    <label for="name">Saisissez votre nom : </label>
-    <input type="text" id="name" v-model="username" />
-    <button type="submit" @click="launchNewQuiz">GO!</button>
+  <div class="mt-16 grid gap-4 place-content-center">
+  <form class="shadow-md border rounded px-8 py-8 mb-4 bg-white bg-opacity-50" id="username" action="" method="post">
+
+    <label class="block text-xl text-rose-700 font-bold mb-2" for="name" :style="myTextStrokeRule">
+      Saisissez votre nom : 
+    </label>
+
+    <input class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="text" id="name" v-model="username" />
+    
+    <button class="bg-rose-700 hover:bg-rose-900 mt-1 text-white font-bold w-full py-2 px-3 rounded focus:outline-none focus:shadow-outline" type="submit" @click="launchNewQuiz">GO!</button>
+  
   </form>
+  </div>
 
-  </header>
+</div>
 </template>
 
 
@@ -22,7 +30,18 @@ export default {
   name: "NewQuizPage",
   data() { 
     return {
-      username:null
+      username:null,
+      myStyle: { 
+        textAlign: "center",
+        paddingBottom:"20em",
+        backgroundSize: "100% auto",
+        backgroundImage: "url(https://images4.alphacoders.com/146/thumb-1920-146664.jpg)" 
+      },
+      myTextStrokeRule: {
+        textShadow: "0 4px 3px white, 0 -4px 3px white, 4px 0 3px white, -4px 0 3px white",
+        webkitTextStroke: "0.1px",
+        webkitTextStrokeColor: "white"
+      }
     };  
   },
   methods:{
@@ -35,13 +54,3 @@ export default {
 }
 </script>
 
-
-
-<style scoped>
-
-  #username label, input {
-    display: block;
-    margin: 8px 0px;
-  }
-
-</style>
