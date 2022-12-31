@@ -1,11 +1,11 @@
 <template>
 <div :style="myStyle">
 
-  <h1 class="py-8 px-8 text-xl font-bold text-red-800">
-    QuizPage
+  <h1 class="py-8 px-8 text-2xl font-bold text-red-800" :style="myTextStrokeRule">
+    Notre quiz saura t-il vous mettre en PLS ?
   </h1>
 
-  <h1 class="mt-6">
+  <h1 class="mt-2 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50">
     Question {{ this.currentQuestionPosition }} / {{ this.totalNumberOfQuestion }}
   </h1>
 
@@ -15,7 +15,6 @@
 
 </div>
 </template>
-
 
 
 
@@ -45,6 +44,11 @@ export default {
         paddingBottom:"10em",
         backgroundSize: "100% auto",
         backgroundImage: "url(https://wallpaper.dog/large/20523548.jpg)"
+      },
+      myTextStrokeRule: {
+        textShadow: "0 4px 3px CadetBlue, 0 -4px 3px CadetBlue, 4px 0 3px CadetBlue, -4px 0 3px CadetBlue",
+        webkitTextStroke: "0.1px",
+        webkitTextStrokeColor: "white"
       }
     };
   },
