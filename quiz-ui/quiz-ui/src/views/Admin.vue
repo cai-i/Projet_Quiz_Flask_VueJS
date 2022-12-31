@@ -18,7 +18,13 @@
         </div>
     </div>
     <div v-else>
-        You are an admin!
+        <div class="wrapper">
+            <nav class="grid gap-4 px-8">
+                <i class="fa-solid fa-house"></i>
+                    <RouterLink to="/admin/edit">Editer les questions</RouterLink>
+                    <RouterLink to="/admin/list">Liste des questions</RouterLink>
+            </nav>
+        </div>
     </div>
 </template>
   

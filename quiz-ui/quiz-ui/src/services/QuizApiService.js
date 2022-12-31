@@ -31,10 +31,7 @@ export default {
     return this.call("get", "quiz-info");
   },
   getQuestion(position) {
-    return this.call("get", "questions")
-  },
-  getAllQuestion() {
-    return this.call("get", "questions/all")
+    return this.call("get", "questions?position=" + position);
   },
   getToken(pw) {
     return this.call("post", "login", {"password": pw});

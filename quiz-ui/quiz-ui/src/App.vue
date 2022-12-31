@@ -9,7 +9,6 @@ import { RouterLink, RouterView } from 'vue-router'
 
     <div class="wrapper">
       <nav>
-      <font-awesome-icon icon="fa-brands fa-house" />
       <i class="fa-solid fa-house"></i>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About us</RouterLink>
