@@ -23,13 +23,13 @@ import { RouterLink, RouterView } from 'vue-router'
             <div class="hidden md:flex space-x-1 items-center">
                 <RouterLink to="/" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Page d'accueil</RouterLink>
                 <RouterLink to="/admin" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Connexion administration</RouterLink>
-                <RouterLink to="/about" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Qui sommes-nous</RouterLink>
+                <RouterLink to="/about" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Qui sommes-nous ?</RouterLink>
             </div>
             <!-- deuxième partie -->
             <div class= "flex space-x-2 mb-2">
               <RouterLink to="/start-new-quiz-page" class="py-3 px-3 bg-red-600 hover:bg-red-700 rounded">Démarrer le quiz !</RouterLink>
             </div>
-            <!-- mobile button -->
+            <!-- mobile button (lorsque la fênetre est plus petite) -->
             <div class="md:hidden flex items-center">
               <button class="mobile-menu-button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -39,18 +39,16 @@ import { RouterLink, RouterView } from 'vue-router'
             </div>
           </div>
         </div>
-        <!-- mobile menu -->
+        <!-- mobile menu (lorsque la fênetre est plus petite) -->
         <div class="mobile-menu hidden md:hidden text-white">
           <RouterLink to="/" class="block py-3 px-3 hover:bg-slate-800">Page d'accueil</RouterLink>
           <RouterLink to="/admin" class="block py-3 px-3 hover:bg-slate-800">Connexion administration</RouterLink>
-          <RouterLink to="/about" class="block py-3 px-3 hover:bg-slate-800">Qui sommes-nous</RouterLink>
+          <RouterLink to="/about" class="block py-3 px-3 hover:bg-slate-800">Qui sommes-nous ?</RouterLink>
         </div>
       </div>
     </div>
   </nav>
 
-
-  <!-- route outlet -->
   <!-- component matched by the route will render here -->
   <div>
     <router-view></router-view>
@@ -59,6 +57,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <script type="text/javascript">
+  // pour afficher les boutons cachés lorsque la fenêtre est petite
   document.addEventListener("DOMContentLoaded", () => {
     const btn= document.querySelector('button.mobile-menu-button');
     const menu= document.querySelector('.mobile-menu');
