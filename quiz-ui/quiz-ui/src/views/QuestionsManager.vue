@@ -126,10 +126,12 @@ export default {
         this.username,
         this.answers
       );
-      //var quizInfoApiResult = await quizInfoPromise;
-      //var score = quizInfoApiResult.data.score;
-      //participationStorageService.saveParticipationScore(score);
-      this.$router.push("/");
+      var quizInfoApiResult = await quizInfoPromise;
+      var score = quizInfoApiResult.data.score;
+      console.log(quizInfoApiResult.data.score);
+      console.log(score);
+      participationStorageService.saveParticipationScore(score);
+      this.$router.push("/score");
     },
   },
 };
