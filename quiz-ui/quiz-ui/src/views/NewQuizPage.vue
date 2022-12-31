@@ -18,7 +18,6 @@
 
 
 
-
 <script>
 import participationStorageService from "@/services/ParticipationStorageService";
 

@@ -20,6 +20,8 @@
 </div>
 </template>
 
+
+
 <script>
 import participationStorageService from "@/services/ParticipationStorageService";
 
