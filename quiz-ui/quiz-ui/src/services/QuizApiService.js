@@ -33,6 +33,9 @@ export default {
   getQuestion(position) {
     return this.call("get", "questions?position=" + position);
   },
+  getToken(pw) {
+    return this.call("post", "login", {"password": pw});
+  },
   submitAnswers(playerName, answers) {
     return this.call("post", "participations", { "playerName": playerName, "answers": answers });
   }
