@@ -6,7 +6,7 @@
   <div class="mt-16 grid gap-4 place-content-center">
   <form class="shadow-md border rounded px-8 py-8 mb-4 bg-white bg-opacity-50" id="username" action="" method="post">
 
-    <label class="block text-xl text-rose-700 font-bold mb-2" for="name">
+    <label class="block text-xl text-rose-700 font-bold mb-2" for="name" :style="myTextStrokeRule">
       Saisissez votre nom : 
     </label>
 
