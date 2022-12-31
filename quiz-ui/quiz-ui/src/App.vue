@@ -3,96 +3,68 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
-    
-  </header>
-
-    <div class="wrapper">
-      <nav>
-      <font-awesome-icon icon="fa-brands fa-house" />
-      <i class="fa-solid fa-house"></i>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About us</RouterLink>
-        <RouterLink to="/start-new-quiz-page">Démarrer le quiz !</RouterLink>
-      </nav>
+  <nav class="bg-white">
+    <div class="relative shadow bg-white">
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url(https://www.chinatravelnews.com/images/202202/ff0094db89bdae98.jpg)"></div>
+      <div class="w-full backdrop-blur">
+        <div class="px-7 mx-auto text-white">
+          <!-- titre du NavBar -->
+          <div>
+            <a class="text-3xl flex items-center py-8 px-3">
+              <svg class="h-7 w-7 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 00-8.862 12.872M12.75 3.031a9 9 0 016.69 14.036m0 0l-.177-.529A2.25 2.25 0 0017.128 15H16.5l-.324-.324a1.453 1.453 0 00-2.328.377l-.036.073a1.586 1.586 0 01-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 01-5.276 3.67m0 0a9 9 0 01-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+              </svg>
+              <span class="font-bold">Quiz sur la Culture Chinoise</span>
+            </a>
+          </div>
+          <!-- les boutons possibles -->
+          <div class="flex justify-between px-3 items-center">
+            <!-- première partie -->
+            <div class="hidden md:flex space-x-1 items-center">
+                <RouterLink to="/" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Page d'accueil</RouterLink>
+                <a href="#" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Connexion administration</a>
+                <RouterLink to="/about" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Qui sommes-nous</RouterLink>
+            </div>
+            <!-- deuxième partie -->
+            <div class= "flex space-x-2 mb-2">
+              <RouterLink to="/start-new-quiz-page" class="py-3 px-3 bg-red-600 hover:bg-red-700 rounded">Démarrer le quiz !</RouterLink>
+            </div>
+            <!-- mobile button -->
+            <div class="md:hidden flex items-center">
+              <button class="mobile-menu-button">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+              </button> 
+            </div>
+          </div>
+        </div>
+        <!-- mobile menu -->
+        <div class="mobile-menu hidden md:hidden text-white">
+          <RouterLink to="/" class="block py-3 px-3 hover:bg-slate-800">Page d'accueil</RouterLink>
+          <a href="#" class="block py-3 px-3 hover:bg-slate-800">Connexion administration</a>
+          <RouterLink to="/about" class="block py-3 px-3 hover:bg-slate-800">Qui sommes-nous</RouterLink>
+        </div>
+      </div>
     </div>
+  </nav>
+
 
   <!-- route outlet -->
   <!-- component matched by the route will render here -->
-  <router-view></router-view>
+  <div>
+    <router-view></router-view>
+  </div>
 
 </template>
 
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn= document.querySelector('button.mobile-menu-button');
+    const menu= document.querySelector('.mobile-menu');
 
-
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-  
-
-
-}
-
-
-</style>
-
-
+    btn.addEventListener("click", () => {
+      menu.classList.toggle("hidden");
+    })
+  });
+</script>
