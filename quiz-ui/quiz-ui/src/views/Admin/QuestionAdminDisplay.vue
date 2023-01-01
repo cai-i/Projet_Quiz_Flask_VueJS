@@ -17,22 +17,35 @@
         </p>
       </div>
     </div>
-
     <div
       v-for="answer in this.question.possibleAnswers"
     >
       <input class="shadow appearance-none border focus:border-pink-700 rounded w-full px-3 py-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="text" v-model="answer.text" placeholder="Réponse">
     </div>
-
-    <div class="max-w-md max-h-fit mt-6 m-auto mb- ">
+    <div>
+      Position de la question : <input class="w-16 shadow appearance-none border focus:border-pink-700 rounded px-3 py-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="number" min=1 v-model="this.question.position" />
+    </div>
+    <div class="max-w-md max-h-fit mt-6 mb-2 ">
       
-      <div class="mb-4">
-        <ImageUpload @file-change="imageFileChangedHandler" />
+      <div class="bg-orange-100 shadow grid grid-cols-10">
+        <div class="col-span-2"> 
+          <div v-if="this.question.questionImage">
+            <img
+              v-if="this.question.questionImage"
+              class ="w-32 h-20"
+              :src="this.question.questionImage"
+            />
+          </div>
+          <div v-else>
+            <p class="bg-slate-200 w-22 h-20"></p>
+          </div>
+        </div>
+        <div class="col-span-8 mt-6 px-4">
+          <ImageUpload @file-change="imageFileChangedHandler" />
+        </div>
       </div>
-      <img
-        v-if="this.question.questionImage"
-        :src="this.question.questionImage"
-      />
+      
+      
     </div>
     <div class="grid grid-cols-10">
       <div class="col-span-9"></div> 
@@ -60,7 +73,6 @@ export default {
   },
   data() {
     return {
-      picked: true,
       myTextStrokeRule: {
         textShadow:
           "0 3px 3px white, 0 -3px 3px white, 3px 0 3px white, -3px 0 3px white",
@@ -71,14 +83,19 @@ export default {
   },
   methods:{
     imageFileChangedHandler(b64String) {
-      this.image = b64String;
+      this.question.questionImage = b64String;
     },
-
     async save(){
-      console.log(this.question);
-      var putQuestionPromise = quizApiService.putQuestion(this.question);
-      var putQuestionApiResult = await putQuestionPromise;
-      console.log(putQuestionApiResult);
+      if(this.question.id == null){
+        var postQuestionPromise = quizApiService.postQuestion(this.question);
+        var postQuestionApiResult = await postQuestionPromise;
+        console.log(postQuestionApiResult);
+      }
+      else{
+        var putQuestionPromise = quizApiService.putQuestion(this.question);
+        var putQuestionApiResult = await putQuestionPromise;
+        console.log(putQuestionApiResult);
+      }
     }
   }
 };

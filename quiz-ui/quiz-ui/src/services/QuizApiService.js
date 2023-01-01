@@ -1,12 +1,11 @@
 import axios from "axios";
-import ParticipationStorageService from "./ParticipationStorageService";
+import participationStorageService from "./ParticipationStorageService";
 
 const instance = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}`,
   json: true
 });
 
-import participationStorageService from "./ParticipationStorageService";
 
 export default {
   async call(method, resource, data = null, token = participationStorageService.getAuthentificationToken()) {
@@ -49,6 +48,15 @@ export default {
       "image": question.questionImage,
       "position": question.position,
       "possibleAnswers": question.possibleAnswers
-  });
+    });
+  },
+  postQuestion(question) {
+    return this.call("post", "questions", {
+      "text": question.questionText,
+      "title": question.questionTitle,
+      "image": question.questionImage,
+      "position": question.position,
+      "possibleAnswers": question.possibleAnswers
+    });
   },
 };

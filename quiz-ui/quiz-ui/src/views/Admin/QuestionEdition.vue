@@ -24,6 +24,16 @@
                 <div class="py-8 ml-6">
                   <QuestionAdminDisplay :question=registeredQuestions[index-1] />
                 </div>
+                <div class="grid place-content-center">
+                  <button @click="addQuestion(index+1)">
+                    <svg class="w-10 h-10 mb-4" fill="none" stroke="FireBrick" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  </button>
+                </div>
+                <div v-if="showModal">
+                  <div class="bg-opacity-20 bg-orange-900 flex justify-center items-center fixed top-0 right-0 bottom-0 left-0">
+                    <QuestionAdminDisplay :question=emptyQuestion />
+                  </div> 
+                </div>
             </li>
         </ul>
       </section>
@@ -42,10 +52,21 @@ export default {
   },
   data() {
     return {
+      emptyQuestion: {
+        questionText:"",
+        questionTitle:"",
+        questionImage:"",
+        position: 0,
+        possibleAnswers:[{
+          "text": "",
+          "isCorrect": true 
+        }],
+      },
       registeredQuestions : [],
       totalNumberOfQuestion: 1,
       currentQuestionPosition: 1,
-      loading: true
+      loading: true,
+      showModal: false
     };
   },
   async created() {   
@@ -62,28 +83,32 @@ export default {
     
   },
   methods: {
-      async loadAllQuestions() {
-        for(let index = 1; index <= this.totalNumberOfQuestion; index++ ){
-          var currentQuestion = {
-            id: 0,
-            questionText:"",
-            questionTitle:"",
-            questionImage:"",
-            position: 0,
-            possibleAnswers:[],
-          }
-          var questionPromise = quizApiService.getQuestion(index);
-          var questionApiResult = await questionPromise;
-          console.log(questionApiResult);
-          currentQuestion.id = questionApiResult.data.id;
-          currentQuestion.position = questionApiResult.data.position;
-          currentQuestion.questionTitle = questionApiResult.data.title;
-          currentQuestion.questionText = questionApiResult.data.text;
-          currentQuestion.questionImage = questionApiResult.data.image;
-          currentQuestion.possibleAnswers = questionApiResult.data.possibleAnswers;
-          this.registeredQuestions.push(currentQuestion);
+    addQuestion(position){
+      this.showModal = true;
+      this.emptyQuestion.position = position;
+    },
+    async loadAllQuestions() {
+      for(let index = 1; index <= this.totalNumberOfQuestion; index++ ){
+        var currentQuestion = {
+          id: 0,
+          questionText:"",
+          questionTitle:"",
+          questionImage:"",
+          position: 0,
+          possibleAnswers:[],
         }
-      },
+        var questionPromise = quizApiService.getQuestion(index);
+        var questionApiResult = await questionPromise;
+        console.log(questionApiResult);
+        currentQuestion.id = questionApiResult.data.id;
+        currentQuestion.position = questionApiResult.data.position;
+        currentQuestion.questionTitle = questionApiResult.data.title;
+        currentQuestion.questionText = questionApiResult.data.text;
+        currentQuestion.questionImage = questionApiResult.data.image;
+        currentQuestion.possibleAnswers = questionApiResult.data.possibleAnswers;
+        this.registeredQuestions.push(currentQuestion);
+      }
+    },
       
   }
 }
