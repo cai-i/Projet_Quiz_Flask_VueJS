@@ -1,46 +1,55 @@
 <template>
-  <div v-if="!this.loading">
-    <div class="bg-orange-100 ">
-      <div class="w-5/6 mx-auto ">
-      <section class="">
-        <p class="relative py-8 text-5xl flex items-center ">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mr-2 text-red-700">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
-            </svg>
-            <span class="font-bold text-red-700">Admin</span>
-        </p>
-        <p class="text-2xl flex items-center px-6">Edition des questions</p>
-        <h1 class="py-8 px-6 text-2xl font-bold text-red-800">
-            Notre quiz saura t-il vous mettre en PLS ?
-      </h1>
-        <ul>
+  <div class="bg-orange-50">
+    <div class="w-5/6 mx-auto pb-16">
+      <p class="relative py-8 text-3xl flex items-center ">
+        <span class="font-bold text-red-700">Edition des questions</span>
+      </p>
+      <div class="flex mt-2 bg-orange-50 border-2 border-orange-200 rounded-md">
+        <div class="w-64 bg-orange-100 rounded-l-md border-r border-dashed border-orange-200">
+          <div class="flex justify-center items-center h-16 text-orange-800 text-center font-semibold text-3xl">
+            Questions
+          </div>
+
+          <!-- Formulaire vide pour l'ajout d'une question, la position est par défaut celle pour être la dernière question -->
+          <div class="grid place-content-center border-b-2 border-orange-200">
+              <button @click="displayNewForm()">
+                <svg class="w-10 h-10 mb-4 hover:fill-orange-200" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </button>
+          </div>
+
+          <!-- Selection et suppression de question par la position  -->
+          <ul>
             <li v-for="index in this.totalNumberOfQuestion" :key="index">
-                
-                
-                <h1 class="mt-2 px-12 ml-6 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50">
-                    Question {{ index }} / {{ this.totalNumberOfQuestion }}
-                </h1>
-                
-                <div class="py-8 ml-6">
-                  <QuestionAdminDisplay :question=registeredQuestions[index-1] />
-                </div>
-                <div class="grid place-content-center">
-                  <button @click="addQuestion(index+1)">
-                    <svg class="w-10 h-10 mb-4" fill="none" stroke="FireBrick" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                  </button>
-                </div>
-                <div v-if="showModal">
-                  <div class="bg-opacity-20 bg-orange-900 flex justify-center items-center fixed top-0 right-0 bottom-0 left-0">
-                    <QuestionAdminDisplay :question=emptyQuestion />
-                  </div> 
-                </div>
+              <div class="border-b-2 border-orange-200 grid grid-cols-10">
+                <button @click="selectQuestion(index)" class="col-span-8 py-3 ml-6 w-full text-orange-700 font-semibold">
+                  Question {{ index }}
+                </button>
+                <button @click="removeQuestion(index)">
+                  <svg class="w-5 h-5 ml-4 hover:fill-orange-200" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                </button>
+              </div>
             </li>
-        </ul>
-      </section>
+          </ul>
+        </div>
+
+        <!-- Affichage du formulaire: - s'il n y a pas de question, un formulaire vide est affiché, l'id est null, saveQuestion dans QuestionAdminDisplay enverra un post à la validation
+                                      - sinon, la première question sera chargée lors du chargement de la page puis celle selectionnée, l'id est detectée, saveQuestion dans QuestionAdminDisplay enverra un put à la validation
+        Remarque: la loading permet d'afficher que si les données ont été chargées, sans ça, la page détecte qu'il n'y a pas de question pendant 1 seconde, et un autre formulaire est affiché
+        -->
+        <div v-if="!this.loading">
+          <div class="flex-grow">
+            <div class="py-8 ml-6">
+              <div v-if="this.currentQuestion.id == null" class="text-orange-600 px-4 font-semibold text-2xl">Nouvelle question</div>
+              <QuestionAdminDisplay :question=this.currentQuestion />
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
-    </div>
-    </div>
-  </template>
+  </div>
+</template>
+
 <script>
 
 import QuestionAdminDisplay from "./QuestionAdminDisplay.vue";
@@ -52,17 +61,14 @@ export default {
   },
   data() {
     return {
-      emptyQuestion: {
+      currentQuestion: {
+        id: null,
         questionText:"",
         questionTitle:"",
         questionImage:"",
-        position: 0,
-        possibleAnswers:[{
-          "text": "",
-          "isCorrect": true 
-        }],
+        position: 1,
+        possibleAnswers:[],
       },
-      registeredQuestions : [],
       totalNumberOfQuestion: 1,
       currentQuestionPosition: 1,
       loading: true,
@@ -74,42 +80,49 @@ export default {
     var quizInfoApiResult = await quizInfoPromise;
     this.totalNumberOfQuestion = quizInfoApiResult.data.size;
     
-    this.loadAllQuestions().then(
-      response => {
-          this.loading = false;
-          console.log(this.registeredQuestions);
-      }
-    )
-    
+    if(this.totalNumberOfQuestion > 0){
+      this.loadQuestion(1).then(
+        response => {
+            this.loading = false;
+        }
+      );
+    }
+    else { this.loading = false;}
   },
   methods: {
-    addQuestion(position){
-      this.showModal = true;
-      this.emptyQuestion.position = position;
+    selectQuestion(index){
+      this.loadQuestion(index);
     },
-    async loadAllQuestions() {
-      for(let index = 1; index <= this.totalNumberOfQuestion; index++ ){
-        var currentQuestion = {
-          id: 0,
-          questionText:"",
-          questionTitle:"",
-          questionImage:"",
-          position: 0,
-          possibleAnswers:[],
-        }
-        var questionPromise = quizApiService.getQuestion(index);
+    
+    // Cela ne semble pas possible de delete une question par sa position, un getQuestionByPosition est utilisé
+    async removeQuestion(index){
+      var questionPromise = quizApiService.getQuestionByPosition(index);
+      var questionApiResult = await questionPromise;
+      var removeQuestionPromise = quizApiService.deleteQuestion(questionApiResult.data.id);
+      await removeQuestionPromise;
+      location.reload();
+      
+    },
+    displayNewForm(){
+      this.currentQuestion.id = null;
+      this.currentQuestion.position = this.totalNumberOfQuestion + 1;
+      this.currentQuestion.questionTitle = "";
+      this.currentQuestion.questionText = "";
+      this.currentQuestion.questionImage = "";
+      this.currentQuestion.possibleAnswers = [];
+    },
+
+    // Similaire à celui de QuestionManager, mais l'id et la position ont été ajoutée car utile pour le put et/ou post
+    async loadQuestion(position) {
+        var questionPromise = quizApiService.getQuestionByPosition(position);
         var questionApiResult = await questionPromise;
-        console.log(questionApiResult);
-        currentQuestion.id = questionApiResult.data.id;
-        currentQuestion.position = questionApiResult.data.position;
-        currentQuestion.questionTitle = questionApiResult.data.title;
-        currentQuestion.questionText = questionApiResult.data.text;
-        currentQuestion.questionImage = questionApiResult.data.image;
-        currentQuestion.possibleAnswers = questionApiResult.data.possibleAnswers;
-        this.registeredQuestions.push(currentQuestion);
+        this.currentQuestion.id = questionApiResult.data.id;
+        this.currentQuestion.position = questionApiResult.data.position;
+        this.currentQuestion.questionTitle = questionApiResult.data.title;
+        this.currentQuestion.questionText = questionApiResult.data.text;
+        this.currentQuestion.questionImage = questionApiResult.data.image;
+        this.currentQuestion.possibleAnswers = questionApiResult.data.possibleAnswers;
       }
     },
-      
   }
-}
 </script>

@@ -32,8 +32,11 @@ export default {
   getQuizInfo() {
     return this.call("get", "quiz-info");
   },
-  getQuestion(position) {
+  getQuestionByPosition(position) {
     return this.call("get", "questions?position=" + position);
+  },
+  getQuestionById(id) {
+    return this.call("get", "questions/" + id);
   },
   getToken(pw) {
     return this.call("post", "login", {"password": pw});
@@ -58,5 +61,8 @@ export default {
       "position": question.position,
       "possibleAnswers": question.possibleAnswers
     });
+  },
+  deleteQuestion(id) {
+    return this.call("delete", "questions/" + id);
   },
 };
