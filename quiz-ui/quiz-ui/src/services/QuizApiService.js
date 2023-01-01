@@ -1,12 +1,15 @@
 import axios from "axios";
+import ParticipationStorageService from "./ParticipationStorageService";
 
 const instance = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}`,
   json: true
 });
 
+import participationStorageService from "./ParticipationStorageService";
+
 export default {
-  async call(method, resource, data = null, token = null) {
+  async call(method, resource, data = null, token = participationStorageService.getAuthentificationToken()) {
     var headers = {
       "Content-Type": "application/json",
     };
@@ -38,5 +41,14 @@ export default {
   },
   submitAnswers(playerName, answers) {
     return this.call("post", "participations", { "playerName": playerName, "answers": answers });
-  }
+  },
+  putQuestion(question) {
+    return this.call("put", "questions/" + question.id, {
+      "text": question.questionText,
+      "title": question.questionTitle,
+      "image": question.questionImage,
+      "position": question.position,
+      "possibleAnswers": question.possibleAnswers
+  });
+  },
 };

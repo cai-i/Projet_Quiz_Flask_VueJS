@@ -34,17 +34,17 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('../views/Admin.vue')
+      component: () => import('../views/Admin/Admin.vue')
     },
     {
       path: '/admin/edit',
       name: 'aminEdit',
-      component: () => import('../views/QuestionEdition.vue')
+      component: () => import('../views/Admin/QuestionEdition.vue')
     },
     {
       path: '/admin/list',
       name: 'aminList',
-      component: () => import('../views/QuestionList.vue')
+      component: () => import('../views/Admin/QuestionList.vue')
     }
 
   ]
