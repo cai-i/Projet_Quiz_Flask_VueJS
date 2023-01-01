@@ -22,7 +22,7 @@ import { RouterLink, RouterView } from 'vue-router'
             <!-- première partie -->
             <div class="hidden md:flex space-x-1 items-center">
                 <RouterLink to="/" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Page d'accueil</RouterLink>
-                <a href="#" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Connexion administration</a>
+                <RouterLink to="/admin" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Connexion administration</RouterLink>
                 <RouterLink to="/about" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Qui sommes-nous</RouterLink>
             </div>
             <!-- deuxième partie -->
@@ -42,7 +42,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <!-- mobile menu -->
         <div class="mobile-menu hidden md:hidden text-white">
           <RouterLink to="/" class="block py-3 px-3 hover:bg-slate-800">Page d'accueil</RouterLink>
-          <a href="#" class="block py-3 px-3 hover:bg-slate-800">Connexion administration</a>
+          <RouterLink to="/admin" class="block py-3 px-3 hover:bg-slate-800">Connexion administration</RouterLink>
           <RouterLink to="/about" class="block py-3 px-3 hover:bg-slate-800">Qui sommes-nous</RouterLink>
         </div>
       </div>
