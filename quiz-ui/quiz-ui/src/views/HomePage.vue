@@ -131,7 +131,7 @@
                     <td class="px-6 py-2" style="width: 380px;">
                       <div class="flex items-center">
                         <span class="mr-2 text-xl">
-                          {{ (scoreEntry.score * 100) / nbr_questions}} 
+                          {{successRate(scoreEntry.score)}}
                         </span>
                         <span class="mr-2 text-xl">
                           %
@@ -139,9 +139,10 @@
                         <div class="relative w-full">
                           <div class="overflow-hidden h-2 text-xs flex rounded bg-red-200">
                             <div
-                              style="width: 45%"
-                              class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
-                            ></div>
+                              class="h-full progressbar bg-yellow-500"
+                              :style="{width: `${rate}%`}"
+                            >
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -170,6 +171,7 @@ export default {
     return {
       registeredScores: [],
       nbr_questions: 0,
+      rate: ''
     };
   },
   // récupère les scores des participants depuis l'API'
@@ -181,5 +183,11 @@ export default {
     this.nbr_questions = quizInfoApiResult.data.size;
     console.log("Composant Home page 'created'"); 
   },
+  methods: {
+    successRate: function(value){
+      this.rate= String(value*100/this.nbr_questions)
+      return this.rate
+    }
+  }
 };
 </script>
