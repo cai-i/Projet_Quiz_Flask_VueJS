@@ -28,8 +28,9 @@
       {{ answer.text }}
     </button>
 
-    <div class="max-w-md max-h-fit mt-6 m-auto">
+    <div class="m-2 p-2">
       <img
+        class="w-2/3 h-auto m-6 object-cover mx-auto"
         v-if="this.question.questionImage"
         :src="this.question.questionImage"
       />

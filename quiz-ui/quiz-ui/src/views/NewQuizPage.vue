@@ -52,7 +52,7 @@ export default {
       myStyle: {
         textAlign: "center",
         paddingBottom: "20em",
-        backgroundSize: "1350px auto",
+        backgroundSize: "1550px auto",
         backgroundAttachment: "fixed, scroll, local",
         backgroundImage:
           "url(https://images4.alphacoders.com/146/thumb-1920-146664.jpg)",
