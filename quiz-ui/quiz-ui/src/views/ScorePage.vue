@@ -21,6 +21,15 @@
         <p v-if="this.userRank > (this.registeredScores.length * 2) / 3">
           Bravo, vous vous êtes fait DE-FON-CE.E !
         </p>
+
+        <p
+          v-if="
+            this.userRank >= this.registeredScores.length / 3 &&
+            this.userRank <= (this.registeredScores.length * 2) / 3
+          "
+        >
+          Bof, dans la moyenne... ouf ? (OvO)
+        </p>
       </div>
     </div>
 
