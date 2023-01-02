@@ -23,18 +23,22 @@
         {{ this.question.questionText }}
       </div>
 
+<ul>
+  <li v-for="(answer,idx) in this.question.possibleAnswers" :key="idx">
     <button
-      class="mx-auto bg-white bg-opacity-80 hover:bg-opacity-100 shadow-md border rounded block w-4/5 m-2 p-2 hover:font-bold"
-      v-for="answer in this.question.possibleAnswers"
+      class="mx-auto bg-opacity-80 hover:bg-opacity-100 shadow-md border rounded block w-4/5 m-2 p-2 hover:font-bold"
       @click="
         $emit(
           'click-on-answer',
           this.question.possibleAnswers.indexOf(answer) + 1
         )
       "
+      :class="[idx+1 === selectedAnswer ? 'bg-sky-300' : 'bg-white']"
     >
       {{ answer.text }}
     </button>
+    </li>
+</ul>
 
     </div>
 
@@ -48,6 +52,7 @@ export default {
     question: {
       type: Object,
     },
+    selectedAnswer:0
   },
   emits: ["click-on-answer"],
   data() {

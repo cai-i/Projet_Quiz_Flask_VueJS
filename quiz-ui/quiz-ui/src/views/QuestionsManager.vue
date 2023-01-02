@@ -61,7 +61,7 @@
 
     <div class="mt-4 px-8">
       <QuestionDisplay
-        :question="currentQuestion"
+        :question="currentQuestion" :selectedAnswer="answers[this.currentQuestionPosition-1]"
         @click-on-answer="answerClickedHandler"
       />
     </div>
