@@ -1,6 +1,6 @@
 <template>
     <div class="bg-orange-50">
-        <section class="w-5/6 mx-auto relative py-12 px-3" :class="{ [`h-screen`]: !this.adminMode }">
+        <section class="w-5/6 mx-auto relative py-12 px-3" :class="{ ['h-screen']: !this.adminMode }">
             <div class="flex">
                 <p class="text-5xl flex items-center py-1 ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mr-2 text-red-700">

@@ -14,10 +14,10 @@
             <!-- Formulaire vide pour l'ajout d'une question, la position est par défaut celle pour être la dernière question -->
             <div class="place-content-center gap-4 border-b-2 flex border-orange-200">
                 <button @click="displayNewForm">
-                  <svg class="w-10 h-10 mb-4 hover:fill-orange-200" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <svg class="w-10 h-10 mb-4 hover:fill-orange-300" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </button>
                 <button id="modal-switch" @click="toggleModal">
-                  <svg class="w-10 h-10 mb-4 hover:fill-orange-200" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                  <svg class="w-10 h-10 mb-4 hover:fill-orange-300" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                 </button>
             </div>
 
@@ -25,10 +25,11 @@
             <ul>
               <li v-for="index in this.totalNumberOfQuestion" :key="index">
                 <div class="border-b-2 border-orange-200 grid grid-cols-10">
-                  <button @click="selectQuestion(index)" class="col-span-8 border-r-2 border-orange-200 hover:bg-orange-200 pl-10 py-3 text-orange-700 font-semibold">
-                    Question {{ index }}
+                  <button @click="selectQuestion(index)" class="col-span-8 grid grid-cols-10 border-r-2 border-orange-200 hover:bg-orange-300 text-orange-700 font-semibold">
+                    <p class="col-span-2 bg-orange-200 rounded-full grid place-content-center px-3 mx-1 py-1 my-2 text-base"> {{index}} </p> 
+                    <p class="col-span-8 truncate px-4 py-3">{{ registeredTitles[index-1] }}</p>
                   </button>
-                  <button @click="removeQuestion(index)" class="col-span-2 place-content-center grid hover:bg-orange-200">
+                  <button @click="removeQuestion(index)" class="col-span-2 place-content-center grid hover:bg-orange-300">
                     <svg class="w-5 h-5 hover:fill-orange-200" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                   </button>
                 </div>
@@ -82,7 +83,8 @@ export default {
       totalNumberOfQuestion: 1,
       loading: true,
       showModal: false,
-      adminMode: true
+      adminMode: false,
+      registeredTitles: []
     };
   },
   async created() {
@@ -92,17 +94,15 @@ export default {
       var quizInfoPromise = quizApiService.getQuizInfo();
       var quizInfoApiResult = await quizInfoPromise;
       this.totalNumberOfQuestion = quizInfoApiResult.data.size;
+
       if(this.totalNumberOfQuestion > 0){
-        this.loadQuestion(1).then(
-          response => {
-              this.loading = false;
-          }
-        );
+        Promise.all([this.loadAllTitles(), this.loadQuestion(1)]).then((response) => {
+          this.loading = false;
+        })
       }
-      else { this.loading = false;}
-    }
-    else {
-      this.$router.push("/admin");
+      else {
+        this.loading = false;
+      }
     }
   },
   methods: {
@@ -145,7 +145,15 @@ export default {
         this.currentQuestion.questionText = questionApiResult.data.text;
         this.currentQuestion.questionImage = questionApiResult.data.image;
         this.currentQuestion.possibleAnswers = questionApiResult.data.possibleAnswers;
-      }
+    },
+    async loadAllTitles() {
+        for(let index = 1; index <= this.totalNumberOfQuestion; index++ ){
+          var questionPromise = quizApiService.getQuestionByPosition(index);
+          var questionApiResult = await questionPromise;
+          var title = questionApiResult.data.title;
+          this.registeredTitles.push(title);
+        }
     },
   }
+}
 </script>
