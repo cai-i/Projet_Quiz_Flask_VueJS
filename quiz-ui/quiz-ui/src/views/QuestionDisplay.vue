@@ -1,22 +1,30 @@
 <template>
-  <div
-    class="text-center shadow-md border rounded px-8 pb-8 bg-white bg-opacity-60"
-  >
-    <div class="border rounded px-2 mt-8 mb-8 bg-white bg-opacity-40">
-      <div
+
+     <div
         class="mt-3 font-bold grid place-content-center"
         :style="myTextStrokeRule"
       >
         - {{ this.question.questionTitle }} -
       </div>
 
+
+    <div class="m-2 p-2">
+      <img
+        class="w-1/3 h-auto m-4 object-cover mx-auto"
+        v-if="this.question.questionImage"
+        :src="this.question.questionImage"
+      />
+    </div>
+
+ <div class="p-4 border rounded px-2  bg-white bg-opacity-40 ">
+    
+    
       <div class="block text-rose-700 text-xl font-bold mb-3">
         {{ this.question.questionText }}
       </div>
-    </div>
 
     <button
-      class="bg-white bg-opacity-80 hover:bg-opacity-100 m-2 p-2 shadow-md border rounded block w-full hover:font-bold"
+      class="mx-auto bg-white bg-opacity-80 hover:bg-opacity-100 shadow-md border rounded block w-4/5 m-2 p-2 hover:font-bold"
       v-for="answer in this.question.possibleAnswers"
       @click="
         $emit(
@@ -28,14 +36,8 @@
       {{ answer.text }}
     </button>
 
-    <div class="m-2 p-2">
-      <img
-        class="w-2/3 h-auto m-6 object-cover mx-auto"
-        v-if="this.question.questionImage"
-        :src="this.question.questionImage"
-      />
     </div>
-  </div>
+
 </template>
 
 <script>

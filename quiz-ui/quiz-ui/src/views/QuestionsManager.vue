@@ -11,16 +11,16 @@
       </div>
     </h1>
 
-    <div
-      class="mt-2 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
-    >
-      Question {{ this.currentQuestionPosition }} /
-      {{ this.totalNumberOfQuestion }}
-    </div>
 
-    <div class="font-bold text-yellow-900">
-      <button
-        class="m-4 ml-8 w-2/5 p-3 float-left rounded bg-cyan-500 bg-opacity-80 hover:bg-opacity-100 hover:text-black"
+  <div
+    class="m-24 p-8 text-center shadow-md border rounded px-8 bg-white bg-opacity-60"
+  >
+
+    <div
+      class="p-2 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
+    >
+    <button
+        class="align-middle mr-4 p-2 rounded bg-white bg-opacity-40 hover:bg-opacity-30 hover:text-black"
         @click="
           if (this.currentQuestionPosition - 1 > 0) {
             this.currentQuestionPosition--;
@@ -28,11 +28,20 @@
           }
         "
       >
-        Précédent
+   
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
+</svg>
+
+
       </button>
 
+      Question {{ this.currentQuestionPosition }} /
+      {{ this.totalNumberOfQuestion }}
+
+      
       <button
-        class="m-4 mr-8 w-2/5 p-3 float-right rounded bg-cyan-500 bg-opacity-80 hover:bg-opacity-100 hover:text-black"
+        class="align-middle ml-4 p-2 rounded bg-white bg-opacity-40 hover:bg-opacity-30 hover:text-black"
         @click="
           if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
             this.currentQuestionPosition++;
@@ -40,16 +49,27 @@
           }
         "
       >
-        Suivant
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
+</svg>
+
       </button>
     </div>
 
-    <div class="mt-20 px-8">
+    <div class="font-bold text-yellow-900">
+      
+
+    </div>
+
+    <div class="mt-4 px-8">
       <QuestionDisplay
         :question="currentQuestion"
         @click-on-answer="answerClickedHandler"
       />
     </div>
+
+  </div>
+
   </div>
 </template>
 
