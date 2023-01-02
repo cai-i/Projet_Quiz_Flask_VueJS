@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-orange-100">
+    <div class="bg-orange-50">
     <section class="w-5/6 mx-auto relative py-6 px-3 h-screen ">
             <p class="text-5xl flex items-center py-1 px-7">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mr-2 text-red-700">
@@ -7,9 +7,9 @@
                 </svg>
                 <span class="font-bold text-red-700">Admin</span>
             </p>
-            <div v-if="!adminMode">
+            <div v-if="!this.adminMode">
                 <div class="mt-16 grid gap-4 place-content-center">
-                    <form class="shadow-md border bg-orange-200 border-red-700 rounded px-8 py-8 mb-4">
+                    <form class="shadow-md border-2 border-orange-200 rounded px-8 py-8 mb-4">
                         <div class="mb-4">
                             <label class="block text-rose-700 text-sm font-bold mb-2" for="password">
                                 Mot de passe
@@ -63,7 +63,6 @@ export default {
             participationStorageService.removeAuthentificationToken();
             this.adminMode = false;
         }
-
     }
   }
 }

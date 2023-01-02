@@ -99,7 +99,6 @@ export default {
         this.correctAnswerPosition = i;
       }
     }
-
   },
   methods:{
     imageFileChangedHandler(b64String) {
