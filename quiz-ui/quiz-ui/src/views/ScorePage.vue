@@ -1,6 +1,6 @@
 <template>
   <div class="bg-neutral-300">
-    <div class="p-4 block text-3xl text-center">
+    <div class="hover:animate-pulse p-4 block text-3xl text-center">
       <p>
         Score de {{ this.userName }} : {{ this.userScore }} /
         {{ nbr_questions }}
@@ -36,13 +36,13 @@
     <!-- Tableau de isa-->
     <div class="w-full mb-12 px-12">
       <div
-        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-red-700 text-white"
+        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-red-700 text-pink-800 font-bold"
       >
         <!-- fond du tableau -->
         <div
           class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
           style="
-            background-image: url(https://www.racv.com.au/content/dam/racv/images/content-hub/lifestyle/entertainment-and-events/festivals-and-events/calendar-events/chinese-new-year/900x600GettyImages-1125854093.jpg);
+            background-image: url(https://wallpaper.dog/large/5459726.jpg);
           "
         ></div>
         <div class="w-full backdrop-blur">
