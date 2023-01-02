@@ -1,7 +1,7 @@
 <template>
 
      <div
-        class="mt-3 font-bold grid place-content-center"
+        class="mt-3 text-2xl font-bold grid place-content-center"
         :style="myTextStrokeRule"
       >
         - {{ this.question.questionTitle }} -

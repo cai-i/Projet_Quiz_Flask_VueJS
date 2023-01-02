@@ -17,7 +17,7 @@
   >
 
     <div
-      class="p-2 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
+      class="ml-8 mr-8 p-2 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
     >
       <button
           class="align-middle mr-4 p-2 rounded bg-white bg-opacity-40 hover:bg-opacity-30 hover:text-black"

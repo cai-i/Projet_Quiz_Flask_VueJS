@@ -42,7 +42,7 @@
         <div
           class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
           style="
-            background-image: url(https://www.racv.com.au/content/dam/racv/images/content-hub/lifestyle/entertainment-and-events/festivals-and-events/calendar-events/chinese-new-year/900x600GettyImages-1125854093.jpg);
+            background-image: url(https://wallpaper.dog/large/5459726.jpg);
           "
         ></div>
         <div class="w-full backdrop-blur">
