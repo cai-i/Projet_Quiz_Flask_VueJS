@@ -12,7 +12,7 @@
             </div>
 
             <!-- Formulaire vide pour l'ajout d'une question, la position est par défaut celle pour être la dernière question -->
-            <div class="place-content-center gap-4 border-b-2 flex border-orange-200">
+            <div class="place-content-center gap-4 border-b-2 flex border-orange-300">
                 <button @click="displayNewForm">
                   <svg class="w-10 h-10 mb-4 hover:fill-orange-300" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </button>
@@ -24,9 +24,9 @@
             <!-- Selection et suppression de question par la position  -->
             <ul>
               <li v-for="index in this.totalNumberOfQuestion" :key="index">
-                <div class="border-b-2 border-orange-200 grid grid-cols-10">
-                  <button @click="selectQuestion(index)" class="col-span-8 grid grid-cols-10 border-r-2 border-orange-200 hover:bg-orange-300 text-orange-700 font-semibold">
-                    <p class="col-span-2 bg-orange-200 rounded-full grid place-content-center px-3 mx-1 py-1 my-2 text-base"> {{index}} </p> 
+                <div class="border-b-2 border-orange-300 grid grid-cols-10">
+                  <button @click="selectQuestion(index)" class="col-span-8 grid grid-cols-10 border-r-2 border-orange-300 hover:bg-orange-300 text-orange-700 font-semibold" :class="[selectedQuestion === index ? 'bg-orange-300' : 'bg-orange-200']">
+                    <p class="col-span-2 bg-orange-100 rounded-full grid place-content-center px-3 mx-1 py-1 my-2 text-base"> {{index}} </p> 
                     <p class="col-span-8 truncate px-4 py-3">{{ registeredTitles[index-1] }}</p>
                   </button>
                   <button @click="removeQuestion(index)" class="col-span-2 place-content-center grid hover:bg-orange-300">
@@ -84,6 +84,7 @@ export default {
       loading: true,
       showModal: false,
       adminMode: false,
+      selectedQuestion: 1,
       registeredTitles: []
     };
   },
@@ -107,6 +108,7 @@ export default {
   },
   methods: {
     selectQuestion(index){
+      this.selectedQuestion = index;
       this.loadQuestion(index);
     },
     toggleModal(){
