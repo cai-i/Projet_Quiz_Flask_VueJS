@@ -7,29 +7,29 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="relative shadow bg-white">
       <div class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url(https://www.chinatravelnews.com/images/202202/ff0094db89bdae98.jpg)"></div>
       <div class="w-full backdrop-blur">
-        <div class="px-7 mx-auto text-white">
+        <div class="mx-auto text-white">
           <!-- titre du NavBar -->
           <div>
-            <a class="text-3xl flex items-center py-8 px-3">
-              <svg class="h-7 w-7 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <a class="text-5xl flex items-center py-20 px-3">
+              <svg class="h-12 w-12 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 01-1.161.886l-.143.048a1.107 1.107 0 00-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 01-1.652.928l-.679-.906a1.125 1.125 0 00-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 00-8.862 12.872M12.75 3.031a9 9 0 016.69 14.036m0 0l-.177-.529A2.25 2.25 0 0017.128 15H16.5l-.324-.324a1.453 1.453 0 00-2.328.377l-.036.073a1.586 1.586 0 01-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 01-5.276 3.67m0 0a9 9 0 01-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
               </svg>
               <span class="font-bold">Quiz sur la Culture Chinoise</span>
             </a>
           </div>
           <!-- les boutons possibles -->
-          <div class="flex justify-between px-3 items-center">
+          <div class="flex justify-between items-center px-3 py-3 bg-[#00182E]">
             <!-- première partie -->
             <div class="hidden md:flex space-x-1 items-center">
                 <RouterLink to="/" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Page d'accueil</RouterLink>
                 <RouterLink to="/admin" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Connexion administration</RouterLink>
-                <RouterLink to="/about" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Qui sommes-nous</RouterLink>
+                <RouterLink to="/about" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Qui sommes-nous ?</RouterLink>
             </div>
             <!-- deuxième partie -->
             <div class= "flex space-x-2 mb-2">
               <RouterLink to="/start-new-quiz-page" class="py-3 px-3 bg-red-600 hover:bg-red-700 rounded">Démarrer le quiz !</RouterLink>
             </div>
-            <!-- mobile button -->
+            <!-- mobile button (lorsque la fênetre est plus petite) -->
             <div class="md:hidden flex items-center">
               <button class="mobile-menu-button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -38,19 +38,17 @@ import { RouterLink, RouterView } from 'vue-router'
               </button> 
             </div>
           </div>
-        </div>
-        <!-- mobile menu -->
-        <div class="mobile-menu hidden md:hidden text-white">
-          <RouterLink to="/" class="block py-3 px-3 hover:bg-slate-800">Page d'accueil</RouterLink>
-          <RouterLink to="/admin" class="block py-3 px-3 hover:bg-slate-800">Connexion administration</RouterLink>
-          <RouterLink to="/about" class="block py-3 px-3 hover:bg-slate-800">Qui sommes-nous</RouterLink>
+          <!-- mobile menu (lorsque la fênetre est plus petite) -->
+          <div class="mobile-menu hidden md:hidden text-white bg-[#00182E]">
+            <RouterLink to="/" class="block py-3 px-3 hover:bg-[#00274A]">Page d'accueil</RouterLink>
+            <RouterLink to="/admin" class="block py-3 px-3 hover:bg-[#00274A]">Connexion administration</RouterLink>
+            <RouterLink to="/about" class="block py-3 px-3 hover:bg-[#00274A]">Qui sommes-nous ?</RouterLink>
+          </div>
         </div>
       </div>
     </div>
   </nav>
 
-
-  <!-- route outlet -->
   <!-- component matched by the route will render here -->
   <div>
     <router-view></router-view>
@@ -59,6 +57,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <script type="text/javascript">
+  // pour afficher les boutons cachés lorsque la fenêtre est petite
   document.addEventListener("DOMContentLoaded", () => {
     const btn= document.querySelector('button.mobile-menu-button');
     const menu= document.querySelector('.mobile-menu');

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 import QuestionsPage from '../views/QuestionsManager.vue'
+import ScorePage from '../views/ScorePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,11 @@ const router = createRouter({
       path: '/questions',
       name: 'questions',
       component: QuestionsPage
+    },
+    {
+      path: '/score',
+      name: 'score',
+      component: ScorePage
     },
     {
       path: '/admin',
