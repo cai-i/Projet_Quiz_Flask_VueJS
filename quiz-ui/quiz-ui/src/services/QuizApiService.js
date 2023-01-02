@@ -62,7 +62,10 @@ export default {
       "possibleAnswers": question.possibleAnswers
     });
   },
-  deleteQuestion(id) {
+  removeQuestion(id) {
     return this.call("delete", "questions/" + id);
   },
+  removeAllQuestions(){
+    return this.call("delete", "questions/all");
+  }
 };

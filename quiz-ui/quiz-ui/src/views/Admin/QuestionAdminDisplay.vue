@@ -30,9 +30,13 @@
     </div>
 
     <!-- Ajout d'un possibleAnswer par le svg + -->
-    <button @click="addPossibleAnswers">
-      <svg class="w-6 h-6 mt-2 hover:fill-orange-200" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <button @click="addPossibleAnswers" class="hover:underline">
+      <div class="flex">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+        <p class="text-sm">Ajouter une réponse</p>
+      </div>  
     </button>
+    
     <!-- Gestion de position directement dans un input, peut être améliorée pour plus d'ergonomie -->
     <div>
       Position de la question : <input class="w-16 mt-2 shadow appearance-none border focus:border-pink-700 rounded px-3 py-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="number" min=1 v-model="this.question.position" />
