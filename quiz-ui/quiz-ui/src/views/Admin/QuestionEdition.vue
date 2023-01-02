@@ -20,7 +20,7 @@
                     <button @click="displayNewForm">
                       <svg class="w-10 h-10 mb-4 hover:fill-orange-200" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </button>
-                    <button @click="removeAllQuestions">
+                    <button id="modal-switch" @click="toggleModal">
                       <svg class="w-10 h-10 mb-4 hover:fill-orange-200" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </button>
                 </div>
@@ -52,7 +52,11 @@
                 </div>
               </div>
 
-          </div>
+              <div v-if="showModal" class="fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+                <Modal @toggle-modal="toggleModal" @remove-all-questions="removeAllQuestions"/>
+              </div>
+              <div v-if="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
+            </div>
         </div>
       </div>
     </div>
@@ -63,10 +67,12 @@
 import QuestionAdminDisplay from "./QuestionAdminDisplay.vue";
 import quizApiService from "@/services/QuizApiService";
 import participationStorageService from "@/services/ParticipationStorageService";
+import Modal from "./Modal.vue";
 
 export default {
   components: {
     QuestionAdminDisplay,
+    Modal
   },
   data() {
     return {
@@ -80,6 +86,7 @@ export default {
       },
       totalNumberOfQuestion: 1,
       loading: true,
+      showModal: false,
       adminMode: true
     };
   },
@@ -107,6 +114,17 @@ export default {
     selectQuestion(index){
       this.loadQuestion(index);
     },
+    toggleModal(){
+      this.showModal = !this.showModal;
+    },
+    displayNewForm(){
+      this.currentQuestion.id = null;
+      this.currentQuestion.position = this.totalNumberOfQuestion + 1;
+      this.currentQuestion.questionTitle = "";
+      this.currentQuestion.questionText = "";
+      this.currentQuestion.questionImage = "";
+      this.currentQuestion.possibleAnswers = [];
+    },
 
     // Cela ne semble pas possible de delete une question par sa position, un getQuestionByPosition est utilisé
     async removeQuestion(index){
@@ -120,14 +138,6 @@ export default {
       var questionsPromise = quizApiService.removeAllQuestions();
       await questionsPromise;
       location.reload();
-    },
-    displayNewForm(){
-      this.currentQuestion.id = null;
-      this.currentQuestion.position = this.totalNumberOfQuestion + 1;
-      this.currentQuestion.questionTitle = "";
-      this.currentQuestion.questionText = "";
-      this.currentQuestion.questionImage = "";
-      this.currentQuestion.possibleAnswers = [];
     },
 
     // Similaire à celui de QuestionManager, mais l'id et la position ont été ajoutée car utile pour le put et/ou post
