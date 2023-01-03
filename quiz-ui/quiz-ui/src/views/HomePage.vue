@@ -164,7 +164,7 @@
               <thead class="flex text-white w-full">
                 <!-- noms des colonnes du tableau -->
                 <tr class="flex w-full mb-2 bg-red-800 text-red-400 text-xl">
-                  <th class="px-6 py-3 ml-6 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 95px;">
+                  <th class="px-6 py-3 ml-3 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 95px;">
                     Rang
                   </th>
                   <th class="px-6 py-3 ml-2 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 250px;">
@@ -176,7 +176,7 @@
                   <th class="px-6 py-3 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 250px;">
                     Taux de réussite
                   </th>
-                  <th class="px-6 py-3 ml-28 border font-semibold border-l-0 border-r-0 border-red-900">
+                  <th class="px-6 py-3 ml-[108px] border font-semibold border-l-0 border-r-0 border-red-700">
                     Date de soumission
                   </th>
                 </tr>
@@ -188,7 +188,7 @@
                   v-bind:key="scoreEntry.date"
                 >
                   <tr class="flex w-full mb-4 items-center text-xl">
-                    <td class="px-6 py-2 ml-10" style="width: 95px;">
+                    <td class="px-6 py-2 ml-6" style="width: 95px;">
                       {{ rank + 1 }}
                     </td>
                     <td class="px-6 py-2 flex items-center">
@@ -223,7 +223,7 @@
                         </div>
                       </div>
                     </td>
-                    <td class="px-14 py-2" style="width: 410px;">
+                    <td class="px-14 py-2" style="width: 380px;">
                       {{ scoreEntry.date }}
                     </td>
                   </tr>
