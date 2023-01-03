@@ -18,16 +18,20 @@
             <div v-if="!this.adminMode">
                 <div class="mt-16 grid gap-4 place-content-center">
                     <form class="shadow-md border-2 border-orange-200 rounded px-8 py-8 mb-4">
-                        <div class="mb-4">
+                        <div class="mb-5">
                             <label class="block text-rose-700 text-sm font-bold mb-2" for="password">
                                 Mot de passe
                             </label>
-                            <input class="shadow appearance-none border focus:border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" v-model="password" id="password" type="password" placeholder="Votre mot de passe">
+                            <input class="shadow border mb-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" :class="[this.error ? 'border-red-700' : 'focus:border-slate-700']" v-model="password" id="password" type="password" placeholder="Votre mot de passe">
+                            <p v-if="this.error">
+                                <p class="text-red-700 text-sm"> Mot de passe incorrect</p>
+                            </p>
                         </div>
                         <button @click="login" class="bg-rose-700 hover:bg-rose-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                             Se connecter
                         </button>
                     </form>
+                
                 </div>
             </div>
             <div v-else class="mb-6">
@@ -49,7 +53,8 @@ export default {
     data() { 
         return {
             password: null,
-            adminMode: false
+            adminMode: false,
+            error: false
         };  
     },
     mounted() {
@@ -67,11 +72,14 @@ export default {
             else{
                 participationStorageService.removeAuthentificationToken();
                 this.adminMode = false;
+                this.error = true;
             }
+            this.password = null;
         },
         async signOut(){
             participationStorageService.removeAuthentificationToken();
             this.adminMode = false;
+            this.error = false;
         }
     }
 }

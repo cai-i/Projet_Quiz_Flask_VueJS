@@ -14,7 +14,7 @@
             <!-- Formulaire vide pour l'ajout d'une question, la position est par défaut celle pour être la dernière question -->
             <div class="place-content-center gap-4 border-b-2 flex border-orange-300">
                 <button @click="displayNewForm">
-                  <svg class="w-10 h-10 mb-4 hover:fill-orange-300" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <svg class="w-10 h-10 mb-4 hover:fill-orange-300 " :class="{ ['fill-orange-300'] : this.isDisplayingNewForm}" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </button>
                 <button id="modal-switch" @click="toggleModal">
                   <svg class="w-10 h-10 mb-4 hover:fill-orange-300" fill="none" stroke="DarkRed" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -25,7 +25,7 @@
             <ul>
               <li v-for="index in this.totalNumberOfQuestion" :key="index">
                 <div class="border-b-2 border-orange-300 grid grid-cols-10">
-                  <button @click="selectQuestion(index)" class="col-span-8 grid grid-cols-10 border-r-2 border-orange-300 hover:bg-orange-300 text-orange-700 font-semibold" :class="[selectedQuestion === index ? 'bg-orange-300' : 'bg-orange-200']">
+                  <button @click="selectQuestion(index)" class="col-span-8 grid grid-cols-10 border-r-2 border-orange-300 hover:bg-orange-300 text-orange-700 font-semibold" :class="[this.selectedQuestion === index ? 'bg-orange-300' : 'bg-orange-200']">
                     <p class="col-span-2 bg-orange-100 rounded-full grid place-content-center px-3 mx-1 py-1 my-2 text-base"> {{index}} </p> 
                     <p class="col-span-8 truncate px-4 py-3">{{ registeredTitles[index-1] }}</p>
                   </button>
@@ -90,6 +90,7 @@ export default {
       loading: true,
       showModal: false,
       adminMode: false,
+      isDisplayingNewForm: false,
       selectedQuestion: 1,
       registeredTitles: []
     };
@@ -114,6 +115,8 @@ export default {
   },
   methods: {
     selectQuestion(index){
+      this.isDisplayingNewForm = false;
+
       this.selectedQuestion = index;
       this.loadQuestion(index);
     },
@@ -121,6 +124,9 @@ export default {
       this.showModal = !this.showModal;
     },
     displayNewForm(){
+      this.selectedQuestion = 0;
+      this.isDisplayingNewForm = true;
+
       this.currentQuestion.id = null;
       this.currentQuestion.position = this.totalNumberOfQuestion + 1;
       this.currentQuestion.questionTitle = "";
