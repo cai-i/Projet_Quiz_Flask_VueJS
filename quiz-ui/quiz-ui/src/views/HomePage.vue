@@ -8,7 +8,7 @@
     href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
   />
 
-  <section class="relative py-11 px-12 bg-orange-100 h-full">
+  <section class="py-11 bg-orange-100 h-full">
     <!-- titre de la page -->
     <a class="w-5/6 mx-auto text-5xl flex items-center py-1 px-7">
       <!-- icon maison -->
@@ -30,7 +30,7 @@
       <span class="font-bold text-red-700">Page d'accueil</span>
     </a>
     <!-- carte de présentation -->
-    <div class="flex min-h-screeen items-center justify-center py-5">
+    <div class="flex min-h-screeen items-center py-5">
       <div class="mx-auto max-w-6xl px-6">
         <div class="flex [&:hover>div]:w-16 [&>div:hover]:w-[25rem]">
           <!-- 1ère image (qu'on voit au complet) -->
@@ -140,7 +140,7 @@
         lien de ce quiz
       </p>
     </div>
-    <div class="w-5/6 mx-auto mb-12 px-12">
+    <div class="w-5/6 mx-auto mb-12">
       <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-red-700 text-white">
         <!-- fond du tableau -->
         <div
