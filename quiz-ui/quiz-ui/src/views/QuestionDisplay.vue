@@ -19,7 +19,7 @@
  <div class="p-4 border rounded px-2  bg-white bg-opacity-40 ">
     
     
-      <div class="block text-rose-700 text-xl font-bold mb-3">
+      <div class="block text-rose-700 text-xl font-bold mb-6">
         {{ this.question.questionText }}
       </div>
 
@@ -33,7 +33,7 @@
           this.question.possibleAnswers.indexOf(answer) + 1
         )
       "
-      :class="[idx+1 === selectedAnswer ? 'bg-sky-300' : 'bg-white']"
+      :class="[idx+1 === selectedAnswer ? 'border-teal-700 border-2 bg-opacity-60 bg-teal-400' : 'bg-white']"
     >
       {{ answer.text }}
     </button>

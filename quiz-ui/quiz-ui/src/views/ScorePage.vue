@@ -1,4 +1,5 @@
 <template>
+
   <div class="bg-neutral-300">
     <div class="hover:animate-pulse p-4 block text-3xl text-center">
       <p>
@@ -32,6 +33,31 @@
         </p>
       </div>
     </div>
+
+
+      <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="progress cent"
+                :class="[this.userScore===100 ? 'text-green-700' : this.userScore>50 ? 'text-yellow-700' : 'text-red-700']">
+                    <span class="progress-left">
+                        <span class="progress-bar"></span>
+                    </span>
+                    <span class="progress-right">
+                        <span class="progress-bar"></span>
+                    </span>
+                    <div class="progress-value">
+                      <div v-if="100*this.userScore/nbr_questions"> 
+                      {{100*this.userScore/nbr_questions}}%
+                      </div>                      
+                      <div v-else> 
+                      ???
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
 
     <!-- Tableau de isa-->
     <div class="w-full mb-12 px-12">
@@ -197,3 +223,186 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+.progress{
+    background: none;
+    margin: 0 auto;
+    box-shadow: none;
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    position: relative;
+}
+.progress:after{
+    content: "";
+    border-radius: 50%;
+    border: 15px solid #f2f5f5;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.progress > span{
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+}
+.progress .progress-bar{
+    border-width: 15px;
+    border-style: solid;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: none;
+    top: 0;
+}
+.progress .progress-left{
+    left: 0;
+}
+.progress .progress-left .progress-bar{
+    left: 100%;
+    border-top-right-radius: 80px;
+    border-bottom-right-radius: 80px;
+    border-left: 0;
+    -webkit-transform-origin: center left;
+    transform-origin: center left;
+}
+.progress .progress-right{
+    right: 0;
+}
+.progress .progress-right .progress-bar{
+    left: -100%;
+    border-top-left-radius: 80px;
+    border-bottom-left-radius: 80px;
+    border-right: 0;
+    -webkit-transform-origin: center right;
+    transform-origin: center right;
+}
+.progress .progress-value{
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+@keyframes loading-1{
+    0%{
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        border-color:red;
+    }
+    50%{
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        border-color:red;
+    }
+    55%, 60%, 70%, 80%, 90% {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        border-color: orange;
+    }
+    98%{
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        border-color: orange;
+    }
+    100%{
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        border-color: green;
+    }
+}
+@keyframes loading-2{
+    0%{
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        border-color: red;
+    }
+    10%{
+        -webkit-transform: rotate(18deg);
+        transform: rotate(18deg);
+        border-color: orange;
+    }
+    95%{
+        -webkit-transform: rotate(171deg);
+        transform: rotate(171deg);
+        border-color: orange;
+    }
+    100%{
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        border-color: green;
+    }
+}
+
+.progress.cent .progress-right .progress-bar{
+    animation: loading-1 2s linear forwards ;
+    /*animation-play-state: paused;*/
+}
+.progress.cent .progress-left .progress-bar{
+    animation: loading-2 1s linear forwards 1s;
+    /*animation-play-state: paused;*/
+}
+
+.progress.stop .progress-left .progress-bar{
+    animation-play-state: running;
+}
+
+/*
+.progress.qvd .progress-right .progress-bar{
+    animation: loading-1 2s linear forwards ;
+}
+.progress.qvd .progress-left .progress-bar{
+    animation: loading-2 1s linear forwards 1s;
+}
+
+.progress.qv .progress-right .progress-bar{
+    animation: loading-1 2s linear forwards ;
+}
+.progress.qv .progress-left .progress-bar{
+    animation: loading-2 1s linear forwards;
+}
+.progress.sxd .progress-right .progress-bar{
+    animation: loading-1 2s linear forwards ;
+}
+.progress.sxd .progress-left .progress-bar{
+    animation: loading-2 1s linear forwards 1s;
+}
+
+.progress.sxt .progress-right .progress-bar{
+    animation: loading-1 2s linear forwards ;
+}
+.progress.sxt .progress-left .progress-bar{
+    animation: loading-2 1s linear forwards 1s;
+}
+
+.progress.cqt .progress-right .progress-bar{
+    animation: loading-1 2s 4s linear forwards ;
+}
+
+.progress.qrt .progress-right .progress-bar{
+    animation: loading-1 2s linear forwards ;
+}
+
+.progress.trt .progress-right .progress-bar{
+    animation: loading-1 2s linear forwards ;
+}
+
+.progress.vgt .progress-right .progress-bar{
+    animation: loading-1 2s linear forwards ;
+}
+
+.progress.dix .progress-right .progress-bar{
+    animation: loading-1 2s linear forwards ;
+}
+*/
+
+</style>

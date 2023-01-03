@@ -23,7 +23,7 @@
       class="ml-8 mr-8 p-2 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
     >
       <button
-          class="text-sky-700 align-middle mr-4 p-2 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
+          class="text-sky-700 align-middle mb-1 mr-4 p-2 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
           @click="
             if (this.currentQuestionPosition - 1 > 0) {
               this.currentQuestionPosition--;
@@ -31,7 +31,7 @@
             }
           "
         >
-   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
 </svg>
 
@@ -40,10 +40,9 @@
 
       Question {{ this.currentQuestionPosition }} /
       {{ this.totalNumberOfQuestion }}
-
       
       <button
-        class="text-sky-700 align-middle ml-4 p-2 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
+        class="text-sky-700 align-middle mb-1 ml-4 p-2 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
         @click="
           if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
             this.currentQuestionPosition++;
@@ -52,7 +51,7 @@
           else this.endQuiz();
         "
       >
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
 </svg>
 
