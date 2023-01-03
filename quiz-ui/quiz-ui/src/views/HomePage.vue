@@ -43,9 +43,14 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
                   </svg>
                   <div>
-                    <p class="font-semibold text-xl text-gray-100">
-                      Beyond Builder
-                    </p>
+                    <h1 class="font-semibold text-xl text-gray-100">
+                      欢迎
+                    </h1>
+                    <button data-tooltip-target="tooltip-animation" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Animated tooltip</button>
+                    <div id="tooltip-animation" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+                        Tooltip content
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                     <p class="text-gray-300">
                       Better Design
                     </p>
