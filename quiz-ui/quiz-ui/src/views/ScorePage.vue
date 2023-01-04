@@ -1,19 +1,12 @@
 <template>
 <div class="ScorePageBody">
 
-    <div v-if="this.statsLoaded">
-      <div class="hover:animate-pulse p-4 block text-3xl text-center">
-        <p>
-          Score de {{ this.userName }} : {{ this.userScore }} /
-          {{ nbr_questions }}
-        </p>
-        <p>
-          Vous êtes au rang : {{ this.userRank }} /
-          {{ this.registeredScores.length }}
-        </p>
 
+    <div v-if="this.statsLoaded" >
+
+      
         <!--message pour le joueur-->
-        <div class="mt-4">
+        <div class="m-2 text-center text-3xl">
           <p v-if="this.userRank < this.registeredScores.length / 3">
             Bravo, sentez vous supérieur à
             {{ this.registeredScores.length - this.userRank }}
@@ -33,8 +26,24 @@
             Bof, dans la moyenne... ouf ? (OvO)
           </p>
         </div>
+
+<div class="mx-auto mb-8 mt-8 w-3/5 grid grid-cols-2 place-items-center">
+      <div class="hover:animate-pulse p-6 block text-3xl text-left">
+        <p>
+          Joueur : {{ this.userName }}
+        </p>
+        <p>
+          Score : {{ this.userScore }} /
+          {{ nbr_questions }}
+        </p>
+        <p>
+          Rang : {{ this.userRank }} /
+          {{ this.registeredScores.length }}
+        </p>
+
       </div>
 
+      <!-- Cercle de score animé -->
       <div v-if="this.circleStyle['--sratio']" class="skill">
         <div class="outer">  
           <div class="inner">
@@ -56,10 +65,15 @@
           <!-- :style="`stroke-dashoffset: ${472*100*this.userScore/this.nbr_questions}`"  -->
         </svg>
       </div>
-      
-{{this.circleStyle['--sratio']}}
 
+</div>
     </div> 
+    <div v-else class="p-8 pt-24">
+      <!-- Loading animation elements -->
+      <div class="outerCircle"></div>
+      <div class="innerCircle"></div>
+      <div class="icon"></div>
+    </div>
 
     <!-- Tableau de isa-->
     <div class="w-full mb-12 px-12 ">
@@ -259,6 +273,7 @@ export default {
 .ScorePageBody {
   width: 100%;
   height:100%;
+  padding-top:2em;
   padding-bottom: 10em;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
@@ -315,7 +330,6 @@ export default {
 }
 
 circle{
-  /* --offset: calc(472*(1 - var(--sratio))); */
   fill: none;
   stroke: url(#GradientColor);
   stroke-width: 20px;
@@ -337,5 +351,55 @@ svg {
   }
 }
 
+
+/* Loading animation */
+.outerCircle {
+background-color: transparent;
+border: 8px solid rgba(97, 82, 72, 0.9);
+opacity: .9;
+border-right: 5px solid transparent;
+border-left: 5px solid transparent;
+border-radius: 100px;
+width: 103px;
+height: 103px;
+margin: 0 auto;
+-moz-animation: spinPulse 3s infinite ease-in-out;
+-webkit-animation: spinPulse 3s infinite ease-in-out;
+}
+.innerCircle {
+background-color: transparent;
+border: 5px solid rgba(189, 215, 60, 0.6);
+opacity: .9;
+border-left: 5px solid transparent;
+border-right: 5px solid transparent;
+border-radius: 100px;
+top: -100px;
+width: 92px;
+height: 92px;
+margin: 0 auto;
+position: relative;
+-moz-animation: spinoffPulse 1s infinite linear;
+-webkit-animation: spinoffPulse 1s infinite linear;
+}
+
+
+@-moz-keyframes spinPulse {
+    0% { -moz-transform:rotate(160deg); opacity:0; box-shadow:0 0 1px #bdd73c;}
+	50% { -moz-transform:rotate(145deg); opacity:1; }
+	100% { -moz-transform:rotate(-320deg); opacity:0; }
+}
+@-moz-keyframes spinoffPulse {
+    0% { -moz-transform:rotate(0deg); }
+	100% { -moz-transform:rotate(360deg);  }
+}
+@-webkit-keyframes spinPulse {
+    0% { -webkit-transform:rotate(160deg); opacity:0; box-shadow:0 0 1px #bdd73c; }
+	50% { -webkit-transform:rotate(145deg); opacity:1;}
+	100% { -webkit-transform:rotate(-320deg); opacity:0; }
+}
+@-webkit-keyframes spinoffPulse {
+    0% { -webkit-transform:rotate(0deg); }
+	100% { -webkit-transform:rotate(360deg); }
+}
 
 </style>
