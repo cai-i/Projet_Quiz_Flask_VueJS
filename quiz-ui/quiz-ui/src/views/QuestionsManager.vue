@@ -24,7 +24,7 @@
           class="flex place-content-center gap-6 p-2 rounded font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
         >
           <button
-              class="px-1 py-1 mb-2 text-sky-700 align-middle rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
+              class="px-1 py-1 text-sky-700 align-middle rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
               @click="
                 if (this.currentQuestionPosition - 1 > 0) {
                   this.currentQuestionPosition--;
@@ -41,7 +41,7 @@
           {{ this.totalNumberOfQuestion }}
           
           <button
-            class="px-1 py-1 mb-2 text-sky-700 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
+            class="px-1 py-1 text-sky-700 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
             @click="
               if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
                 this.currentQuestionPosition++;
