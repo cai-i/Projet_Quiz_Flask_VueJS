@@ -230,7 +230,7 @@ export default {
     // compter pour l'animation du score
     this.scoreLoading();
     // Nettoyer les données du joueur, commenter si test
-    participationStorageService.clear();
+    //participationStorageService.clear();
     console.log("Composant Score page 'created'");
   },
   methods: {
@@ -248,7 +248,9 @@ export default {
         )
         this.userRank = parseInt(scoreEntry) + 1;
       }      
-      this.circleStyle['--sratio']=472*(1-this.userScore/this.nbr_questions)-2;
+      this.circleStyle['--sratio']=472*(1+0.05-this.userScore/this.nbr_questions)-1;
+      if (this.userScore==0)
+        this.circleStyle['--sratio']=470;
     },
     scoreLoading : function() {
       this.circleStyle.animationPlayState="running";
@@ -348,7 +350,7 @@ circle{
 
 svg {
   position: absolute;
-  transform: rotate(-85deg);
+  transform: rotate(-90deg);
   top:0;
   left:0;
 }
