@@ -12,128 +12,36 @@
     <!-- cartes de présentation des personnes-->
     <div class="w-5/6 mx-auto mt-7 gap-3 justify-center items-center grid grid-cols-1 place-items-center lg:flex">
       <!-- 1ère carte : Huiying DAI-->
-      <div class="group grow h-96 w-96 [perspective:1000px]">
-        <div class="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-          <div class="absolute inset-0">
-            <img class="h-full w-full rounded-xl object-cover shadow-xl shadow-black/40" src="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1"/>
-          </div>
-          <div class="absolute inset-0 h-full w-full rounded-xl bg-black/80 px-12 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-            <div class="flex gap-3 min-h-full flex-col items-center justify-center">
-              <h1 class="text-3xl font-bold">Huiying DAI</h1>
-              <p class="text-base"> 
-                Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique
-              </p>
-              <p>
-                Passion : la modélisation 3D et être proactive
-              </p>
-              <a class="mt-2 rounded-full bg-amber-400 text-black py-2 px-3.5 text-sm hover:bg-yellow-600" href="https://fr.linkedin.com/in/huiying-dai-7219a71b5">
-                Linkedin
-              </a>
-              <!-- liens image + licence -->
-              <div class="absolute bottom-2 right-3 flex flex-col justify-end text-white">
-                <div class="flex items-center opacity-50 hover:opacity-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                  </svg>
-                  <a class="py-1 px-1 hover:underline" href="https://www.rawpixel.com/image/5924500">
-                    image
-                  </a>
-                </div>
-                <div class="flex items-center opacity-50 hover:opacity-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                  </svg>
-                  <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/publicdomain/zero/1.0/">
-                    license
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <StaffCard name="Huiying DAI" 
+                 presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique"
+                 hobby="Passion : acquérir de nouvelles connaissances"
+                 backgroundImageURL="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1"
+                 linkedinURL="https://fr.linkedin.com/in/huiying-dai-7219a71b5"
+                 imageURL="https://www.rawpixel.com/image/5924500"
+                 licenseURL="https://creativecommons.org/publicdomain/zero/1.0/"
+                >
+      </StaffCard>
+
       <!-- 2ème carte : Emilie CHEN -->
-      <div class="group grow h-96 w-96 [perspective:1000px]">
-        <div class="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-          <div class="absolute inset-0">
-            <img class="h-full w-full rounded-xl object-cover shadow-xl shadow-black/40" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Algorithmically-generated_landscape_artwork_of_forest_with_Shinto_shrine_using_negative_prompt_for_green_trees.png"/>
-          </div>
-          <div class="absolute inset-0 h-full w-full rounded-xl bg-black/80 px-12 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-            <div class="flex gap-3 min-h-full flex-col items-center justify-center">
-              <h1 class="text-3xl font-bold">Emilie CHEN</h1>
-              <p class="text-base"> 
-                Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique
-              </p>
-              <p>
-                Passion : être créative et ambitieuse
-              </p>
-              <a class="mt-2 rounded-full bg-amber-400 text-black py-2 px-3.5 text-sm hover:bg-yellow-600" href="https://fr.linkedin.com/in/emilie-chen-a077b022a/en?trk=people-guest_people_search-card&original_referer=https%3A%2F%2Fwww.google.com%2F">
-                Linkedin
-              </a>
-              <!-- liens image + licence -->
-              <div class="absolute bottom-2 right-3 flex flex-col justify-end text-white">
-                <div class="flex items-center opacity-50 hover:opacity-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                  </svg>
-                  <a class="py-1 px-1 hover:underline" href="https://commons.wikimedia.org/wiki/File:Algorithmically-generated_landscape_artwork_of_forest_with_Shinto_shrine_using_negative_prompt_for_green_trees.png">
-                    image
-                  </a>
-                </div>
-                <div class="flex items-center opacity-50 hover:opacity-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                  </svg>
-                  <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr">
-                    license
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 3ère carte : Isabelle CAI-->
-      <div class="group grow h-96 w-96 [perspective:1000px]">
-        <div class="relative h-full w-full rounded-xl shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-          <div class="absolute inset-0">
-            <img class="h-full w-full rounded-xl object-cover shadow-xl shadow-black/40" src="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1"/>
-          </div>
-          <div class="absolute inset-0 h-full w-full rounded-xl bg-black/80 px-12 text-center text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-            <div class="flex gap-3 min-h-full flex-col items-center justify-center">
-              <h1 class="text-3xl font-bold">Isabelle CAI</h1>
-              <p class="text-base"> 
-                Etudiante en dernière année d'école d'ingénieur spécialisée en Date Science et Intelligence Artificielle
-              </p>
-              <p>
-                Passion : acquérir de nouvelles connaissances
-              </p>
-              <a class="mt-2 rounded-full bg-amber-400 text-black py-2 px-3.5 text-sm hover:bg-yellow-600" href="https://fr.linkedin.com/in/isabelle-cai-019a0a221">
-                Linkedin
-              </a>
-              <!-- liens image + licence -->
-              <div class="absolute bottom-2 right-3 flex flex-col justify-end text-white">
-                <div class="flex items-center opacity-50 hover:opacity-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                  </svg>
-                  <a class="py-1 px-1 hover:underline" href="https://www.rawpixel.com/image/5924500">
-                    image
-                  </a>
-                </div>
-                <div class="flex items-center opacity-50 hover:opacity-100">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                  </svg>
-                  <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/publicdomain/zero/1.0/">
-                    license
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <StaffCard name="Emilie CHEN" 
+                 presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Date Science et Intelligence Artificielle"
+                 hobby="Passion : être créative et ambitieuse"
+                 backgroundImageURL="https://upload.wikimedia.org/wikipedia/commons/6/6d/Algorithmically-generated_landscape_artwork_of_forest_with_Shinto_shrine_using_negative_prompt_for_green_trees.png"
+                 linkedinURL="https://fr.linkedin.com/in/emilie-chen-a077b022a/en?trk=people-guest_people_search-card&original_referer=https%3A%2F%2Fwww.google.com%2F"
+                 imageURL="https://commons.wikimedia.org/wiki/File:Algorithmically-generated_landscape_artwork_of_forest_with_Shinto_shrine_using_negative_prompt_for_green_trees.png"
+                 licenseURL="https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
+                >
+      </StaffCard>
+
+      <StaffCard name="Emilie CHEN" 
+                 presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique"
+                 hobby="Passion : être créative et ambitieuse"
+                 backgroundImageURL="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1"
+                 linkedinURL="https://fr.linkedin.com/in/isabelle-cai-019a0a221"
+                 imageURL="https://www.rawpixel.com/image/5924500"
+                 licenseURL="https://creativecommons.org/publicdomain/zero/1.0/"
+                >
+      </StaffCard>
     </div>
     <!-- carte de présentation du projet et licenses-->
     <div class="w-5/6 mx-auto mt-7 gap-3 justify-center items-center grid grid-cols-1 lg:flex">
@@ -241,3 +149,12 @@
     </div>
   </section>
 </template>
+
+<script>
+
+import StaffCard from './StaffCard.vue';
+
+export default {
+    components: { StaffCard }
+};
+</script>
