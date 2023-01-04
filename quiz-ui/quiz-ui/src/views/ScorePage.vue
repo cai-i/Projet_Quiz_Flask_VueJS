@@ -227,7 +227,6 @@ export default {
     this.nbr_questions = quizInfoApiResult.data.size;
 
     this.scoreStats();
-    // this.circleStyle.strokeDashoffset = ""+472*100*this.userScore/this.nbr_questions;
     this.statsLoaded=true;
 
     this.scoreLoading();
@@ -249,19 +248,28 @@ export default {
         )
         this.userRank = parseInt(scoreEntry) + 1;
       }      
-      this.circleStyle['--sratio']=472*(1-this.userScore/this.nbr_questions);
+      this.circleStyle['--sratio']=472*(1-this.userScore/this.nbr_questions)-2;
     },
     scoreLoading : function() {
       this.circleStyle.animationPlayState="running";
+      // Cas score de 0
+      if(this.userScore==0) {
+        return this.scoreDisplay= "0%";
+      }
+      // Cas score sup a 0
       var counter=0;
+      var incr=parseInt(10*this.userScore/this.nbr_questions,10);
       setInterval(()=> {
-        if(counter == 100*this.userScore/this.nbr_questions) {
+        if(counter >= 100*this.userScore/this.nbr_questions-10) {
+          incr=1;
+        } 
+        if(counter >= 100*this.userScore/this.nbr_questions) {
           clearInterval();
         } else {
-          counter ++;
+          counter +=incr;
           this.scoreDisplay= counter + "%";
         }
-      }, 10);
+      });
     }
   },
 };
