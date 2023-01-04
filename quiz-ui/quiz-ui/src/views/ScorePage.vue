@@ -4,9 +4,8 @@
 
     <div v-if="this.statsLoaded" >
 
-      
         <!--message pour le joueur-->
-        <div class="m-2 text-center text-3xl">
+        <div v-if="this.userScore" class="m-2 text-center text-3xl">
           <p v-if="this.userRank < this.registeredScores.length / 3">
             Bravo, sentez vous supérieur à
             {{ this.registeredScores.length - this.userRank }}
@@ -225,12 +224,13 @@ export default {
     var quizInfoApiResult = await quizInfoPromise;
     this.registeredScores = quizInfoApiResult.data.scores;
     this.nbr_questions = quizInfoApiResult.data.size;
-
+    // charger les stats du joueur
     this.scoreStats();
     this.statsLoaded=true;
-
+    // compter pour l'animation du score
     this.scoreLoading();
-
+    // Nettoyer les données du joueur
+    participationStorageService.clear();
     console.log("Composant Score page 'created'");
   },
   methods: {
