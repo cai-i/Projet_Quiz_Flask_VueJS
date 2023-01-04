@@ -34,9 +34,9 @@
       </StaffCard>
 
       <!-- 3ème carte : Isabelle CAI -->
-      <StaffCard name="Emilie CHEN" 
-                 presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique"
-                 hobby="Passion : être créative et ambitieuse"
+      <StaffCard name="Isabelle CAI" 
+                 presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Date Science et Intelligence Artificielle"
+                 hobby="Passion : acquérir de nouvelles connaissances"
                  backgroundImageURL="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1"
                  linkedinURL="https://fr.linkedin.com/in/isabelle-cai-019a0a221"
                  imageURL="https://www.rawpixel.com/image/5924500"
