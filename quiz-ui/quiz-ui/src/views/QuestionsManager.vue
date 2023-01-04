@@ -1,6 +1,7 @@
 <template>
   
   <div :style="myStyle">
+  
     <div class="w-5/6 mx-auto">
       <h1
         class="py-8 px-8 text-2xl font-bold text-red-800"
@@ -110,14 +111,16 @@ export default {
     var quizInfoApiResult = await quizInfoPromise;
     this.totalNumberOfQuestion = quizInfoApiResult.data.size;
     this.username = participationStorageService.getPlayerName();
-    this.answers = Array(this.totalNumberOfQuestion).fill(0);      if(this.totalNumberOfQuestion > 0){
-    this.loadQuestionByPosition().then(
-      response => {
-          this.loading = false;
-      }
-    );
-  }
-  else { this.loading = false;};
+    this.answers = Array(this.totalNumberOfQuestion).fill(0);      
+    if(this.totalNumberOfQuestion > 0){
+      this.loadQuestionByPosition().then(
+        response => {
+            this.loading = false;
+        }
+      );
+    }
+    else { this.loading = false;};
+    console.log("QuestionsPage created");
   },
   methods: {
     async loadQuestionByPosition() {
@@ -142,7 +145,7 @@ export default {
     },
     async endQuiz() {
       console.log("end Quiz");
-      var username = participationStorageService.getPlayerName();
+      this.username = participationStorageService.getPlayerName();
       var quizInfoPromise = quizApiService.submitAnswers(
         this.username,
         this.answers

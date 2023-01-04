@@ -4,7 +4,7 @@
       class="py-16 px-8 text-4xl font-bold text-red-800"
       :style="myTextStrokeRule"
     >
-      NewQuizPage
+      Commencer le quiz !
     </h1>
 
     <div class="mt-8 grid gap-4 place-content-center">
@@ -26,7 +26,7 @@
           class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           id="name"
-          placeholder="Votre chouette pseudo"
+          placeholder="Mon super pseudo"
           v-model="username"
         />
 
