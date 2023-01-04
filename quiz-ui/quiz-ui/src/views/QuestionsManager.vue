@@ -6,7 +6,7 @@
     >
       Notre quiz saura t-il vous mettre en PLS ?
 
-      <div class="font-bold text-black text-lg" v-if="username">
+      <div v-if="username" class="font-bold text-black text-lg" >
         Joueur : {{ this.username }} ne semble pas encore foutu
       </div>
     </h1>
@@ -16,11 +16,14 @@
     class="ml-24 mr-24 p-8 text-center shadow-md border rounded px-8 bg-white bg-opacity-60"
   >
 
+
+
+  <div v-if="!this.loading">
     <div
       class="ml-8 mr-8 p-2 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
     >
       <button
-          class="align-middle mr-4 p-2 rounded bg-white bg-opacity-40 hover:bg-opacity-30 hover:text-black"
+          class="text-sky-700 align-middle mb-1 mr-4 p-2 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
           @click="
             if (this.currentQuestionPosition - 1 > 0) {
               this.currentQuestionPosition--;
@@ -28,41 +31,40 @@
             }
           "
         >
-   
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
-      </svg>
+   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+</svg>
 
 
       </button>
 
       Question {{ this.currentQuestionPosition }} /
       {{ this.totalNumberOfQuestion }}
-
       
       <button
-        class="align-middle ml-4 p-2 rounded bg-white bg-opacity-40 hover:bg-opacity-30 hover:text-black"
+        class="text-sky-700 align-middle mb-1 ml-4 p-2 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
         @click="
           if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
             this.currentQuestionPosition++;
             loadQuestionByPosition();
           }
+          else this.endQuiz();
         "
       >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
-      </svg>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+</svg>
 
       </button>
     </div>
 
     <div class="mt-4 px-8">
       <QuestionDisplay
-        :question="currentQuestion"
+        :question="currentQuestion" :selectedAnswer="answers[this.currentQuestionPosition-1]"
         @click-on-answer="answerClickedHandler"
       />
     </div>
-
+</div>
   </div>
 
   </div>
@@ -80,6 +82,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       totalNumberOfQuestion: 0,
       currentQuestionPosition: 1,
       username: null,
@@ -110,8 +113,16 @@ export default {
     var quizInfoApiResult = await quizInfoPromise;
     this.totalNumberOfQuestion = quizInfoApiResult.data.size;
     this.username = participationStorageService.getPlayerName();
-    this.answers = Array(this.totalNumberOfQuestion).fill(0);
-    this.loadQuestionByPosition();
+    this.answers = Array(this.totalNumberOfQuestion).fill(0);      
+    if(this.totalNumberOfQuestion > 0){
+      this.loadQuestionByPosition().then(
+        response => {
+            this.loading = false;
+        }
+      );
+    }
+    else { this.loading = false;};
+    console.log("QuestionsPage created");
   },
   methods: {
     async loadQuestionByPosition() {
@@ -136,7 +147,7 @@ export default {
     },
     async endQuiz() {
       console.log("end Quiz");
-      var username = participationStorageService.getPlayerName();
+      this.username = participationStorageService.getPlayerName();
       var quizInfoPromise = quizApiService.submitAnswers(
         this.username,
         this.answers
