@@ -229,7 +229,7 @@ export default {
     this.statsLoaded=true;
     // compter pour l'animation du score
     this.scoreLoading();
-    // Nettoyer les données du joueur
+    // Nettoyer les données du joueur, commenter si test
     participationStorageService.clear();
     console.log("Composant Score page 'created'");
   },
