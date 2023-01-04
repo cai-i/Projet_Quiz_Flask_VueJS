@@ -33,6 +33,7 @@
                 >
       </StaffCard>
 
+      <!-- 3ème carte : Isabelle CAI -->
       <StaffCard name="Emilie CHEN" 
                  presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique"
                  hobby="Passion : être créative et ambitieuse"
