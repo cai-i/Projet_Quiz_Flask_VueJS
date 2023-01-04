@@ -1,74 +1,76 @@
 <template>
+<div class="ScorePageBody">
 
-  <div class="bg-neutral-300">
-    <div class="hover:animate-pulse p-4 block text-3xl text-center">
-      <p>
-        Score de {{ this.userName }} : {{ this.userScore }} /
-        {{ nbr_questions }}
-      </p>
-      <p>
-        Vous êtes au rang : {{ this.userRank }} /
-        {{ this.registeredScores.length }}
-      </p>
-
-      <!--message pour le joueur-->
-      <div class="mt-4">
-        <p v-if="this.userRank < this.registeredScores.length / 3">
-          Bravo, sentez vous supérieur à
-          {{ this.registeredScores.length - this.userRank }}
-          personnes aujourd'hui !
+    <div v-if="this.statsLoaded">
+      <div class="hover:animate-pulse p-4 block text-3xl text-center">
+        <p>
+          Score de {{ this.userName }} : {{ this.userScore }} /
+          {{ nbr_questions }}
+        </p>
+        <p>
+          Vous êtes au rang : {{ this.userRank }} /
+          {{ this.registeredScores.length }}
         </p>
 
-        <p v-if="this.userRank > (this.registeredScores.length * 2) / 3">
-          Bravo, vous vous êtes fait DE-FON-CE.E !
-        </p>
+        <!--message pour le joueur-->
+        <div class="mt-4">
+          <p v-if="this.userRank < this.registeredScores.length / 3">
+            Bravo, sentez vous supérieur à
+            {{ this.registeredScores.length - this.userRank }}
+            personnes aujourd'hui !
+          </p>
 
-        <p
-          v-if="
-            this.userRank >= this.registeredScores.length / 3 &&
-            this.userRank <= (this.registeredScores.length * 2) / 3
-          "
-        >
-          Bof, dans la moyenne... ouf ? (OvO)
-        </p>
-      </div>
-    </div>
+          <p v-if="this.userRank > (this.registeredScores.length * 2) / 3">
+            Bravo, vous vous êtes fait DE-FON-CE.E !
+          </p>
 
-
-      <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <div class="progress cent"
-                :class="[this.userScore===100 ? 'text-green-700' : this.userScore>50 ? 'text-yellow-700' : 'text-red-700']">
-                    <span class="progress-left">
-                        <span class="progress-bar"></span>
-                    </span>
-                    <span class="progress-right">
-                        <span class="progress-bar"></span>
-                    </span>
-                    <div class="progress-value">
-                      <div v-if="100*this.userScore/nbr_questions"> 
-                      {{100*this.userScore/nbr_questions}}%
-                      </div>                      
-                      <div v-else> 
-                      ???
-                      </div>
-                    </div>
-                </div>
-            </div>
+          <p
+            v-if="
+              this.userRank >= this.registeredScores.length / 3 &&
+              this.userRank <= (this.registeredScores.length * 2) / 3
+            "
+          >
+            Bof, dans la moyenne... ouf ? (OvO)
+          </p>
         </div>
       </div>
 
+      <div v-if="this.circleStyle['--sratio']" class="skill">
+        <div class="outer">  
+          <div class="inner">
+            <div class="number">        
+              {{this.scoreDisplay}}
+            </div>
+          </div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+          <defs>
+            <linearGradient id="GradientColor">
+                <stop offset="0%" stop-color="#e91e63" />
+                <stop offset="100%" stop-color="#673ab7" />
+            </linearGradient>
+          </defs>
+          <circle cx="80" cy="80" r="70" stroke-linecap="round" 
+          :style="circleStyle"
+          />          
+          <!-- :style="`stroke-dashoffset: ${472*100*this.userScore/this.nbr_questions}`"  -->
+        </svg>
+      </div>
+      
+{{this.circleStyle['--sratio']}}
+
+    </div> 
+
     <!-- Tableau de isa-->
-    <div class="w-full mb-12 px-12">
+    <div class="w-full mb-12 px-12 ">
       <div
-        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-red-700 text-pink-800 font-bold"
+        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg bg-red-700 text-white font-bold"
       >
         <!-- fond du tableau -->
         <div
           class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
           style="
-            background-image: url(https://wallpaper.dog/large/5459726.jpg);
+            background-image: url(https://live.staticflickr.com/2827/9726868283_7f6fee0e32_b.jpg);
           "
         ></div>
         <div class="w-full backdrop-blur">
@@ -177,12 +179,13 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
 import quizApiService from "@/services/QuizApiService";
 import participationStorageService from "@/services/ParticipationStorageService";
+
 
 export default {
   name: "ScorePage",
@@ -194,6 +197,12 @@ export default {
       userRank: 1,
       userScore: 0,
       rate: "",
+      scoreDisplay:"",
+      statsLoaded:false,  
+      circleStyle: {
+        '--sratio':null,
+        animationPlayState:"paused"
+      }     
     };
   },
   async created() {
@@ -203,16 +212,12 @@ export default {
     this.registeredScores = quizInfoApiResult.data.scores;
     this.nbr_questions = quizInfoApiResult.data.size;
 
-    this.userName = participationStorageService.getPlayerName();
-    this.userScore = participationStorageService.getParticipationScore();
-    console.log(this.userScore);
-    for (var scoreEntry in this.registeredScores) {
-      if (
-        this.registeredScores[scoreEntry].playerName === this.userName &&
-        this.registeredScores[scoreEntry].score == this.userScore
-      )
-        this.userRank = parseInt(scoreEntry) + 1;
-    }
+    this.scoreStats();
+    // this.circleStyle.strokeDashoffset = ""+472*100*this.userScore/this.nbr_questions;
+    this.statsLoaded=true;
+
+    this.scoreLoading();
+
     console.log("Composant Score page 'created'");
   },
   methods: {
@@ -220,189 +225,117 @@ export default {
       this.rate = String((value * 100) / this.nbr_questions);
       return this.rate;
     },
+    scoreStats: function() {    
+      this.userName = participationStorageService.getPlayerName();
+      this.userScore = participationStorageService.getParticipationScore();
+      for (var scoreEntry in this.registeredScores) {
+        if (
+          this.registeredScores[scoreEntry].playerName === this.userName &&
+          this.registeredScores[scoreEntry].score == this.userScore
+        )
+        this.userRank = parseInt(scoreEntry) + 1;
+      }      
+      this.circleStyle['--sratio']=472*(1-this.userScore/this.nbr_questions);
+    },
+    scoreLoading : function() {
+      this.circleStyle.animationPlayState="running";
+      var counter=0;
+      setInterval(()=> {
+        if(counter == 100*this.userScore/this.nbr_questions) {
+          clearInterval();
+        } else {
+          counter ++;
+          this.scoreDisplay= counter + "%";
+        }
+      }, 10);
+    }
   },
 };
 </script>
 
 <style scoped>
 
-.progress{
-    background: none;
-    margin: 0 auto;
-    box-shadow: none;
-    width: 150px;
-    height: 150px;
-    line-height: 150px;
-    position: relative;
-}
-.progress:after{
-    content: "";
-    border-radius: 50%;
-    border: 15px solid #f2f5f5;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-.progress > span{
-    position: absolute;
-    top: 0;
-    z-index: 1;
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-}
-.progress .progress-bar{
-    border-width: 15px;
-    border-style: solid;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: none;
-    top: 0;
-}
-.progress .progress-left{
-    left: 0;
-}
-.progress .progress-left .progress-bar{
-    left: 100%;
-    border-top-right-radius: 80px;
-    border-bottom-right-radius: 80px;
-    border-left: 0;
-    -webkit-transform-origin: center left;
-    transform-origin: center left;
-}
-.progress .progress-right{
-    right: 0;
-}
-.progress .progress-right .progress-bar{
-    left: -100%;
-    border-top-left-radius: 80px;
-    border-bottom-left-radius: 80px;
-    border-right: 0;
-    -webkit-transform-origin: center right;
-    transform-origin: center right;
-}
-.progress .progress-value{
-    font-size: 34px;
-    font-weight: bold;
-    text-align: center;
-    width: 100%;
-    height: 100%;
-    position: absolute;
+/* animation pour le background */
+.ScorePageBody {
+  width: 100%;
+  height:100%;
+  padding-bottom: 10em;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
 }
 
-@keyframes loading-1{
-    0%{
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-        border-color:red;
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
     }
-    50%{
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
-        border-color:red;
+    50% {
+        background-position: 100% 50%;
     }
-    55%, 60%, 70%, 80%, 90% {
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
-        border-color: orange;
-    }
-    98%{
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
-        border-color: orange;
-    }
-    100%{
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
-        border-color: green;
-    }
-}
-@keyframes loading-2{
-    0%{
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-        border-color: red;
-    }
-    10%{
-        -webkit-transform: rotate(18deg);
-        transform: rotate(18deg);
-        border-color: orange;
-    }
-    95%{
-        -webkit-transform: rotate(171deg);
-        transform: rotate(171deg);
-        border-color: orange;
-    }
-    100%{
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
-        border-color: green;
+    100% {
+        background-position: 0% 50%;
     }
 }
 
-.progress.cent .progress-right .progress-bar{
-    animation: loading-1 2s linear forwards ;
-    /*animation-play-state: paused;*/
-}
-.progress.cent .progress-left .progress-bar{
-    animation: loading-2 1s linear forwards 1s;
-    /*animation-play-state: paused;*/
+
+/* Animation pour le score rate  */
+.skill {
+  width: 160px;
+  height:160px;
+  position: relative;
 }
 
-.progress.stop .progress-left .progress-bar{
-    animation-play-state: running;
+.outer{
+  height:160px;
+  width: 160px;
+  border-radius: 50%;
+  padding: 20px;
+  box-shadow: 6px 6px  10px -1px rgba(0,0,0,0.15),
+            -6px -6px  10px -1px rgba(255,255,255,0.15)
 }
 
-/*
-.progress.qvd .progress-right .progress-bar{
-    animation: loading-1 2s linear forwards ;
-}
-.progress.qvd .progress-left .progress-bar{
-    animation: loading-2 1s linear forwards 1s;
-}
-
-.progress.qv .progress-right .progress-bar{
-    animation: loading-1 2s linear forwards ;
-}
-.progress.qv .progress-left .progress-bar{
-    animation: loading-2 1s linear forwards;
-}
-.progress.sxd .progress-right .progress-bar{
-    animation: loading-1 2s linear forwards ;
-}
-.progress.sxd .progress-left .progress-bar{
-    animation: loading-2 1s linear forwards 1s;
+.inner{
+  height:120px;
+  width: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 4px 4px 6px -1px rgba(0,0,0,0.15),
+            inset -4px -4px 6px -1px rgba(255,255,255,0.15),
+             -0.5px -0.5px 0px rgba(255,255,255,0.5),
+             0.5px 0.5px 0px rgba(0,0,0,0.15),
+             0px 12px 10px rgba(0,0,0,0.05)
 }
 
-.progress.sxt .progress-right .progress-bar{
-    animation: loading-1 2s linear forwards ;
-}
-.progress.sxt .progress-left .progress-bar{
-    animation: loading-2 1s linear forwards 1s;
-}
-
-.progress.cqt .progress-right .progress-bar{
-    animation: loading-1 2s 4s linear forwards ;
+.number{ 
+  font-size: xx-large;
+  font-weight: 60em;
+  color: #555;
 }
 
-.progress.qrt .progress-right .progress-bar{
-    animation: loading-1 2s linear forwards ;
+circle{
+  /* --offset: calc(472*(1 - var(--sratio))); */
+  fill: none;
+  stroke: url(#GradientColor);
+  stroke-width: 20px;
+  stroke-dasharray:472;
+  stroke-dashoffset:472;
+  animation: anim 2s linear forwards;
+} 
+
+svg {
+  position: absolute;
+  transform: rotate(-85deg);
+  top:0;
+  left:0;
 }
 
-.progress.trt .progress-right .progress-bar{
-    animation: loading-1 2s linear forwards ;
+@keyframes anim{
+  100%{
+    stroke-dashoffset: var(--sratio) ;
+  }
 }
 
-.progress.vgt .progress-right .progress-bar{
-    animation: loading-1 2s linear forwards ;
-}
-
-.progress.dix .progress-right .progress-bar{
-    animation: loading-1 2s linear forwards ;
-}
-*/
 
 </style>
