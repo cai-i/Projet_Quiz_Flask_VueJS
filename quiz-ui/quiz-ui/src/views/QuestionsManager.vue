@@ -116,7 +116,7 @@ export default {
   methods: {
     async loadQuestionByPosition() {
       console.log("load Question By Position");
-      var quizInfoPromise = quizApiService.getQuestion(
+      var quizInfoPromise = quizApiService.getQuestionByPosition(
         this.currentQuestionPosition
       );
       var quizInfoApiResult = await quizInfoPromise;

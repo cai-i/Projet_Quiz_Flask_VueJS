@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import participationStorageService from "@/services/ParticipationStorageService";
 
 export default {
   name: "QuestionDisplay",
