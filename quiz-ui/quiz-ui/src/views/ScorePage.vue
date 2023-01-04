@@ -83,7 +83,11 @@
         <div
           class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
           style="
+<<<<<<< HEAD
             background-image: url(https://live.staticflickr.com/2827/9726868283_7f6fee0e32_b.jpg);
+=======
+            background-image: url(https://wallpaper.dog/large/5459726.jpg);
+>>>>>>> hyd
           "
         ></div>
         <div class="w-full backdrop-blur">
