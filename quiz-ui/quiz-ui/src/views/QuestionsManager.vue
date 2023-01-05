@@ -1,55 +1,70 @@
 <template>
+  
   <div :style="myStyle">
-    <h1
-      class="py-8 px-8 text-2xl font-bold text-red-800"
-      :style="myTextStrokeRule"
-    >
-      Notre quiz saura t-il vous mettre en PLS ?
+  
+    <div class="w-5/6 mx-auto">
+      <h1
+        class="py-8 px-8 text-2xl font-bold text-red-800"
+        :style="myTextStrokeRule"
+      >
+        Notre quiz saura t-il vous mettre en PLS ?
 
-      <div class="font-bold text-black text-lg" v-if="username">
-        Joueur : {{ this.username }} ne semble pas encore foutu
-      </div>
-    </h1>
+        <div class="font-bold text-black text-lg" v-if="username">
+          Joueur : {{ this.username }} ne semble pas encore foutu
+        </div>
+      </h1>
+
 
     <div
-      class="mt-2 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
+      class="text-center shadow-md border rounded bg-white bg-opacity-60"
     >
-      Question {{ this.currentQuestionPosition }} /
-      {{ this.totalNumberOfQuestion }}
-    </div>
+    
+    <div class="mb-16 mt-8 mx-16 ">
+      <div v-if="!this.loading">
+        <div
+          class="flex place-content-center gap-6 p-2 rounded font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
+        >
+          <button
+              class="px-1 py-1 text-sky-700 align-middle rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
+              @click="
+                if (this.currentQuestionPosition - 1 > 0) {
+                  this.currentQuestionPosition--;
+                  loadQuestionByPosition();
+                }
+              "
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
 
-    <div class="font-bold text-yellow-900">
-      <button
-        class="m-4 ml-8 w-2/5 p-3 float-left rounded bg-cyan-500 bg-opacity-80 hover:bg-opacity-100 hover:text-black"
-        @click="
-          if (this.currentQuestionPosition - 1 > 0) {
-            this.currentQuestionPosition--;
-            loadQuestionByPosition();
-          }
-        "
-      >
-        Précédent
-      </button>
+          Question {{ this.currentQuestionPosition }} /
+          {{ this.totalNumberOfQuestion }}
+          
+          <button
+            class="px-1 py-1 text-sky-700 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
+            @click="
+              if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
+                this.currentQuestionPosition++;
+                loadQuestionByPosition();
+              }
+              else this.endQuiz();
+            "
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
 
-      <button
-        class="m-4 mr-8 w-2/5 p-3 float-right rounded bg-cyan-500 bg-opacity-80 hover:bg-opacity-100 hover:text-black"
-        @click="
-          if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
-            this.currentQuestionPosition++;
-            loadQuestionByPosition();
-          }
-        "
-      >
-        Suivant
-      </button>
+          <QuestionDisplay
+            :question="currentQuestion" :selectedAnswer="answers[this.currentQuestionPosition-1]"
+            @click-on-answer="answerClickedHandler"
+          />
+        </div>
     </div>
-
-    <div class="mt-20 px-8">
-      <QuestionDisplay
-        :question="currentQuestion"
-        @click-on-answer="answerClickedHandler"
-      />
     </div>
+  </div>
   </div>
 </template>
 
@@ -65,6 +80,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       totalNumberOfQuestion: 0,
       currentQuestionPosition: 1,
       username: null,
@@ -95,8 +111,16 @@ export default {
     var quizInfoApiResult = await quizInfoPromise;
     this.totalNumberOfQuestion = quizInfoApiResult.data.size;
     this.username = participationStorageService.getPlayerName();
-    this.answers = Array(this.totalNumberOfQuestion).fill(0);
-    this.loadQuestionByPosition();
+    this.answers = Array(this.totalNumberOfQuestion).fill(0);      
+    if(this.totalNumberOfQuestion > 0){
+      this.loadQuestionByPosition().then(
+        response => {
+            this.loading = false;
+        }
+      );
+    }
+    else { this.loading = false;};
+    console.log("QuestionsPage created");
   },
   methods: {
     async loadQuestionByPosition() {
@@ -121,7 +145,7 @@ export default {
     },
     async endQuiz() {
       console.log("end Quiz");
-      var username = participationStorageService.getPlayerName();
+      this.username = participationStorageService.getPlayerName();
       var quizInfoPromise = quizApiService.submitAnswers(
         this.username,
         this.answers
