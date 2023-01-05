@@ -154,7 +154,7 @@
 
 <script>
 
-import FlipCard from './FlipCard.vue';
+import FlipCard from './Components/FlipCard.vue';
 
 export default {
     components: { FlipCard }
