@@ -116,7 +116,6 @@ export default {
   methods: {
     selectQuestion(index){
       this.isDisplayingNewForm = false;
-
       this.selectedQuestion = index;
       this.loadQuestion(index);
     },
