@@ -93,12 +93,17 @@ export default {
       correctAnswerPosition: null
     };
   },
-  async created() {
-    for (let i = 0 ; i < this.question.possibleAnswers.length; i++){
-      if (this.question.possibleAnswers[i].isCorrect){
-        this.correctAnswerPosition = i;
-      }
+  watch: {
+    question: {
+      handler(val){
+        this.loadCorrectAnswerPosition()
+      },
+      deep: true
     }
+  },
+  async created() {
+    this.loadCorrectAnswerPosition()
+   
   },
   methods:{
     imageFileChangedHandler(b64String) {
@@ -106,6 +111,15 @@ export default {
     },
     addPossibleAnswers() {
       this.question.possibleAnswers.push({"text": "", "isCorrect": false});
+    },
+    loadCorrectAnswerPosition(){
+      for (let i = 0 ; i < this.question.possibleAnswers.length; i++){
+        if (this.question.possibleAnswers[i].isCorrect){
+          this.correctAnswerPosition = i;
+          console.log("answers", this.question.possibleAnswers[i]);
+          console.log("correct", this.correctAnswerPosition);
+        }
+      }
     },
 
     // Le second param de splice permet de spécifier le nombre d'élément à supprimer à partir de index, un dans notre cas
