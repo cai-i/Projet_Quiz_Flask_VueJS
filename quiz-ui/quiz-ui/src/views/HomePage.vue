@@ -209,9 +209,10 @@
           <div class="rounded-t mb-0 px-4 py-3 border-0">
             <div class="flex flex-wrap items-center">
               <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                <h3 class="font-semibold text-3xl text-white">
+                <h3 class="my-3 font-semibold text-3xl text-white">
                   Scores des participants
                 </h3>
+                <p class="text-xl"> Nombre de participants : {{nbr_participants}} </p>
               </div>
             </div>
           </div>
@@ -221,19 +222,19 @@
               <thead class="flex text-white w-full">
                 <!-- noms des colonnes du tableau -->
                 <tr class="flex w-full mb-2 bg-red-800 text-red-400 text-xl">
-                  <th class="px-6 py-3 ml-3 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 95px;">
+                  <th class="px-6 py-3 ml-8 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 95px;">
                     Rang
                   </th>
                   <th class="px-6 py-3 ml-2 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 250px;">
                     Nom d'utilisateur
                   </th>
-                  <th class="px-6 py-3 ml-10 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 150px;">
+                  <th class="px-6 py-3 ml-1 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 150px;">
                     Score
                   </th>
-                  <th class="px-6 py-3 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 250px;">
+                  <th class="px-6 py-3 ml-8 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 250px;">
                     Taux de réussite
                   </th>
-                  <th class="px-6 py-3 ml-[108px] border font-semibold border-l-0 border-r-0 border-red-700">
+                  <th class="px-6 py-3 ml-[90px] border font-semibold border-l-0 border-r-0 border-red-700">
                     Date de soumission
                   </th>
                 </tr>
@@ -244,8 +245,8 @@
                   v-for="(scoreEntry, rank) in registeredScores"
                   v-bind:key="scoreEntry.date"
                 >
-                  <tr class="flex w-full mb-4 items-center text-xl font-bold">
-                    <td class="px-6 py-2 ml-6 rounded-full" style="width: 95px;">
+                  <tr class="flex w-full mb-4 items-center text-xl">
+                    <td class="px-6 py-2 ml-12 content-center rounded-full" style="width: 95px;">
                       {{ rank + 1 }}
                     </td>
                     <td class="px-6 py-2 flex items-center">
@@ -254,7 +255,7 @@
                         class="h-12 w-12 bg-white rounded-full border"
                         alt="..."
                       />
-                      <span class="ml-3 text-white text-xl" style="width: 200px;">
+                      <span class="ml-3 text-xl font-bold" style="width: 170px;">
                         {{ scoreEntry.playerName }}
                       </span>
                     </td>
@@ -303,6 +304,7 @@ export default {
   data() {
     return {
       registeredScores: [],
+      nbr_participants:0,
       nbr_questions: 0,
       rate: ''
     };
@@ -313,6 +315,7 @@ export default {
     var quizInfoPromise = quizApiService.getQuizInfo();
     var quizInfoApiResult = await quizInfoPromise;
     this.registeredScores = quizInfoApiResult.data.scores;
+    this.nbr_participants = this.registeredScores.length;
     this.nbr_questions = quizInfoApiResult.data.size;
     console.log("Composant Home page 'created'"); 
   },
