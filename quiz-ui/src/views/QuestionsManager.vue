@@ -1,72 +1,70 @@
 <template>
+  
   <div :style="myStyle">
-    <h1
-      class="py-8 px-8 text-2xl font-bold text-red-800"
-      :style="myTextStrokeRule"
-    >
-      Notre quiz saura t-il vous mettre en PLS ?
-
-      <div v-if="username" class="font-bold text-black text-lg" >
-        Joueur : {{ this.username }} ne semble pas encore foutu
-      </div>
-    </h1>
-
-
-  <div
-    class="ml-24 mr-24 p-8 text-center shadow-md border rounded px-8 bg-white bg-opacity-60"
-  >
-
-
-
-  <div v-if="!this.loading">
-    <div
-      class="ml-8 mr-8 p-2 font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
-    >
-      <button
-          class="text-sky-700 align-middle mb-1 mr-4 p-2 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
-          @click="
-            if (this.currentQuestionPosition - 1 > 0) {
-              this.currentQuestionPosition--;
-              loadQuestionByPosition();
-            }
-          "
-        >
-   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-</svg>
-
-
-      </button>
-
-      Question {{ this.currentQuestionPosition }} /
-      {{ this.totalNumberOfQuestion }}
-      
-      <button
-        class="text-sky-700 align-middle mb-1 ml-4 p-2 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
-        @click="
-          if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
-            this.currentQuestionPosition++;
-            loadQuestionByPosition();
-          }
-          else this.endQuiz();
-        "
+  
+    <div class="w-5/6 mx-auto">
+      <h1
+        class="py-8 px-8 text-2xl font-bold text-red-800"
+        :style="myTextStrokeRule"
       >
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-</svg>
+        Notre quiz saura t-il vous mettre en PLS ?
 
-      </button>
-    </div>
+        <div class="font-bold text-black text-lg" v-if="username">
+          Joueur : {{ this.username }} ne semble pas encore foutu
+        </div>
+      </h1>
 
-    <div class="mt-4 px-8">
-      <QuestionDisplay
-        :question="currentQuestion" :selectedAnswer="answers[this.currentQuestionPosition-1]"
-        @click-on-answer="answerClickedHandler"
-      />
+
+    <div
+      class="text-center shadow-md border rounded bg-white bg-opacity-60"
+    >
+    
+    <div class="mb-16 mt-8 mx-16 ">
+      <div v-if="!this.loading">
+        <div
+          class="flex place-content-center gap-6 p-2 rounded font-bold text-xl text-yellow-700 border bg-white bg-opacity-50"
+        >
+          <button
+              class="px-1 py-1 text-sky-700 align-middle rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
+              @click="
+                if (this.currentQuestionPosition - 1 > 0) {
+                  this.currentQuestionPosition--;
+                  loadQuestionByPosition();
+                }
+              "
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+
+          Question {{ this.currentQuestionPosition }} /
+          {{ this.totalNumberOfQuestion }}
+          
+          <button
+            class="px-1 py-1 text-sky-700 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
+            @click="
+              if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
+                this.currentQuestionPosition++;
+                loadQuestionByPosition();
+              }
+              else this.endQuiz();
+            "
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
+
+          <QuestionDisplay
+            :question="currentQuestion" :selectedAnswer="answers[this.currentQuestionPosition-1]"
+            @click-on-answer="answerClickedHandler"
+          />
+        </div>
     </div>
-</div>
+    </div>
   </div>
-
   </div>
 </template>
 
