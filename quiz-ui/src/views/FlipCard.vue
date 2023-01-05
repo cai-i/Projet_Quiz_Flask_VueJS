@@ -42,5 +42,5 @@
 export default {
     props: ['name', 'presentation', 'hobby', 'backgroundImageURL', 'linkedinURL', 'imageURL', 'licenseURL']
 }
-
+ 
 </script>

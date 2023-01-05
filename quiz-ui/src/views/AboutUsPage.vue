@@ -12,7 +12,7 @@
     <!-- cartes de présentation des personnes-->
     <div class="w-5/6 mx-auto mt-7 gap-3 justify-center items-center grid grid-cols-1 place-items-center lg:flex">
       <!-- 1ère carte : Huiying DAI-->
-      <StaffCard name="Huiying DAI" 
+      <FlipCard name="Huiying DAI" 
                  presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique"
                  hobby="Passion : acquérir de nouvelles connaissances"
                  backgroundImageURL="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1"
@@ -20,10 +20,10 @@
                  imageURL="https://www.rawpixel.com/image/5924500"
                  licenseURL="https://creativecommons.org/publicdomain/zero/1.0/"
                 >
-      </StaffCard>
+      </FlipCard>
 
       <!-- 2ème carte : Emilie CHEN -->
-      <StaffCard name="Emilie CHEN" 
+      <FlipCard name="Emilie CHEN" 
                  presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Date Science et Intelligence Artificielle"
                  hobby="Passion : être créative et ambitieuse"
                  backgroundImageURL="https://upload.wikimedia.org/wikipedia/commons/6/6d/Algorithmically-generated_landscape_artwork_of_forest_with_Shinto_shrine_using_negative_prompt_for_green_trees.png"
@@ -31,10 +31,10 @@
                  imageURL="https://commons.wikimedia.org/wiki/File:Algorithmically-generated_landscape_artwork_of_forest_with_Shinto_shrine_using_negative_prompt_for_green_trees.png"
                  licenseURL="https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
                 >
-      </StaffCard>
+      </FlipCard>
 
       <!-- 3ème carte : Isabelle CAI -->
-      <StaffCard name="Isabelle CAI" 
+      <FlipCard name="Isabelle CAI" 
                  presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Date Science et Intelligence Artificielle"
                  hobby="Passion : acquérir de nouvelles connaissances"
                  backgroundImageURL="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1"
@@ -42,7 +42,7 @@
                  imageURL="https://www.rawpixel.com/image/5924500"
                  licenseURL="https://creativecommons.org/publicdomain/zero/1.0/"
                 >
-      </StaffCard>
+      </FlipCard>
     </div>
     <!-- carte de présentation du projet et licences-->
     <div class="w-5/6 mx-auto mt-7 gap-3 justify-center items-center grid grid-cols-1 lg:flex">
@@ -154,9 +154,10 @@
 
 <script>
 
-import StaffCard from './StaffCard.vue';
+import FlipCard from './FlipCard.vue';
 
 export default {
-    components: { StaffCard }
+    components: { FlipCard }
 };
+
 </script>

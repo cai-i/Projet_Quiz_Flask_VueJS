@@ -33,138 +33,75 @@
       <div class="carousel-inner relative h-[600px] items-center overflow-hidden">
         <!-- 1ère slide -->
         <div class="carousel-item active relative float-left items-center w-full">
-          <!-- image de fond -->
-          <img class="block object-cover h-[600px] w-full" src="https://live.staticflickr.com/5554/14615975852_eeb8f169f1_b.jpg"/>
-          <!-- dégradé de couleur pour mieux voir le texte -->
-          <div class="carousel-caption absolute bottom-0 h-[600px] left-0 right-0 bg-gradient-to-b from-white/10 to-black/80"></div>
-          <!-- texte -->
-          <div class="carousel-caption block absolute text-center bottom-14">
-            <h5 class="text-3xl mb-3">欢迎! Welcome! Bienvenue !</h5>
-            <p>
-              Bienvenue sur notre site dans lequel vous allez pouvoir retrouver un
-              quiz qui testera l'étendue de vos connaissances sur la culture Chinoise.
-            </p>
-          </div>
-          <!-- liens image + licence -->
-          <div class="absolute bottom-2 right-0 left-0 flex justify-center text-white">
-            <div class="flex items-center opacity-50 hover:opacity-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-              </svg>
-              <a class="py-1 px-1 hover:underline" href="https://www.flickr.com/photos/seeminglee/14615975852">
-                image
-              </a>
-            </div>
-            <div class="flex items-center opacity-50 hover:opacity-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-              </svg>
-              <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/licenses/by-nc/2.0/">
-                licence
-              </a>
-            </div>
-          </div>
+          <CarouselSlide
+              backgroundImageURL="https://live.staticflickr.com/5554/14615975852_eeb8f169f1_b.jpg" 
+              title="欢迎! Welcome! Bienvenue !"
+              imageURL="https://www.flickr.com/photos/seeminglee/14615975852"
+              licenseURL="https://creativecommons.org/licenses/by-nc/2.0/"
+          >
+            <template #paragraphes>
+              <p>
+                Bienvenue sur notre site dans lequel vous allez pouvoir retrouver un
+                quiz qui testera l'étendue de vos connaissances sur la culture Chinoise.
+              </p>
+            </template>
+          </CarouselSlide>
         </div>
         <!-- 2ème slide -->
         <div class="carousel-item relative float-left items-center w-full">
-          <img class="block object-cover h-[600px] w-full" src="https://www.cwa-ni.org/wp-content/uploads/2021/02/Hero_Stefano_Borghi_IMG_3706_Hi.jpg"/>
-          <div class="carousel-caption absolute bottom-0 h-[600px] left-0 right-0 bg-gradient-to-b from-white/10 to-black/80"></div>
-          <div class="carousel-caption block absolute text-center bottom-14">
-            <h5 class="text-3xl mb-3">Montrez nous vos capacités et challengez vous !</h5>
-            <p>
-              Saurez-vous vous démarquer par rapport aux autres participants ayant
-              déjà testé les limites de leurs connaissances sur la culture Chinoise ?
-            </p>
-          </div>
-          <!-- liens image + licence -->
-          <div class="absolute bottom-2 right-0 left-0 flex justify-center text-white">
-            <div class="flex items-center opacity-50 hover:opacity-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-              </svg>
-              <a class="py-1 px-1 hover:underline" href="https://www.cwa-ni.org/history-of-chinese-new-year/">
-                image
-              </a>
-            </div>
-            <div class="flex items-center opacity-50 hover:opacity-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-              </svg>
-              <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr">
-                licence
-              </a>
-            </div>
-          </div>
+          <CarouselSlide
+              backgroundImageURL="https://www.cwa-ni.org/wp-content/uploads/2021/02/Hero_Stefano_Borghi_IMG_3706_Hi.jpg" 
+              title="Montrez nous vos capacités et challengez vous !"
+              imageURL="https://www.cwa-ni.org/history-of-chinese-new-year/"
+              licenseURL="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr"
+          >
+            <template #paragraphes>
+              <p>
+                Saurez-vous vous démarquer par rapport aux autres participants ayant
+                déjà testé les limites de leurs connaissances sur la culture Chinoise ?
+              </p>
+            </template>
+          </CarouselSlide>
         </div>
         <!-- 3ème slide -->
         <div class="carousel-item relative float-left items-center w-full">
-          <img class="block object-cover h-[600px] w-full" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Mid-Autumn_Festival-beijing.jpg"/>
-          <div class="carousel-caption absolute bottom-0 h-[600px] left-0 right-0 bg-gradient-to-b from-white/10 to-black/80"></div>
-          <!-- bouton flamme pour acccéder au quiz -->
-          <div class= "flex space-x-2 mb-2 absolute top-36 left-0 right-9 justify-center rounded-full">
-            <RouterLink to="/start-new-quiz-page" tag='div'>
-              <svg class="w-44 h-44 text-red-600 animate-pulse" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
-              </svg>
-            </RouterLink>
-          </div>
-          <!-- texte -->
-          <div class="carousel-caption block absolute text-center bottom-14">
-            <h5 class="text-3xl mb-3">Pour participer, c'est par ici !</h5>
-            <p>Quoi de mieux pour avoir un aperçu de vos connaissance que de faire le quiz sur la Culture Chinoise !</p>
-            <p>Qu'attendez-vous ? Cliquez vite sur la flamme juste au-dessus avant que les dragons ne le fassent disparaître !</p>
-          </div>
-          <!-- liens image + licence -->
-          <div class="absolute bottom-2 right-0 left-0 flex justify-center text-white">
-            <div class="flex items-center opacity-50 hover:opacity-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-              </svg>
-              <a class="py-1 px-1 hover:underline" href="https://commons.wikimedia.org/wiki/File:Mid-Autumn_Festival-beijing.jpg">
-                image
-              </a>
-            </div>
-            <div class="flex items-center opacity-50 hover:opacity-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-              </svg>
-              <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/licenses/by-sa/2.5/">
-                licence
-              </a>
-            </div>
-          </div>
+          <CarouselSlide
+              backgroundImageURL="https://upload.wikimedia.org/wikipedia/commons/d/d5/Mid-Autumn_Festival-beijing.jpg" 
+              title="Pour participer, c'est par ici !"
+              imageURL="https://commons.wikimedia.org/wiki/File:Mid-Autumn_Festival-beijing.jpg"
+              licenseURL="https://creativecommons.org/licenses/by-sa/2.5/"
+          >
+            <template #fireButton>
+                <div class= "flex absolute left-0 right-8 bottom-56 items-center justify-center rounded-full">
+                <RouterLink to="/start-new-quiz-page" tag='div'>
+                  <svg class="w-44 h-44 text-red-600 animate-pulse" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z" />
+                  </svg>
+                </RouterLink>
+              </div>
+            </template>
+            <template #paragraphes>
+              <p>Quoi de mieux pour avoir un aperçu de vos connaissance que de faire le quiz sur la Culture Chinoise !</p>
+              <p>Qu'attendez-vous ? Cliquez vite sur la flamme juste au-dessus avant que les dragons ne le fassent disparaître !</p>
+            </template>
+          </CarouselSlide>
         </div>
         <!-- 4ème slide -->
         <div class="carousel-item relative float-left items-center w-full">
-          <img class="block object-cover h-[600px] w-full" src="https://upload.wikimedia.org/wikipedia/commons/3/36/China-Shanghai-YuGarden-the_Lantern_Festival-2012_1828.JPG"/>
-          <div class="carousel-caption absolute bottom-0 h-[600px] left-0 right-0 bg-gradient-to-b from-white/10 to-black/80"></div>
-          <div class="carousel-caption block absolute text-center bottom-14">
-            <h5 class="text-3xl mb-3">Plus on est de fou, plus on rit ! </h5>
-            <p>
-              N'hésitez pas à challenger vos amis également en leur envoyant le
-              lien de ce quiz
-            </p>
-          </div>
-          <!-- liens image + licence -->
-          <div class="absolute bottom-2 right-0 left-0 flex justify-center text-white">
-            <div class="flex items-center opacity-50 hover:opacity-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-              </svg>
-              <a class="py-1 px-1 hover:underline" href="https://commons.wikimedia.org/wiki/File:China-Shanghai-YuGarden-the_Lantern_Festival-2012_1828.JPG">
-                image
-              </a>
-            </div>
-            <div class="flex items-center opacity-50 hover:opacity-100">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-              </svg>
-              <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/licenses/by-sa/3.0/">
-                licence
-              </a>
-            </div>
-          </div>
+          <CarouselSlide
+              backgroundImageURL="https://upload.wikimedia.org/wikipedia/commons/3/36/China-Shanghai-YuGarden-the_Lantern_Festival-2012_1828.JPG" 
+              title="Plus on est de fou, plus on rit !"
+              imageURL="https://commons.wikimedia.org/wiki/File:China-Shanghai-YuGarden-the_Lantern_Festival-2012_1828.JPG"
+              licenseURL="https://creativecommons.org/licenses/by-sa/3.0/"
+          >
+            <template #paragraphes>
+              <p>
+                N'hésitez pas à challenger vos amis également en leur envoyant le
+                lien de ce quiz
+              </p>
+            </template>
+          </CarouselSlide>
         </div>
       </div>
     </div>
@@ -287,6 +224,7 @@
 <script>
 import quizApiService from "@/services/QuizApiService";
 import participationStorageService from "@/services/ParticipationStorageService";
+import CarouselSlide from './CarouselSlide.vue';
 
 export default {
   name: "HomePage",
@@ -314,6 +252,8 @@ export default {
       this.rate= String(value*100/this.nbr_questions)
       return this.rate
     }
-  }
+  },
+  components: { CarouselSlide }
 };
+
 </script>
