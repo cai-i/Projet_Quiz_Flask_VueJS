@@ -1,37 +1,18 @@
 <template>
-  <link
-    rel="stylesheet"
-    href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
-  />
-  <link
-    rel="stylesheet"
-    href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
-  />
 
   <section class="py-11 bg-orange-100 h-full">
     <!-- titre de la page -->
     <a class="w-5/6 mx-auto text-5xl flex items-center py-1 px-7">
       <!-- icon maison -->
-      <svg
-        class="w-12 h-12 mr-2 text-red-700"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-        />
+      <svg class="w-12 h-12 mr-2 text-red-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>
       </svg>
-      <!-- titre text -->
+      <!-- titre -->
       <span class="font-bold text-red-700">Page d'accueil</span>
     </a>
-    <!-- cartes de présentation : carousel -->
+    <!-- cartes de présentation du site : carousel -->
     <div id="carousel" class="carousel slide w-5/6 mx-auto py-7 relative" data-bs-ride="carousel">
-      <!-- bouton en dessous pour passer d'une slide à l'autre -->
+      <!-- boutons en dessous pour passer d'une slide à l'autre -->
       <div class="carousel-indicators absolute right-0 bottom-14 left-0 flex justify-center p-0 mb-4">
         <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2" ></button>
@@ -52,8 +33,11 @@
       <div class="carousel-inner relative h-[600px] items-center overflow-hidden">
         <!-- 1ère slide -->
         <div class="carousel-item active relative float-left items-center w-full">
+          <!-- image de fond -->
           <img class="block object-cover h-[600px] w-full" src="https://live.staticflickr.com/5554/14615975852_eeb8f169f1_b.jpg"/>
+          <!-- dégradé de couleur pour mieux voir le texte -->
           <div class="carousel-caption absolute bottom-0 h-[600px] left-0 right-0 bg-gradient-to-b from-white/10 to-black/80"></div>
+          <!-- texte -->
           <div class="carousel-caption block absolute text-center bottom-14">
             <h5 class="text-3xl mb-3">欢迎! Welcome! Bienvenue !</h5>
             <p>
@@ -116,6 +100,7 @@
         <div class="carousel-item relative float-left items-center w-full">
           <img class="block object-cover h-[600px] w-full" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Mid-Autumn_Festival-beijing.jpg"/>
           <div class="carousel-caption absolute bottom-0 h-[600px] left-0 right-0 bg-gradient-to-b from-white/10 to-black/80"></div>
+          <!-- bouton flamme pour acccéder au quiz -->
           <div class= "flex space-x-2 mb-2 absolute top-36 left-0 right-9 justify-center rounded-full">
             <RouterLink to="/start-new-quiz-page" tag='div'>
               <svg class="w-44 h-44 text-red-600 animate-pulse" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -124,10 +109,11 @@
               </svg>
             </RouterLink>
           </div>
+          <!-- texte -->
           <div class="carousel-caption block absolute text-center bottom-14">
             <h5 class="text-3xl mb-3">Pour participer, c'est par ici !</h5>
-            <p>Quoi de mieux pour répondre à la question précédente que de faire le quiz également !</p>
-            <p>Qu'attendez-vous ? Cliquez vite sur la flamme juste au-dessus avant que les dragons ne le fasse disparaître !</p>
+            <p>Quoi de mieux pour avoir un aperçu de vos connaissance que de faire le quiz sur la Culture Chinoise !</p>
+            <p>Qu'attendez-vous ? Cliquez vite sur la flamme juste au-dessus avant que les dragons ne le fassent disparaître !</p>
           </div>
           <!-- liens image + licence -->
           <div class="absolute bottom-2 right-0 left-0 flex justify-center text-white">
@@ -204,23 +190,20 @@
           class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
           style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/cc/Celebration_Chinese_Lantern_Festival.jpg);"
         ></div>
+        <!-- floute le fond pour mieux voir les écritures -->
         <div class="w-full backdrop-blur">
           <!-- titre du tableau -->
-          <div class="rounded-t mb-0 px-4 py-3 border-0">
-            <div class="flex flex-wrap items-center">
-              <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                <h3 class="my-3 font-semibold text-3xl text-white">
-                  Scores des participants
-                </h3>
-                <p class="text-xl"> Nombre de participants : {{nbr_participants}} </p>
-              </div>
-            </div>
+          <div class="relative w-full px-7 py-3 max-w-full flex-grow flex-1">
+            <h3 class="my-3 font-semibold text-3xl text-white">
+              Scores des participants
+            </h3>
+            <p class="text-xl"> Nombre de participants : {{nbr_participants}} </p>
           </div>
           <!-- composition du tableau -->
           <div class="block w-full overflow-x-auto">
             <table class="items-center w-full bg-transparent border-collapse">
+              <!-- noms des colonnes du tableau -->
               <thead class="flex text-white w-full">
-                <!-- noms des colonnes du tableau -->
                 <tr class="flex w-full mb-2 bg-red-800 text-red-400 text-xl">
                   <th class="px-6 py-3 ml-8 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 95px;">
                     Rang
@@ -240,15 +223,18 @@
                 </tr>
               </thead>
               <!-- affiche les élements dans le tableau de scores -->
-              <tbody class="flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 70vh;">                <!-- tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" -->
+              <tbody class="flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 70vh;">
+                <!-- boucle dans la liste des participants -->
                 <template
                   v-for="(scoreEntry, rank) in registeredScores"
                   v-bind:key="scoreEntry.date"
                 >
                   <tr class="flex w-full mb-4 items-center text-xl">
+                    <!-- rang -->
                     <td class="px-6 py-2 ml-12 content-center rounded-full" style="width: 95px;">
                       {{ rank + 1 }}
                     </td>
+                    <!-- nom du joueur -->
                     <td class="px-6 py-2 flex items-center">
                       <img
                         src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=170667a&w=0&k=20&c=bsbD0qLFJ6fSUCXG_iyo7JBnmKi6T-uUblC8FNZFJoU="
@@ -259,17 +245,20 @@
                         {{ scoreEntry.playerName }}
                       </span>
                     </td>
+                    <!-- score -->
                     <td class="px-6 py-2 ml-6" style="width: 80px;">
                       {{ scoreEntry.score }}
                     </td>
+                    <!-- pourcentage de réussite -->
                     <td class="px-6 py-2" style="width: 380px;">
                       <div class="flex items-center">
-                        <span class="mr-2 text-xl">
+                        <p class="mr-2">
                           {{successRate(scoreEntry.score)}}
-                        </span>
-                        <span class="mr-2 text-xl">
+                        </p>
+                        <p class="mr-2">
                           %
-                        </span>
+                        </p>
+                        <!-- barre de progression -->
                         <div class="relative w-full">
                           <div class="overflow-hidden h-2 text-xs flex rounded bg-red-200">
                             <div
@@ -309,7 +298,7 @@ export default {
       rate: ''
     };
   },
-  // récupère les scores des participants depuis l'API'
+  // récupère les scores des participants depuis l'API
   async created() {
     console.log(quizApiService.getQuizInfo());
     var quizInfoPromise = quizApiService.getQuizInfo();
@@ -320,6 +309,7 @@ export default {
     console.log("Composant Home page 'created'"); 
   },
   methods: {
+    // pour obtenir le taux de réussite d'un participant
     successRate: function(value){
       this.rate= String(value*100/this.nbr_questions)
       return this.rate

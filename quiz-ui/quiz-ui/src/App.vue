@@ -5,7 +5,9 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <nav class="bg-white">
     <div class="relative shadow bg-white">
+      <!-- image de fond du NavBar -->
       <div class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url(https://www.shutterstock.com/image-photo/shanghai-february-25-tourists-visit-600w-148544318.jpg)"></div>
+      <!-- brouille l'image de fond pour mieux voir les textes -->
       <div class="w-full backdrop-blur">
         <div class="mx-auto text-white">
           <!-- titre du NavBar -->
@@ -26,10 +28,10 @@ import { RouterLink, RouterView } from 'vue-router'
                 <RouterLink to="/admin" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Connexion administration</RouterLink>
             </div>
             <!-- deuxième partie -->
-            <div class= "flex space-x-2 mb-2">
+            <div class= "flex items-center space-x-2">
               <RouterLink to="/start-new-quiz-page" class="py-3 px-3 bg-red-600 hover:bg-red-700 rounded">Démarrer le quiz !</RouterLink>
             </div>
-            <!-- mobile button (lorsque la fênetre est plus petite) -->
+            <!-- mobile button (apparaît lorsque la fênetre est plus petite) -->
             <div class="md:hidden flex items-center">
               <button class="mobile-menu-button">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -38,7 +40,7 @@ import { RouterLink, RouterView } from 'vue-router'
               </button> 
             </div>
           </div>
-          <!-- mobile menu (lorsque la fênetre est plus petite) -->
+          <!-- mobile menu (apparaît lorsque la fênetre est plus petite) -->
           <div class="mobile-menu hidden md:hidden text-white bg-[#00182E]">
             <RouterLink to="/" class="block py-3 px-3 hover:bg-[#00274A]">Page d'accueil</RouterLink>
             <RouterLink to="/about" class="block py-3 px-3 hover:bg-[#00274A]">Qui sommes-nous ?</RouterLink>
@@ -57,7 +59,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <script type="text/javascript">
-  // pour afficher les boutons cachés lorsque la fenêtre est petite
+  // pour afficher le mobile menu caché lorsque la fenêtre est plus petite
   document.addEventListener("DOMContentLoaded", () => {
     const btn= document.querySelector('button.mobile-menu-button');
     const menu= document.querySelector('.mobile-menu');
