@@ -36,25 +36,30 @@
         <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2" ></button>
         <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3" ></button>
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="3" aria-label="Slide 4" ></button>
       </div>
       <!-- bouton précédent -->
-      <button class="carousel-control-prev absolute top-0 bottom-0 left-16 flex items-center justify-center text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+      <button class="carousel-control-prev absolute top-0 bottom-0 left-0 flex items-center justify-center text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline" type="button" data-bs-target="#carousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
       <!-- bouton suivant -->
-      <button class="carousel-control-next absolute top-0 bottom-0 right-16 flex items-center justify-center text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline" type="button" data-bs-target="#carousel" data-bs-slide="next" >
+      <button class="carousel-control-next absolute top-0 bottom-0 right-0 flex items-center justify-center text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline" type="button" data-bs-target="#carousel" data-bs-slide="next" >
         <span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
       <!-- contenu du carousel -->
-      <div class="carousel-inner relative w-5/6 mx-auto items-center overflow-hidden bg-red-800">
+      <div class="carousel-inner relative h-[600px] items-center overflow-hidden bg-red-800">
         <!-- 1ère slide -->
-        <div class="carousel-item active relative float-left h-full w-full items-center">
-          <img class="block grow" src="https://www.cwa-ni.org/wp-content/uploads/2021/02/Hero_Stefano_Borghi_IMG_3706_Hi.jpg"/>
-          <div class="carousel-caption hidden md:block absolute text-center bottom-14">
-            <h5 class="text-xl">First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
+        <div class="carousel-item active relative float-left items-center w-full">
+          <img class="block object-cover h-[600px] w-full" src="https://www.cwa-ni.org/wp-content/uploads/2021/02/Hero_Stefano_Borghi_IMG_3706_Hi.jpg"/>
+          <div class="carousel-caption absolute bottom-0 h-[600px] left-0 right-0 bg-gradient-to-b from-white/10 to-black/80"></div>
+          <div class="carousel-caption block absolute text-center bottom-14">
+            <h5 class="text-3xl mb-3">欢迎! Welcome! Bienvenue !</h5>
+            <p>
+              Bienvenue sur notre site dans lequel vous allez pouvoir retrouver un
+              quiz qui testera l'étendue de vos connaissances sur la culture Chinoise.
+            </p>
           </div>
           <!-- liens image + licence -->
           <div class="absolute bottom-2 right-0 left-0 flex justify-center text-white">
@@ -62,7 +67,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
               </svg>
-              <a class="py-1 px-1 hover:underline" href="https://www.flickr.com/photos/stuckincustoms/26805877601">
+              <a class="py-1 px-1 hover:underline" href="https://www.cwa-ni.org/history-of-chinese-new-year/">
                 image
               </a>
             </div>
@@ -70,46 +75,104 @@
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
               </svg>
-              <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/licenses/by-nc-sa/2.0/deed.fr">
-                license
+              <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr">
+                licence
               </a>
             </div>
           </div>
         </div>
         <!-- 2ème slide -->
-        <div class="carousel-item relative float-left w-full">
-          <img class="block w-full" src="https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg"/>
-          <div class="carousel-caption hidden md:block absolute text-center">
-            <h5 class="text-xl">Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
+        <div class="carousel-item relative float-left items-center w-full">
+          <img class="block object-cover h-[600px] w-full" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Celebration_Chinese_Lantern_Festival.jpg"/>
+          <div class="carousel-caption absolute bottom-0 h-[600px] left-0 right-0 bg-gradient-to-b from-white/10 to-black/80"></div>
+          <div class="carousel-caption md:block absolute text-center bottom-14">
+            <h5 class="text-3xl mb-3">Montrez nous vos capacités et challengez vous !</h5>
+            <p>
+              Saurez-vous vous démarquer par rapport aux autres participants ayant
+              déjà testé les limites de leurs connaissances sur la culture Chinoise ?
+            </p>
+          </div>
+          <!-- liens image + licence -->
+          <div class="absolute bottom-2 right-0 left-0 flex justify-center text-white">
+            <div class="flex items-center opacity-50 hover:opacity-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+              </svg>
+              <a class="py-1 px-1 hover:underline" href="https://commons.wikimedia.org/wiki/File:Celebration_Chinese_Lantern_Festival.jpg">
+                image
+              </a>
+            </div>
+            <div class="flex items-center opacity-50 hover:opacity-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+              <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">
+                licence
+              </a>
+            </div>
           </div>
         </div>
         <!-- 3ème slide -->
-        <div class="carousel-item relative float-left w-full">
-          <img class="block w-full" src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg"/>
-          <div class="carousel-caption hidden md:block absolute text-center">
-            <h5 class="text-xl">Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
+        <div class="carousel-item relative float-left items-center w-full">
+          <img class="block object-cover h-[600px] w-full" src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Mid-Autumn_Festival-beijing.jpg"/>
+          <div class="carousel-caption absolute bottom-0 h-[600px] left-0 right-0 bg-gradient-to-b from-white/10 to-black/80"></div>
+          <div class="carousel-caption hidden md:block absolute text-center bottom-14">
+            <h5 class="text-3xl mb-3">Pour participer, c'est par ici !</h5>
+            <p>Quoi de mieux pour répondre à la question précédente que de faire le quiz également !</p>
+            <p>Qu'attendez-vous ? Cliquez vite sur le bouton juste au-dessus avant que les dragons ne le fasse disparaître !</p>
+          </div>
+          <!-- liens image + licence -->
+          <div class="absolute bottom-2 right-0 left-0 flex justify-center text-white">
+            <div class="flex items-center opacity-50 hover:opacity-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+              </svg>
+              <a class="py-1 px-1 hover:underline" href="https://commons.wikimedia.org/wiki/File:Mid-Autumn_Festival-beijing.jpg">
+                image
+              </a>
+            </div>
+            <div class="flex items-center opacity-50 hover:opacity-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+              <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/licenses/by-sa/2.5/">
+                licence
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- 4ème slide -->
+        <div class="carousel-item relative float-left items-center w-full">
+          <img class="block object-cover h-[600px] w-full" src="https://upload.wikimedia.org/wikipedia/commons/3/36/China-Shanghai-YuGarden-the_Lantern_Festival-2012_1828.JPG"/>
+          <div class="carousel-caption absolute bottom-0 h-[600px] left-0 right-0 bg-gradient-to-b from-white/10 to-black/80"></div>
+          <div class="carousel-caption hidden md:block absolute text-center bottom-14">
+            <h5 class="text-3xl mb-3">Plus on est de fou, plus on rit ! </h5>
+            <p>
+              N'hésitez pas à challenger vos amis également en leur envoyant le
+              lien de ce quiz
+            </p>
+          </div>
+          <!-- liens image + licence -->
+          <div class="absolute bottom-2 right-0 left-0 flex justify-center text-white">
+            <div class="flex items-center opacity-50 hover:opacity-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+              </svg>
+              <a class="py-1 px-1 hover:underline" href="https://commons.wikimedia.org/wiki/File:China-Shanghai-YuGarden-the_Lantern_Festival-2012_1828.JPG">
+                image
+              </a>
+            </div>
+            <div class="flex items-center opacity-50 hover:opacity-100">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+              <a class="py-1 px-1 hover:underline" href="https://creativecommons.org/licenses/by-sa/3.0/">
+                licence
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- paragraphes de présentation -->
-    <div class="w-5/6 mx-auto px-12 py-8">
-      <p>
-        Bienvenue sur notre site dans lequel vous allez pouvoir retrouver un
-        quiz qui testera l'étendue de vos connaissances sur la culture Chinoise.
-      </p>
-      <p>
-        Saurez-vous vous démarquer par rapport aux autres participants ayant
-        déjà testé les limites de leurs connaissances sur la culture Chinoise ?
-      </p>
-      <p>Un seul moyen de le savoir, faire le tester également !</p>
-      <p>Qu'attendez-vous ?</p>
-      <p>
-        PS : n'hésitez pas à challenger vos amis également en leur envoyant le
-        lien de ce quiz
-      </p>
     </div>
     <div class="w-5/6 mx-auto mb-12">
       <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-red-700 text-white">
