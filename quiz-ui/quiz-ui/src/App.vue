@@ -22,8 +22,8 @@ import { RouterLink, RouterView } from 'vue-router'
             <!-- première partie -->
             <div class="hidden md:flex space-x-1 items-center">
                 <RouterLink to="/" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Page d'accueil</RouterLink>
-                <RouterLink to="/admin" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Connexion administration</RouterLink>
                 <RouterLink to="/about" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Qui sommes-nous ?</RouterLink>
+                <RouterLink to="/admin" class="py-3 px-3 hover:bg-yellow-400 hover:text-black rounded">Connexion administration</RouterLink>
             </div>
             <!-- deuxième partie -->
             <div class= "flex space-x-2 mb-2">
@@ -41,8 +41,8 @@ import { RouterLink, RouterView } from 'vue-router'
           <!-- mobile menu (lorsque la fênetre est plus petite) -->
           <div class="mobile-menu hidden md:hidden text-white bg-[#00182E]">
             <RouterLink to="/" class="block py-3 px-3 hover:bg-[#00274A]">Page d'accueil</RouterLink>
-            <RouterLink to="/admin" class="block py-3 px-3 hover:bg-[#00274A]">Connexion administration</RouterLink>
             <RouterLink to="/about" class="block py-3 px-3 hover:bg-[#00274A]">Qui sommes-nous ?</RouterLink>
+            <RouterLink to="/admin" class="block py-3 px-3 hover:bg-[#00274A]">Connexion administration</RouterLink>
           </div>
         </div>
       </div>
