@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <nav class="bg-white">
     <div class="relative shadow bg-white">
-      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url(https://www.chinatravelnews.com/images/202202/ff0094db89bdae98.jpg)"></div>
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url(https://www.shutterstock.com/image-photo/shanghai-february-25-tourists-visit-600w-148544318.jpg)"></div>
       <div class="w-full backdrop-blur">
         <div class="mx-auto text-white">
           <!-- titre du NavBar -->

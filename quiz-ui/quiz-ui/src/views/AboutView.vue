@@ -197,24 +197,25 @@
           <h1 class="text-3xl font-bold"> Les images</h1>
           <div class="mb-3 text-gray-200">
             <p class="text-base italic opacity-0 group-hover:opacity-100 transition-opacity duration-300"> 
-              La plupart de nos images sont sous cette licence Creative Commons :
+              Ici, vous trouverez les liens vers les images et leurs licences s'ils n'ont pas été 
+              directement misent sur les images.
             </p>
-            <a class="hover:text-yellow-400 underline" href="https://creativecommons.org/publicdomain/zero/1.0/"> 
-              lien
-            </a>
           </div>
           <p class="font-bold text-green-400"> Les images : </p> 
           <!-- <div class="gap 3 grid grid-cols-2"> -->
             <div class="gap-7">
-              <a class="py-1 px-1 hover:text-yellow-400" href="#">
-                exemple
+              <a class="py-1 px-1 hover:text-yellow-400" href="https://www.shutterstock.com/fr/image-photo/shanghai-february-25-tourists-visit-yuyuan-148544318">
+                NavBar
+              </a>
+              <a class="py-1 px-1 hover:text-yellow-400" href="https://commons.wikimedia.org/wiki/File:Celebration_Chinese_Lantern_Festival.jpg">
+                TableauScores_HomePage
               </a>
             </div>
           <!-- </div> -->
           <div>
-            <p class="font-bold text-green-400"> Autres licences : </p> 
-            <a class="py-1 px-1 hover:text-yellow-400" href="#">
-              exemple
+            <p class="font-bold text-green-400"> Les licences : </p> 
+            <a class="py-1 px-1 hover:text-yellow-400" href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">
+              TableauScores_HomePage
             </a>
           </div>
           <!-- liens image + licence -->
