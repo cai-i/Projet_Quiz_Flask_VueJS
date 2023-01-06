@@ -1,5 +1,5 @@
 <template>
-  <NavBar></NavBar>
+  <!-- <NavBar></NavBar> -->
   <section class="py-11 bg-orange-100 h-full">
     <div class="w-5/6 mx-auto">
       <!-- titre de la page -->
@@ -133,13 +133,13 @@
 </template>
 
 <script>
-import NavBar from './Components/NavBar.vue';
+// import NavBar from './Components/NavBar.vue';
 import CarouselSlide from './Components/CarouselSlide.vue';
 import ScoresTable from './Components/ScoresTable.vue';
 
 export default {
   name: "HomePage",
-  components: { NavBar, CarouselSlide, ScoresTable }
+  components: { CarouselSlide, ScoresTable }
 };
 
 </script>

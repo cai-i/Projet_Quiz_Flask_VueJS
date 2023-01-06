@@ -29,7 +29,7 @@
               <th class="px-6 py-3 ml-8 border font-semibold border-l-0 border-r-0 border-black" style="width: 250px;">
                 Taux de réussite
               </th>
-              <th class="px-6 py-3 ml-[90px] border font-semibold border-l-0 border-r-0 border-black">
+              <th class="px-6 py-3 ml-[77px] border font-semibold border-l-0 border-r-0 border-black">
                 Date de soumission
               </th>
             </tr>
@@ -54,7 +54,7 @@
                     alt="..."
                   />
                   <span class="ml-3 text-xl font-bold" style="width: 170px;">
-                    {{ scoreEntry.playerName }}
+                    {{ scoreEntry.playerName }} 
                   </span>
                 </td>
                 <!-- score -->
@@ -62,27 +62,29 @@
                   {{ scoreEntry.score }}
                 </td>
                 <!-- pourcentage de réussite -->
-                <td class="px-6 py-2" style="width: 380px;">
-                  <div class="flex items-center">
-                    <p class="mr-2">
-                      {{successRate(scoreEntry.score)}}
-                    </p>
-                    <p class="mr-2">
-                      %
-                    </p>
-                    <!-- barre de progression -->
+                <td class="px-6 py-2 flex items-centers" style="width: 80px;">
+                  <p class="mr-2">
+                    {{scoreEntry.reussite}}
+                  </p>
+                  <p class="mr-2">
+                    %
+                  </p>
+                </td>
+                <!-- barre de progression -->
+                <td class="px-3">
+                  <div style="width: 260px;">
                     <div class="relative w-full">
                       <div class="overflow-hidden h-2 text-xs flex rounded bg-red-200">
                         <div
                           class="h-full progressbar bg-yellow-500"
-                          :style="{width: `${rate}%`}"
+                          :style="{width: `${String(scoreEntry.reussite)}%`}"
                         >
                         </div>
                       </div>
                     </div>
                   </div>
                 </td>
-                <td class="px-14 py-2" style="width: 380px;">
+                <td class="px-14 py-2" style="width: 400px;">
                   {{ scoreEntry.date }}
                 </td>
               </tr>
@@ -105,7 +107,6 @@ export default {
       registeredScores: [],
       nbr_participants:0,
       nbr_questions: 0,
-      rate: ''
     };
   },
   // récupère les scores des participants depuis l'API
@@ -117,13 +118,6 @@ export default {
     this.nbr_participants = this.registeredScores.length;
     this.nbr_questions = quizInfoApiResult.data.size;
     console.log("Composant Home page 'created'"); 
-  },
-  methods: {
-    // pour obtenir le taux de réussite d'un participant
-    successRate: function(value){
-      this.rate= String(value*100/this.nbr_questions)
-      return this.rate
-    }
-  },
+  }
 }
 </script>
