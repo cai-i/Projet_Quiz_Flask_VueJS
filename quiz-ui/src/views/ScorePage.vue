@@ -100,24 +100,19 @@
                 </p>
               </div>
             </div>
-          </div>
 
-          <!-- Les deux boutons pour clean les variables -->
+            <!-- Les deux boutons pour clean les variables -->
           <div class="flex flex-col gap-4">
             <button
-              class="flex place-content-center items-center gap-4 w-36 h-16 item-center rounded-xl bg-gray-800/80 hover:bg-gray-700 text-white"
+              class="flex place-content-center items-center gap-4 w-24 h-24 item-center rounded-full bg-gray-800/80 hover:bg-gray-700 text-white"
               @click="this.restartGame();"
             >
               <p> Rejouer ! </p>
             </button>
 
-            <button
-              class="flex place-content-center items-center gap-4 w-36 h-16 item-center rounded-xl bg-gray-800/80 hover:bg-gray-700 text-white"
-              @click="this.$router.push('/')"
-            >
-              Accueil
-            </button>
           </div>
+          </div>
+          
         </div>
       </div>
 
@@ -221,7 +216,6 @@ export default {
       });
     },
     restartGame: function () {
-      this.userName = participationStorageService.clear();
       this.$router.push("/start-new-quiz-page");
     },
   },

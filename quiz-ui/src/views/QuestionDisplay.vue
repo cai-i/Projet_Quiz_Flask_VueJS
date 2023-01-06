@@ -22,7 +22,7 @@
     <ul>
       <li v-for="(answer,idx) in this.question.possibleAnswers" :key="idx">
         <button
-          class="mx-auto w-4/5 bg-opacity-80 hover:bg-opacity-100 shadow-md border rounded block m-2 p-2 hover:font-bold"
+          class="mx-auto w-4/5 bg-opacity-80 hover:bg-opacity-100 shadow-md border rounded block m-2 p-2 hover:font-semibold"
           @click="
             $emit(
               'click-on-answer',

@@ -4,7 +4,7 @@
       class="py-16 px-8 text-4xl font-bold text-red-800"
       :style="myTextStrokeRule"
     >
-      Commencer le quiz !
+      Démarrer le quiz !
     </h1>
 
     <div class="mt-8 grid gap-4 place-content-center">
