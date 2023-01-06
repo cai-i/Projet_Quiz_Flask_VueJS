@@ -25,6 +25,7 @@ CREATE TABLE participants (
     "id" INTEGER NOT NULL UNIQUE,
     "player_name" TEXT NOT NULL,
     "score" INTEGER NOT NULL,
+    "reussite" INTEGER NOT NULL,
     "date" TIMESTAMP NOT NULL DEFAULT (datetime('now','localtime')),
 	PRIMARY KEY("id" AUTOINCREMENT)
 );

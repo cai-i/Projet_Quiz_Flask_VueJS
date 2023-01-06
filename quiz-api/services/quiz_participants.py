@@ -6,14 +6,15 @@ def quiz_info():
 	nb_question = len(get_all_question())
 	# recupère les scores des participants
 	conn = db_connection()
-	participants_scores = conn.execute('SELECT date, player_name, score FROM participants ORDER BY score DESC').fetchall()
+	participants_scores = conn.execute('SELECT date, player_name, score, reussite FROM participants ORDER BY score DESC').fetchall()
 	conn.close()
 	scores = []
 	for score in participants_scores:
 		scores.append({
 			"date": score[0],
 			"playerName": score[1],
-			"score" : score[2]
+			"score" : score[2],
+			"reussite": score[3]
 		})
 	return {"size": nb_question, "scores": scores}
 
@@ -21,10 +22,11 @@ def submit_answers() :
 	payload = request.get_json()
 	# récupère les réponses du participant
 	answers = payload["answers"]
+	nb_questions = len(get_all_question())
 	# vérifie que le nombre de réponse est bon :
-	if len(get_all_question()) > len(answers):
+	if nb_questions > len(answers):
 		return "You did not answer all the questions", 400
-	if len(get_all_question()) < len(answers):
+	if nb_questions < len(answers):
 		return "Too much answers for the quantity of question", 400
 	# crée la liste d'objet answerSummary
 	answersSummaries = []
@@ -52,13 +54,13 @@ def submit_answers() :
 		"score" : score
 	}
 	# ajoute le participant à la table des participants
-	add_participant(payload["playerName"], score)
+	add_participant(payload["playerName"], score, score*100/nb_questions)
 	return response
 
-def add_participant(playerName, score):
+def add_participant(playerName, score, reussite):
 	conn = db_connection()
-	conn.execute('INSERT INTO participants (player_name, score) VALUES (?, ?)',
-                         (playerName, score))
+	conn.execute('INSERT INTO participants (player_name, score, reussite) VALUES (?, ?, ?)',
+                         (playerName, score, reussite))
 	conn.commit()
 	conn.rollback()
 	conn.close()
