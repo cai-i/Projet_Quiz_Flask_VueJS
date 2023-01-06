@@ -1,4 +1,5 @@
 <template>
+  <NavBar></NavBar>
   <section class="py-11 bg-orange-100 h-full">
     <!-- titre de la page -->
     <a class="w-5/6 mx-auto text-5xl flex items-center py-1 px-7">
@@ -153,11 +154,11 @@
 </template>
 
 <script>
-
+import NavBar from './Components/NavBar.vue';
 import FlipCard from './Components/FlipCard.vue';
 
 export default {
-    components: { FlipCard }
+    components: { NavBar, FlipCard }
 };
 
 </script>
