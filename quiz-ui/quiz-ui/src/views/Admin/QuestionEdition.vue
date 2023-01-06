@@ -45,7 +45,7 @@
           <div class="flex-grow">
             <div class="py-8 ml-6">
               <div v-if="this.currentQuestion.id == null" class="text-orange-600 px-4 font-semibold text-2xl">Nouvelle question</div>
-              <QuestionAdminDisplay :question=this.currentQuestion />
+              <QuestionAdminDisplay :question=this.currentQuestion :totalNumberOfQuestion="this.totalNumberOfQuestion" />
             </div>
           </div>
 
