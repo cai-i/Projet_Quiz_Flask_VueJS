@@ -25,7 +25,7 @@
             </div>
             <!-- deuxième partie -->
             <div class= "flex items-center space-x-2">
-              <RouterLink to="/start-new-quiz-page" class="py-3 px-3 bg-rose-800 font-bold hover:bg-rose-900 rounded">Démarrer le quiz !</RouterLink>
+              <RouterLink to="/start-new-quiz-page" class="py-3 px-3 bg-red-600 hover:bg-red-700 rounded">Démarrer le quiz !</RouterLink>
             </div>
             <!-- mobile button (apparaît lorsque la fênetre est plus petite) -->
             <div class="md:hidden flex items-center">
@@ -46,12 +46,6 @@
       </div>
     </div>
   </nav>
-
-  <!-- component matched by the route will render here -->
-  <div>
-    <router-view></router-view>
-  </div>
-
 </template>
 
 <script type="text/javascript">

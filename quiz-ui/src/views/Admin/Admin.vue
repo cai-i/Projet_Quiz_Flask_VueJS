@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-orange-50">
+    <div class="bg-orange-100">
         <section class="w-5/6 mx-auto relative py-12 px-3" :class="{ ['h-screen']: !this.adminMode }">
             <div class="flex">
                 <p class="text-5xl flex items-center py-1 ">

@@ -5,7 +5,7 @@
       <!-- Des classes tailwind grid et col-span ont été utilisés pour aligner les textes et inputs -->
       <div class="mt-3">
         <p class="grid grid-cols-8 gap-4">
-          <p class="col-span-1 pt-2 font-semibold">Titre: </p>
+          <p class="col-span-1 pt-2 font-semibold">Thème: </p>
           <p class="col-span-7"><input class="shadow appearance-none border focus:border-pink-700 rounded h-10 w-full px-3 py-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="text" v-model="this.question.questionTitle" placeholder="titre de la question"></p>
         </p>
       </div>
@@ -39,8 +39,16 @@
     
     <!-- Gestion de position directement dans un input, peut être améliorée pour plus d'ergonomie -->
     <div>
-      Position de la question : <input class="w-16 mt-2 shadow appearance-none border focus:border-pink-700 rounded px-3 py-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="number" min=1 v-model="this.question.position" />
+      Position de la question : <input class="w-16 mt-2 shadow appearance-none border focus:border-pink-700 rounded px-3 py-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="number" min=1 :max="this.question.id==null ? this.totalNumberOfQuestion+1 : this.totalNumberOfQuestion" v-model="this.question.position" />
     </div>
+    <p v-if="this.errorPosition">
+      <p v-if="this.question.id == null">
+        <p class="text-red-700 text-sm"> Veuillez choisir une position entre 1 et {{ this.totalNumberOfQuestion + 1 }}</p>
+      </p>
+      <p v-else>
+        <p class="text-red-700 text-sm"> Veuillez choisir une position entre 1 et {{ this.totalNumberOfQuestion }}</p>
+      </p>
+    </p>
 
     <!-- Gestion d'image avec un background par défaut si this.question.questionImage est null -->
     <div class="max-w-md max-h-fit mt-4 mb-2 ">
@@ -87,16 +95,19 @@ export default {
     question: {
       type: Object,
     },
+    totalNumberOfQuestion: 1
   },
   data() {
     return {
-      correctAnswerPosition: null
+      correctAnswerPosition: null,
+      errorPosition: false
     };
   },
   watch: {
     question: {
       handler(val){
-        this.loadCorrectAnswerPosition()
+        this.loadCorrectAnswerPosition();
+        this.errorPosition = false;
       },
       deep: true
     }
@@ -116,8 +127,6 @@ export default {
       for (let i = 0 ; i < this.question.possibleAnswers.length; i++){
         if (this.question.possibleAnswers[i].isCorrect){
           this.correctAnswerPosition = i;
-          console.log("answers", this.question.possibleAnswers[i]);
-          console.log("correct", this.correctAnswerPosition);
         }
       }
     },
@@ -129,21 +138,26 @@ export default {
 
     // Ce fichier est utilisé pour la création et la modification, la détection se fait au niveau de l'id
     async saveQuestion(){
-      for (let i = 0 ; i < this.question.possibleAnswers.length; i++){
+      if (this.question.position >= 1 && this.question.position <= this.totalNumberOfQuestion){
+        for (let i = 0 ; i < this.question.possibleAnswers.length; i++){
           this.question.possibleAnswers[i].isCorrect = (i != this.correctAnswerPosition) ? false : true;
-      }
+        }
 
-      if(this.question.id == null){
-        var postQuestionPromise = quizApiService.postQuestion(this.question);
-        await postQuestionPromise;
-      }
-      else{
-        var putQuestionPromise = quizApiService.putQuestion(this.question);
-        await putQuestionPromise;
-      }
+        if(this.question.id == null){
+          var postQuestionPromise = quizApiService.postQuestion(this.question);
+          await postQuestionPromise;
+        }
+        else{
+          var putQuestionPromise = quizApiService.putQuestion(this.question);
+          await putQuestionPromise;
+        }
 
-      // Refresh la page
-      location.reload();
+        // Refresh la page
+        location.reload();
+      }
+      else {
+        this.errorPosition = true;
+      }
     }
   }
 };
