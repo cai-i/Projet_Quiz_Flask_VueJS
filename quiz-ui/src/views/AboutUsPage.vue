@@ -15,7 +15,7 @@
       <!-- 1ère carte : Huiying DAI-->
       <FlipCard name="Huiying DAI" 
                  presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique"
-                 hobby="Passion : acquérir de nouvelles connaissances"
+                 hobby="Passion : modélisation 3D et regarder des animes"
                  backgroundImageURL="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1"
                  linkedinURL="https://fr.linkedin.com/in/huiying-dai-7219a71b5"
                  imageURL="https://www.rawpixel.com/image/5924500"
@@ -25,7 +25,7 @@
 
       <!-- 2ème carte : Emilie CHEN -->
       <FlipCard name="Emilie CHEN" 
-                 presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Date Science et Intelligence Artificielle"
+                 presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique"
                  hobby="Passion : être créative et ambitieuse"
                  backgroundImageURL="https://upload.wikimedia.org/wikipedia/commons/6/6d/Algorithmically-generated_landscape_artwork_of_forest_with_Shinto_shrine_using_negative_prompt_for_green_trees.png"
                  linkedinURL="https://fr.linkedin.com/in/emilie-chen-a077b022a/en?trk=people-guest_people_search-card&original_referer=https%3A%2F%2Fwww.google.com%2F"
