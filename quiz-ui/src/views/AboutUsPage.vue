@@ -117,8 +117,17 @@
               <a class="py-1 px-1 hover:text-yellow-400" href="https://www.shutterstock.com/fr/image-photo/shanghai-february-25-tourists-visit-yuyuan-148544318">
                 NavBar
               </a>
+              <a class="py-1 px-1 hover:text-yellow-400" href="https://commons.wikimedia.org/wiki/File:Shanghai_skyline_unsplash.jpg">
+                ScorePage
+              </a>
               <a class="py-1 px-1 hover:text-yellow-400" href="https://commons.wikimedia.org/wiki/File:Celebration_Chinese_Lantern_Festival.jpg">
                 TableauScores_HomePage
+              </a>
+              <a class="py-1 px-1 hover:text-yellow-400" href="http://184.105.177.41/s/?q=bestof%3Afish+molveno+circle">
+                QuizPage
+              </a>
+              <a class="py-1 px-1 hover:text-yellow-400" href="https://www.flickr.com/photos/kaiban/6137170702">
+                StartQuizPage
               </a>
             </div>
           <!-- </div> -->
@@ -126,6 +135,15 @@
             <p class="font-bold text-green-400"> Les licences : </p> 
             <a class="py-1 px-1 hover:text-yellow-400" href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">
               TableauScores_HomePage
+            </a>
+            <a class="py-1 px-1 hover:text-yellow-400" href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">
+              ScorePage
+            </a>
+            <a class="py-1 px-1 hover:text-yellow-400" href="https://creativecommons.org/licenses/publicdomain/">
+              QuizPage
+            </a>
+            <a class="py-1 px-1 hover:text-yellow-400" href="https://creativecommons.org/licenses/by-nc/2.0/">
+              StartQuizPage
             </a>
           </div>
           <!-- liens image + licence -->

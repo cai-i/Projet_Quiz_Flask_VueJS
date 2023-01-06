@@ -102,44 +102,19 @@
             </div>
           </div>
 
-<!-- Les deux boutons pour clean les variables -->
+          <!-- Les deux boutons pour clean les variables -->
           <div class="flex flex-col gap-4">
             <button
-              class="flex place-content-center items-center gap-4 w-36 h-16 item-center rounded-xl bg-red-700 hover:bg-red-800 text-white"
+              class="flex place-content-center items-center gap-4 w-36 h-16 item-center rounded-xl bg-gray-800/80 hover:bg-gray-700 text-white"
               @click="this.restartGame();"
             >
-              <!-- <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                class="w-5 h-5 "
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm6.39-2.908a.75.75 0 01.766.027l3.5 2.25a.75.75 0 010 1.262l-3.5 2.25A.75.75 0 018 12.25v-4.5a.75.75 0 01.39-.658z"
-                  clip-rule="evenodd"
-                />
-              </svg> -->
-
-              Rejouer !
+              <p> Rejouer ! </p>
             </button>
 
             <button
-              class="flex place-content-center items-center gap-4 w-36 h-16 item-center rounded-xl bg-red-700 hover:bg-red-800 text-white"
+              class="flex place-content-center items-center gap-4 w-36 h-16 item-center rounded-xl bg-gray-800/80 hover:bg-gray-700 text-white"
               @click="this.$router.push('/')"
             >
-              <!-- <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                class="w-5 h-5"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z"
-                  clip-rule="evenodd"
-                />
-              </svg> -->
               Accueil
             </button>
           </div>
@@ -152,120 +127,11 @@
         <div class="innerCircle"></div>
         <div class="icon"></div>
       </div>
-
-      <!-- Tableau de isa-->
-      <div class="w-full mb-12">
-        <div
-          class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg bg-red-700 text-white font-bold"
-        >
-          <!-- fond du tableau -->
-          <div class="ScorePageBody absolute inset-0"></div>
-          <div class="w-full backdrop-blur">
-            <!-- titre du tableau -->
-            <div class="rounded-t mb-0 px-4 py-3 bg-black bg-opacity-50">
-              <div class="items-center relative w-full px-4 max-w-full">
-                <h3 class="font-semibold text-3xl text-white text-center">
-                  Scores des Top Participants
-                </h3>
-              </div>
-            </div>
-
-            <!-- composition du tableau -->
-            <div class="block w-full overflow-x-auto">
-              <table class="items-center w-full bg-transparent border-collapse">
-                <thead class="flex text-white w-full">
-                  <!-- noms des colonnes du tableau -->
-                  <tr class="flex w-full mb-2 bg-red-800 text-red-400 text-xl">
-                    <th
-                      class="px-6 py-3 ml-6 border font-semibold border-l-0 border-r-0 border-red-900"
-                      style="width: 95px"
-                    >
-                      Rang
-                    </th>
-                    <th
-                      class="px-6 py-3 ml-2 border font-semibold border-l-0 border-r-0 border-red-900"
-                      style="width: 250px"
-                    >
-                      Nom d'utilisateur
-                    </th>
-                    <th
-                      class="px-6 py-3 ml-10 border font-semibold border-l-0 border-r-0 border-red-900"
-                      style="width: 150px"
-                    >
-                      Score
-                    </th>
-                    <th
-                      class="px-6 py-3 border font-semibold border-l-0 border-r-0 border-red-900"
-                      style="width: 250px"
-                    >
-                      Taux de réussite
-                    </th>
-                    <th
-                      class="px-6 py-3 ml-28 border font-semibold border-l-0 border-r-0 border-red-900"
-                    >
-                      Date de soumission
-                    </th>
-                  </tr>
-                </thead>
-                <!-- affiche les élements dans le tableau de scores -->
-                <tbody
-                  class="flex flex-col items-center justify-between overflow-y-scroll w-full"
-                  style="height: 70vh"
-                >
-                  <!-- tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" -->
-                  <template
-                    v-for="(scoreEntry, rank) in registeredScores"
-                    v-bind:key="scoreEntry.date"
-                  >
-                    <tr class="flex w-full mb-4 items-center text-xl">
-                      <td class="px-6 py-2 ml-10" style="width: 95px">
-                        {{ rank + 1 }}
-                      </td>
-                      <td class="px-6 py-2 flex items-center">
-                        <img
-                          src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=170667a&w=0&k=20&c=bsbD0qLFJ6fSUCXG_iyo7JBnmKi6T-uUblC8FNZFJoU="
-                          class="h-12 w-12 bg-white rounded-full border"
-                          alt="..."
-                        />
-                        <span
-                          class="ml-3 font-bold text-white text-xl"
-                          style="width: 200px"
-                        >
-                          {{ scoreEntry.playerName }}
-                        </span>
-                      </td>
-                      <td class="px-6 py-2 ml-6" style="width: 80px">
-                        {{ scoreEntry.score }}
-                      </td>
-                      <td class="px-6 py-2" style="width: 380px">
-                        <div class="flex items-center">
-                          <span class="mr-2 text-xl">
-                            {{ successRate(scoreEntry.score) }}
-                          </span>
-                          <span class="mr-2 text-xl"> % </span>
-                          <div class="relative w-full">
-                            <div
-                              class="overflow-hidden h-2 text-xs flex rounded bg-red-200"
-                            >
-                              <div
-                                class="h-full progressbar bg-yellow-500"
-                                :style="{ width: `${rate}%` }"
-                              ></div>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-14 py-2" style="width: 410px">
-                        {{ scoreEntry.date }}
-                      </td>
-                    </tr>
-                  </template>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- Début tableau -->
+      <ScoresTable>
+        <!-- image de fond du tableau -->
+        <div class="ScorePageBody absolute inset-0"></div>
+      </ScoresTable>
     </div>
   </div>
 </template>
@@ -273,6 +139,7 @@
 <script>
 import quizApiService from "@/services/QuizApiService";
 import participationStorageService from "@/services/ParticipationStorageService";
+import ScoresTable from './Components/ScoresTable.vue';
 
 export default {
   name: "ScorePage",
@@ -358,6 +225,7 @@ export default {
       this.$router.push("/start-new-quiz-page");
     },
   },
+  components: { ScoresTable }
 };
 </script>
 

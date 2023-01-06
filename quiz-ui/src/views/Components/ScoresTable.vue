@@ -16,20 +16,20 @@
         <table class="items-center w-full bg-transparent border-collapse">
           <!-- noms des colonnes du tableau -->
           <thead class="flex w-full">
-            <tr class="flex w-full mb-2 bg-red-800 text-red-400 text-xl">
-              <th class="px-6 py-3 ml-8 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 95px;">
+            <tr class="flex w-full mb-2 bg-gray-800/80 text-xl">
+              <th class="px-6 py-3 ml-8 border font-semibold border-l-0 border-r-0 border-black" style="width: 95px;">
                 Rang
               </th>
-              <th class="px-6 py-3 ml-2 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 250px;">
+              <th class="px-6 py-3 ml-2 border font-semibold border-l-0 border-r-0 border-black" style="width: 250px;">
                 Nom d'utilisateur
               </th>
-              <th class="px-6 py-3 ml-1 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 150px;">
+              <th class="px-6 py-3 ml-1 border font-semibold border-l-0 border-r-0 border-black" style="width: 150px;">
                 Score
               </th>
-              <th class="px-6 py-3 ml-8 border font-semibold border-l-0 border-r-0 border-red-900" style="width: 250px;">
+              <th class="px-6 py-3 ml-8 border font-semibold border-l-0 border-r-0 border-black" style="width: 250px;">
                 Taux de réussite
               </th>
-              <th class="px-6 py-3 ml-[90px] border font-semibold border-l-0 border-r-0 border-red-700">
+              <th class="px-6 py-3 ml-[90px] border font-semibold border-l-0 border-r-0 border-black">
                 Date de soumission
               </th>
             </tr>
