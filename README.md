@@ -1,11 +1,6 @@
-Pour pouvoir ajouter des questions et leurs réponses possibles dans la base de données :
-* git pull le projet
-* aller sur la branche isa
-* créer/ouvrir l'environnement virtuel si pas encore fait
-* ouvrir au niveau du répertoire quiz-api
-* executer notre application (au-préalable faire ``` pip install -r requirements.txt ``` au cas où des installations n'ont pas été faites)
-* aller sur Postman et exécuter le test "rebuild db", cela créera notre base de données
-* aller sur Postman pour executer les 2 tests "add question"
-* aller regarder sur SQLite Browser que les données ont bien été ajoutées
+Le code que vous trouverez dans ce git est celui d'un quiz, qui est le projet que nous devions réaliser pour l'unité "Developpement Full Stack Web" sous la responsabilité de Simon BUDIN et Raphaël ESCURE.
 
-PS : les autres tests  marchent aussi normalement
+Nous avions à notre disposition un [cahier des charges](https://equable-dresser-d83.notion.site/E5-Projet-Quiz-Web-full-stack-03d37502a6b343329ca7cfdab6623f5c).
+
+* Pour le back, nous avons utilisé Flask et une base de données SQLite. 
+* Pour le front, nous avons utilisé VueJS avec la librairie Tailwind.
