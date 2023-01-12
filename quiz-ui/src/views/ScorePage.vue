@@ -19,7 +19,14 @@
           :style="myTextStrokeRule"
         >
           <div
-            v-if="this.userRank < this.registeredScores.length / 3"
+            v-if="this.userRank === 1"
+          >
+            Bravo {{ this.userName }}, vous êtes premier !!
+            <div class="animate-pulse ml-4 mr-4 mt-2">Pour l'instant...</div>
+          </div>
+
+          <div
+            v-else-if="this.userRank < this.registeredScores.length / 3"
           >
             Bravo {{ this.userName }},
             <div class="animate-bounce ml-4 mr-4 mt-2">sentez-vous supérieur</div>
@@ -28,7 +35,7 @@
           </div>
 
           <div
-            v-if="this.userRank > (this.registeredScores.length * 2) / 3"
+            v-else-if="this.userRank > (this.registeredScores.length * 2) / 3"
           >
             Aïe {{ this.userName }}, vous vous êtes fait
             <div class="inline-flex">
@@ -38,7 +45,7 @@
           </div>
 
           <div
-            v-if="
+            v-else-if="
               this.userRank >= this.registeredScores.length / 3 &&
               this.userRank <= (this.registeredScores.length * 2) / 3
             "
@@ -105,7 +112,7 @@
             <!-- Les deux boutons pour clean les variables -->
           <div class="flex flex-col gap-4">
             <button
-              class="flex place-content-center items-center gap-4 w-24 h-24 item-center rounded-full bg-gray-800/80 hover:bg-gray-700 text-white"
+              class="flex place-content-center items-center gap-4 w-24 h-24 item-center text-white rounded-full bg-gray-800/80 hover:bg-gray-900 hover:animate-spin"
               @click="this.restartGame();"
             >
               <p> Rejouer ! </p>
@@ -124,10 +131,12 @@
         <div class="icon"></div>
       </div>
       <!-- Début tableau -->
-      <ScoresTable>
-        <!-- image de fond du tableau -->
-        <div class="ScorePageBody absolute inset-0"></div>
-      </ScoresTable>
+      <div class="w-[1200px] mx-auto">
+        <ScoresTable>
+          <!-- image de fond du tableau -->
+          <div class="ScorePageBody absolute inset-0"></div>
+        </ScoresTable>
+      </div>
     </div>
   </div>
 </template>
@@ -217,7 +226,7 @@ export default {
       });
     },
     restartGame: function () {
-      this.$router.push("/start-new-quiz-page");
+      this.$router.push("/questions");
     },
   },
   components: { ScoresTable }

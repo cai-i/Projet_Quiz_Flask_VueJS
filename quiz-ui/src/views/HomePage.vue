@@ -12,7 +12,7 @@
         <span class="font-bold text-red-700">Page d'accueil</span>
       </a>
       <!-- cartes de présentation du site : carousel -->
-      <div id="carousel" class="carousel slide py-7 relative" data-bs-ride="carousel">
+      <div id="carousel" class="carousel slide mt-3 py-7 relative" data-bs-ride="carousel">
         <!-- boutons en dessous pour passer d'une slide à l'autre -->
         <div class="carousel-indicators absolute right-0 bottom-14 left-0 flex justify-center p-0 mb-4">
           <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
