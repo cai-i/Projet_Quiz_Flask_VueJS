@@ -20,21 +20,21 @@
         >
           <div
             v-if="this.userRank < this.registeredScores.length / 3"
-            class="inline-flex"
           >
             Bravo {{ this.userName }},
-            <div class="animate-bounce ml-4 mr-4">sentez-vous supérieur</div>
+            <div class="animate-bounce ml-4 mr-4 mt-2">sentez-vous supérieur</div>
             à {{ this.registeredScores.length - this.userRank }}
             joueurs aujourd'hui !
           </div>
 
           <div
             v-if="this.userRank > (this.registeredScores.length * 2) / 3"
-            class="inline-flex"
           >
             Aïe {{ this.userName }}, vous vous êtes fait
-            <div class="animate-bounce ml-4 mr-4">détruire</div>
-            !
+            <div class="inline-flex">
+              <div class="animate-bounce">détruire</div>
+              !
+            </div>
           </div>
 
           <div
@@ -42,11 +42,12 @@
               this.userRank >= this.registeredScores.length / 3 &&
               this.userRank <= (this.registeredScores.length * 2) / 3
             "
-            class="inline-flex"
           >
             Bof, dans la moyenne...
-            <div class="animate-bounce ml-4 mr-4">ouf</div>
-            ?
+            <div class="inline-flex">
+              <div class="animate-bounce ml-4 mr-4">ouf</div>
+              ?
+            </div>
           </div>
         </div>
 
