@@ -16,15 +16,7 @@
           <div class="flex items-center gap-4 grow text-left font-bold text-black text-xl" v-if="username" :style="myTextStrokeRule">
             Joueur : {{ this.username }} 
           </div>
-
-          <div class="flex place-content-end gap-4">
-            <button class="flex items-center gap-2 bg-rose-700 hover:bg-rose-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            @click="this.$router.push('/')">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z" clip-rule="evenodd" />
-              </svg>
-              Retour
-            </button>
+          <div class="place-content-end">
 
             <button class="flex items-center gap-2 bg-rose-700 hover:bg-rose-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             @click="this.endQuiz()">

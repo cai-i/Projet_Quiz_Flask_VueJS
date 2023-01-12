@@ -105,7 +105,7 @@
             <!-- Les deux boutons pour clean les variables -->
           <div class="flex flex-col gap-4">
             <button
-              class="flex place-content-center items-center gap-4 w-24 h-24 item-center rounded-full bg-gray-800/80 hover:bg-gray-700 text-white"
+              class="flex place-content-center items-center gap-4 w-24 h-24 item-center text-white rounded-full bg-gray-800/80 hover:bg-gray-900 hover:animate-spin"
               @click="this.restartGame();"
             >
               <p> Rejouer ! </p>
@@ -219,7 +219,7 @@ export default {
       });
     },
     restartGame: function () {
-      this.$router.push("/start-new-quiz-page");
+      this.$router.push("/questions");
     },
   },
   components: { ScoresTable }

@@ -2,10 +2,10 @@
   <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded text-white">
     <!-- fond du tableau -->
     <slot></slot>
-    <!-- floute le fond pour mieux voir les écritures -->
+    <!-- vrai contenu tableau (ps:floute le fond pour mieux voir les écritures) -->
     <div class="w-full backdrop-blur">
       <!-- titre du tableau -->
-      <div class="relative w-full px-7 py-3 max-w-full flex-grow flex-1">
+      <div class="relative w-full px-7 py-3">
         <h3 class="my-3 font-semibold text-3xl">
           Scores des participants
         </h3>
@@ -53,7 +53,7 @@
                     class="h-12 w-12 bg-white rounded-full border"
                     alt="..."
                   />
-                  <span class="ml-3 text-xl font-bold">
+                  <span class="ml-3 text-xl font-bold" style="width:202px;">
                     {{ scoreEntry.playerName }} 
                   </span>
                 </td>
