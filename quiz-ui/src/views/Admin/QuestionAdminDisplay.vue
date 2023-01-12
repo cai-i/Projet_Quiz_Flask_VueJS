@@ -5,7 +5,7 @@
       <!-- Des classes tailwind grid et col-span ont été utilisés pour aligner les textes et inputs -->
       <div class="mt-3">
         <p class="grid grid-cols-8 gap-4">
-          <p class="col-span-1 pt-2 font-semibold">Thème: </p>
+          <p class="col-span-1 pt-2 font-semibold">Titre: </p>
           <p class="col-span-7"><input class="shadow appearance-none border focus:border-pink-700 rounded h-10 w-full px-3 py-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="text" v-model="this.question.questionTitle" placeholder="titre de la question"></p>
         </p>
       </div>
@@ -15,6 +15,15 @@
           <p class="col-span-1 pt-2 font-semibold">Question: </p>
           <p class="col-span-7"><input class="shadow appearance-none border focus:border-pink-700 rounded w-full h-10 px-3 py-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="text" v-model="this.question.questionText" placeholder="texte de la question"></p>
         </p>
+      </div>
+    </div>
+    
+    <div v-if="this.question.possibleAnswers.length >0">
+      <div class="text-xs gap-1 flex pb-1 items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-3 h-3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+        </svg>
+        <p>Veuillez sélectionner la bonne réponse</p>
       </div>
     </div>
     
@@ -138,7 +147,8 @@ export default {
 
     // Ce fichier est utilisé pour la création et la modification, la détection se fait au niveau de l'id
     async saveQuestion(){
-      if (this.question.position >= 1 && this.question.position <= this.totalNumberOfQuestion){
+      var maxPosition = this.question.id == null ? this.totalNumberOfQuestion+1 : this.totalNumberOfQuestion;
+      if (this.question.position >= 1 && this.question.position <= maxPosition){
         for (let i = 0 ; i < this.question.possibleAnswers.length; i++){
           this.question.possibleAnswers[i].isCorrect = (i != this.correctAnswerPosition) ? false : true;
         }

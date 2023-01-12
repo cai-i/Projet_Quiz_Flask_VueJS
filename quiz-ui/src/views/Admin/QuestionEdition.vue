@@ -110,6 +110,7 @@ export default {
       }
       else {
         this.loading = false;
+        this.isDisplayingNewForm = true;
       }
     }
   },
