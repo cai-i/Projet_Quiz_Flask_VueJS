@@ -26,7 +26,7 @@
         <p>Veuillez sélectionner la bonne réponse</p>
       </div>
     </div>
-    
+
     <!-- Suppression d'un possibleAnswer par le svg trash can --> 
     <div v-for="(answer, index) in this.question.possibleAnswers">
       <div class="flex gap-2">
@@ -37,6 +37,10 @@
         </button>
       </div>
     </div>
+
+    <p v-if="this.errorNoAnswer">
+      <p class="text-red-700 text-sm mb-2"> Veuillez choisir une bonne réponse</p>
+    </p>
 
     <!-- Ajout d'un possibleAnswer par le svg + -->
     <button @click="addPossibleAnswers" class="hover:underline">
@@ -109,7 +113,8 @@ export default {
   data() {
     return {
       correctAnswerPosition: null,
-      errorPosition: false
+      errorPosition: false,
+      errorNoAnswer: false
     };
   },
   watch: {
@@ -143,31 +148,46 @@ export default {
     // Le second param de splice permet de spécifier le nombre d'élément à supprimer à partir de index, un dans notre cas
     removePossibleAnswer(index) {
       this.question.possibleAnswers.splice(index, 1);
+      if (index==this.correctAnswerPosition){
+        this.correctAnswerPosition = null;
+      }
     },
 
     // Ce fichier est utilisé pour la création et la modification, la détection se fait au niveau de l'id
     async saveQuestion(){
       var maxPosition = this.question.id == null ? this.totalNumberOfQuestion+1 : this.totalNumberOfQuestion;
-      if (this.question.position >= 1 && this.question.position <= maxPosition){
-        for (let i = 0 ; i < this.question.possibleAnswers.length; i++){
-          this.question.possibleAnswers[i].isCorrect = (i != this.correctAnswerPosition) ? false : true;
-        }
 
-        if(this.question.id == null){
-          var postQuestionPromise = quizApiService.postQuestion(this.question);
-          await postQuestionPromise;
+      if(this.correctAnswerPosition == null || (this.question.position < 1 || this.question.position > maxPosition)) {
+        if(this.correctAnswerPosition == null) {
+          this.errorNoAnswer = true; 
         }
-        else{
-          var putQuestionPromise = quizApiService.putQuestion(this.question);
-          await putQuestionPromise;
-        }
+        else {this.errorNoAnswer = false;}
 
-        // Refresh la page
-        location.reload();
+        if(this.question.position < 1 || this.question.position > maxPosition) {
+          this.errorPosition = true; 
+        }
+        else {this.errorPosition = false;}
+
+        return;
       }
-      else {
-        this.errorPosition = true;
+      
+      
+      for (let i = 0 ; i < this.question.possibleAnswers.length; i++){
+        this.question.possibleAnswers[i].isCorrect = (i != this.correctAnswerPosition) ? false : true;
       }
+
+      if(this.question.id == null){
+        var postQuestionPromise = quizApiService.postQuestion(this.question);
+        await postQuestionPromise;
+      }
+      else{
+        var putQuestionPromise = quizApiService.putQuestion(this.question);
+        await putQuestionPromise;
+      }
+
+      // Refresh la page
+      location.reload();
+     
     }
   }
 };
