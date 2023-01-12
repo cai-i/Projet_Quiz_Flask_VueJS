@@ -3,77 +3,87 @@
   <div :style="myStyle">
   
     <div class="w-5/6 mx-auto">
-      <h1
-        class="py-8 px-8 text-3xl font-bold text-red-600"
-        :style="myTextStrokeRule"
-      >
-        Impressionnez-nous !
-      </h1>
+      <div v-if="this.loading" class="p-8 pt-24">
+        <!-- Loading animation elements -->
+        <div class="outerCircle"></div>
+        <div class="innerCircle"></div>
+        <div class="icon"></div>
+      </div>
+      <div v-else >
+        <div v-if="this.totalNumberOfQuestion !== 0">
+          <h1
+            class="py-8 px-8 text-3xl font-bold text-red-600"
+            :style="myTextStrokeRule"
+          >
+            Impressionnez-nous !
+          </h1>
+          <div class="flex items-center mb-4 gap-4">
+            <div class="flex items-center gap-4 grow text-left font-bold text-black text-xl" v-if="username" :style="myTextStrokeRule">
+              Joueur : {{ this.username }} 
+            </div>
+            <div class="place-content-end">
 
-
-      <div v-if="!this.loading">
-        <div class="flex items-center mb-4 gap-4">
-          <div class="flex items-center gap-4 grow text-left font-bold text-black text-xl" v-if="username" :style="myTextStrokeRule">
-            Joueur : {{ this.username }} 
-          </div>
-          <div class="place-content-end">
-
-            <button class="flex items-center gap-2 bg-rose-700 hover:bg-rose-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            @click="this.endQuiz()">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
-              </svg>
-              Terminer
-            </button>
-          </div>
-        </div>
-
-        <div
-          class="text-center shadow-md border rounded bg-white bg-opacity-60"
-        >
-          
-          <div class="mb-16 mt-8 mx-16 ">
-            <div
-              class="flex place-content-center gap-6 p-2 rounded font-bold text-xl text-sky-700 border bg-white bg-opacity-50"
-            >
-              <button
-                  class="px-1 py-1 align-middle rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
-                  @click="
-                    if (this.currentQuestionPosition - 1 > 0) {
-                      this.currentQuestionPosition--;
-                      loadQuestionByPosition();
-                    }
-                  "
-                >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              <button class="flex items-center gap-2 bg-rose-700 hover:bg-rose-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              @click="this.endQuiz()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                  <path d="M3.105 2.289a.75.75 0 00-.826.95l1.414 4.925A1.5 1.5 0 005.135 9.25h6.115a.75.75 0 010 1.5H5.135a1.5 1.5 0 00-1.442 1.086l-1.414 4.926a.75.75 0 00.826.95 28.896 28.896 0 0015.293-7.154.75.75 0 000-1.115A28.897 28.897 0 003.105 2.289z" />
                 </svg>
-              </button>
-
-              Question {{ this.currentQuestionPosition }} /
-              {{ this.totalNumberOfQuestion }}
-              
-              <button
-                class="px-1 py-1 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
-                @click="
-                  if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
-                    this.currentQuestionPosition++;
-                    loadQuestionByPosition();
-                  }
-                  else this.endQuiz();
-                "
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
+                Terminer
               </button>
             </div>
-
-            <QuestionDisplay
-              :question="currentQuestion" :selectedAnswer="answers[this.currentQuestionPosition-1]"
-              @click-on-answer="answerClickedHandler"
-            />
           </div>
+
+          <div
+            class="text-center shadow-md border rounded bg-white bg-opacity-60"
+          >
+            
+            <div class="mb-16 mt-8 mx-16 ">
+              <div
+                class="flex place-content-center gap-6 p-2 rounded font-bold text-xl text-sky-700 border bg-white bg-opacity-50"
+              >
+                <button
+                    class="px-1 py-1 align-middle rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
+                    @click="
+                      if (this.currentQuestionPosition - 1 > 0) {
+                        this.currentQuestionPosition--;
+                        loadQuestionByPosition();
+                      }
+                    "
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                  </svg>
+                </button>
+
+                Question {{ this.currentQuestionPosition }} /
+                {{ this.totalNumberOfQuestion }}
+                
+                <button
+                  class="px-1 py-1 rounded hover:bg-white hover:bg-opacity-50 hover:text-black"
+                  @click="
+                    if (this.currentQuestionPosition + 1 <= this.totalNumberOfQuestion) {
+                      this.currentQuestionPosition++;
+                      loadQuestionByPosition();
+                    }
+                    else this.endQuiz();
+                  "
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </button>
+              </div>
+
+              <QuestionDisplay
+                :question="currentQuestion" :selectedAnswer="answers[this.currentQuestionPosition-1]"
+                @click-on-answer="answerClickedHandler"
+              />
+            </div>
+          </div>
+        </div>
+        <div v-else class="py-40 text-white font-bold text-3xl items-center justify-center">
+          <h1 class="text-5xl mb-3 animate-bounce"> Oops ! </h1> 
+          Il n'y a pas encore de question.
         </div>
       </div>
     </div>
@@ -136,7 +146,9 @@ export default {
         }
       );
     }
-    else { this.loading = false;};
+    else if (this.totalNumberOfQuestion === 0){
+      this.loading = false;
+    }
     console.log("QuestionsPage created");
   },
   methods: {
@@ -175,3 +187,83 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+/* Loading animation */
+.outerCircle {
+  background-color: transparent;
+  border: 8px solid rgba(97, 82, 72, 0.9);
+  opacity: 0.9;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  border-radius: 100px;
+  width: 103px;
+  height: 103px;
+  margin: 0 auto;
+  -moz-animation: spinPulse 3s infinite ease-in-out;
+  -webkit-animation: spinPulse 3s infinite ease-in-out;
+}
+.innerCircle {
+  background-color: transparent;
+  border: 5px solid rgba(189, 215, 60, 0.6);
+  opacity: 0.9;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-radius: 100px;
+  top: -100px;
+  width: 92px;
+  height: 92px;
+  margin: 0 auto;
+  position: relative;
+  -moz-animation: spinoffPulse 1s infinite linear;
+  -webkit-animation: spinoffPulse 1s infinite linear;
+}
+
+@-moz-keyframes spinPulse {
+  0% {
+    -moz-transform: rotate(160deg);
+    opacity: 0;
+    box-shadow: 0 0 1px #bdd73c;
+  }
+  50% {
+    -moz-transform: rotate(145deg);
+    opacity: 1;
+  }
+  100% {
+    -moz-transform: rotate(-320deg);
+    opacity: 0;
+  }
+}
+@-moz-keyframes spinoffPulse {
+  0% {
+    -moz-transform: rotate(0deg);
+  }
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spinPulse {
+  0% {
+    -webkit-transform: rotate(160deg);
+    opacity: 0;
+    box-shadow: 0 0 1px #bdd73c;
+  }
+  50% {
+    -webkit-transform: rotate(145deg);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(-320deg);
+    opacity: 0;
+  }
+}
+@-webkit-keyframes spinoffPulse {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+</style>
