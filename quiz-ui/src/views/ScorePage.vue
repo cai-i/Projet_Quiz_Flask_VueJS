@@ -124,10 +124,12 @@
         <div class="icon"></div>
       </div>
       <!-- Début tableau -->
-      <ScoresTable>
-        <!-- image de fond du tableau -->
-        <div class="ScorePageBody absolute inset-0"></div>
-      </ScoresTable>
+      <div class="w-[1200px] mx-auto">
+        <ScoresTable>
+          <!-- image de fond du tableau -->
+          <div class="ScorePageBody absolute inset-0"></div>
+        </ScoresTable>
+      </div>
     </div>
   </div>
 </template>
