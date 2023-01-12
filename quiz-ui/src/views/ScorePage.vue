@@ -19,7 +19,14 @@
           :style="myTextStrokeRule"
         >
           <div
-            v-if="this.userRank < this.registeredScores.length / 3"
+            v-if="this.userRank === 1"
+          >
+            Bravo {{ this.userName }}, vous êtes premier !!
+            <div class="animate-pulse ml-4 mr-4 mt-2">Pour l'instant...</div>
+          </div>
+
+          <div
+            v-else-if="this.userRank < this.registeredScores.length / 3"
           >
             Bravo {{ this.userName }},
             <div class="animate-bounce ml-4 mr-4 mt-2">sentez-vous supérieur</div>
@@ -28,7 +35,7 @@
           </div>
 
           <div
-            v-if="this.userRank > (this.registeredScores.length * 2) / 3"
+            v-else-if="this.userRank > (this.registeredScores.length * 2) / 3"
           >
             Aïe {{ this.userName }}, vous vous êtes fait
             <div class="inline-flex">
@@ -38,7 +45,7 @@
           </div>
 
           <div
-            v-if="
+            v-else-if="
               this.userRank >= this.registeredScores.length / 3 &&
               this.userRank <= (this.registeredScores.length * 2) / 3
             "

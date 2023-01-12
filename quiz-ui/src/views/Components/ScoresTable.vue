@@ -35,7 +35,12 @@
             </tr>
           </thead>
           <!-- affiche les élements dans le tableau de scores -->
-          <tbody class="flex flex-col items-center justify-between overflow-y-auto w-full max-h-[520px]">
+          <tbody v-if="registeredScores.length===0" class="text-white text-center">
+            <p class="py-7 text-xl"> 
+              Malheureusement il n'y a pas encore de joueur, mais soyez le premier à nous impressionner !
+            </p>
+          </tbody>
+          <tbody v-selse class="flex flex-col items-center justify-between overflow-y-auto w-full max-h-[520px]">
             <!-- boucle dans la liste des participants -->
             <template
               v-for="(scoreEntry, rank) in registeredScores"
