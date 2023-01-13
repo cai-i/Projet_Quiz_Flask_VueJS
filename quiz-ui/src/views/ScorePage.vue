@@ -160,7 +160,7 @@
         </div>
       </div>
       <!-- Début tableau -->
-      <div class="w-[1200px] mx-auto">
+      <div class="max-w-fit mx-auto">
         <ScoresTable>
           <!-- image de fond du tableau -->
           <div class="ScorePageBody absolute inset-0"></div>
