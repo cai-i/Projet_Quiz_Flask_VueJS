@@ -39,7 +39,7 @@ def get_answer_by_question_position(position) :
     possibleAnswers = conn.execute('SELECT * FROM possibleAnswers WHERE questionId = ?', (question[0],)).fetchall()
     conn.close()
     for x in possibleAnswers:
-        if x[2] == 0:
+        if x[2] == 1:
             correctAnswer = {"id" : x[0], "text" : x[1], "isCorrect" : True, "questionId" : x[3]}
             return correctAnswer
 
