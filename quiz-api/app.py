@@ -5,7 +5,7 @@ from flask_expects_json import expects_json
 from schema import login, question, participation
 
 from services.admin import verify_admin_pw
-from services.questions import add_question, get_question_by_id, get_question_by_position, remove_question, remove_all_questions, change_question
+from services.questions import add_question, get_question_by_id, get_question_by_position, remove_question, remove_all_questions, change_question, get_answer_by_question_position
 from services.quiz_participants import quiz_info, submit_answers, remove_all_participants
 from db.init_db import init_db
 
@@ -38,6 +38,11 @@ def get_quiz_info():
 def verify_pw():
 	return verify_admin_pw()
 
+@app.route('/answers', methods=['GET'])
+def get_answer_given_question_position():
+	position = request.args.get('position')
+	return get_answer_by_question_position(position)
+
 @app.route('/questions/<question_id>', methods=['GET'])
 def get_question_given_id(question_id):
 	return get_question_by_id(question_id)
@@ -64,6 +69,7 @@ def delete_all_questions():
 @expects_json(question)
 def update_question(question_id):
 	return change_question(question_id)
+
 
 @app.route('/participations', methods=['POST'])
 @expects_json(participation)

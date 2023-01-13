@@ -30,6 +30,19 @@ def get_answers_by_questionId(questionId) :
             answer["isCorrect"] = True
     return possibleAnswers
 
+def get_answer_by_question_position(position) :
+    conn = db_connection()
+    question = conn.execute('SELECT * FROM questions WHERE position = ?', (position,)).fetchone()
+    if question is None:
+        return f"question with position {position} not found", 404
+
+    possibleAnswers = conn.execute('SELECT * FROM possibleAnswers WHERE questionId = ?', (question[0],)).fetchall()
+    conn.close()
+    for x in possibleAnswers:
+        if x[2] == 0:
+            correctAnswer = {"id" : x[0], "text" : x[1], "isCorrect" : True, "questionId" : x[3]}
+            return correctAnswer
+
 def create_possibleAnswers(possibleAnswers, question_id, conn):
     for answer in possibleAnswers :
         conn.execute('INSERT INTO possibleAnswers (text, isCorrect, questionId) VALUES (?, ?, ?)',
