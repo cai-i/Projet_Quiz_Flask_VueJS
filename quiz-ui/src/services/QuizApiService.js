@@ -38,6 +38,9 @@ export default {
   getQuestionById(id) {
     return this.call("get", "questions/" + id);
   },
+  getAnswerByPosition(position) {
+    return this.call("get", "answers?position=" + position);
+  },
   getToken(pw) {
     return this.call("post", "login", {"password": pw});
   },

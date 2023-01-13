@@ -58,9 +58,9 @@
           </div>
         </div>
 
-        <div class="flex items-center">
+        <div class="items-center max-w-fit mx-auto">
           <div
-            class="max-w-fit mx-auto flex items-center place-content-center gap-4 rounded-2xl mt-8 mb-8 p-6 bg-slate-400 shadow-black/40 shadow-inner"
+            class="flex items-center place-content-center gap-4 rounded-t-2xl rounded-l-2xl mt-8 p-6 bg-slate-400 shadow-black/40 shadow-inner"
           >
             <!-- Cercle de score animé -->
             <div v-if="this.circleStyle['--sratio']" class="skill">
@@ -109,19 +109,29 @@
               </div>
             </div>
 
-            <!-- Les deux boutons pour clean les variables -->
-          <div class="flex flex-col gap-4">
-            <button
-              class="flex place-content-center items-center gap-4 w-24 h-24 item-center text-white rounded-full bg-gray-800/80 hover:bg-gray-900 hover:animate-spin"
-              @click="this.restartGame();"
-            >
-              <p> Rejouer ! </p>
-            </button>
+              <!-- Les deux boutons pour clean les variables -->
+            <div class="flex flex-col gap-4">
+              <button
+                class="flex place-content-center items-center gap-4 w-24 h-24 item-center text-white rounded-full bg-gray-800/80 hover:bg-gray-900 hover:animate-spin"
+                @click="this.restartGame();"
+              >
+                <p> Rejouer ! </p>
+              </button>
+            </div>
+          </div>
 
+          <div class="place-content-end mb-12 flex">
+            <button
+              class="items-center gap-4 py-2 w-48 border border-slate-400 item-center text-white rounded-b-lg bg-gray-800/80 hover:bg-gray-900"
+              @click="this.toggleShowAnswers();"
+            >
+              <p v-if="this.showAnswers">Fermer les réponses</p>
+              <p v-else>Consulter les réponses</p>
+            </button>
           </div>
-          </div>
-          
+
         </div>
+        
       </div>
 
       <div v-else class="p-8 pt-24">
@@ -129,6 +139,25 @@
         <div class="outerCircle"></div>
         <div class="innerCircle"></div>
         <div class="icon"></div>
+      </div>
+
+      <div v-if="this.showAnswers">
+
+        <div class="w-2/3 mx-auto mb-14">
+            <template
+              v-for="(item, index) in registeredAnswers"
+              v-bind:key="item.questionText"
+            >
+              <div class="items-center flex p-2 mb-4">
+                <p class="px-2 rounded-l-lg bg-slate-700 text-white text-xl">{{ index+1 }}</p>
+                <div class="w-full p-2 rounded-r-lg bg-slate-300 shadow">
+                  <p class="text-black">{{ item.questionText }} </p>
+                  <p class="text-green-700 font-semibold">{{ item.answer }}</p>
+                </div>
+              </div>
+
+            </template>
+        </div>
       </div>
       <!-- Début tableau -->
       <div class="w-[1200px] mx-auto">
@@ -151,6 +180,7 @@ export default {
   data() {
     return {
       registeredScores: [],
+      registeredAnswers: [],
       nbr_questions: 0,
       userName: "",
       userRank: 1,
@@ -158,6 +188,7 @@ export default {
       rate: "",
       scoreDisplay: "",
       statsLoaded: false,
+      showAnswers: false,
       circleStyle: {
         "--sratio": null,
         animationPlayState: "paused",
@@ -184,6 +215,22 @@ export default {
     // Nettoyer les données du joueur, commenter si test
     //participationStorageService.clear();
     console.log("Composant Score page 'created'");
+
+    for(let index = 1; index <= this.nbr_questions; index++ ){
+      var questionPromise = quizApiService.getQuestionByPosition(index);
+      var questionApiResult = await questionPromise;
+      var questionText = questionApiResult.data.text;
+      
+      var answerPromise = quizApiService.getAnswerByPosition(index);
+      var answerApiResult = await answerPromise;
+      var answer = answerApiResult.data.text;
+      console.log(answerApiResult)
+
+      var result = {questionText: "", answer: ""}
+      result.questionText = questionText;
+      result.answer = answer;
+      this.registeredAnswers.push(result);
+    }
   },
   methods: {
     successRate: function (value) {
@@ -228,6 +275,10 @@ export default {
     restartGame: function () {
       this.$router.push("/questions");
     },
+    async toggleShowAnswers() {
+        
+      this.showAnswers = !this.showAnswers;
+    }
   },
   components: { ScoresTable }
 };
