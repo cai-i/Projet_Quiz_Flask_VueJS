@@ -43,13 +43,13 @@
           <tbody v-selse class="flex flex-col items-center justify-between overflow-y-auto w-full max-h-[520px]">
             <!-- boucle dans la liste des participants -->
             <template
-              v-for="(scoreEntry, rank) in registeredScores"
+              v-for="(scoreEntry, position) in registeredScores"
               v-bind:key="scoreEntry.date"
             >
               <tr class="flex w-full py-3 items-center text-xl text-center">
                 <!-- rang -->
                 <td class="ml-11" style="width: 95px;">
-                  {{ rank + 1 }}
+                  {{get_rank(scoreEntry.reussite, position)}}
                 </td>
                 <!-- nom du joueur -->
                 <td class="px-6 flex items-center text-left" style="width:250px;">
@@ -82,7 +82,7 @@
                       <div class="overflow-hidden h-2 text-xs flex rounded bg-red-200">
                         <div
                           class="h-full progressbar bg-yellow-500"
-                          :style="{width: `${String(scoreEntry.reussite)}%`}"
+                          :style="{width: `${String(set_reussite(scoreEntry.reussite))}%`}"
                         >
                         </div>
                       </div>
@@ -110,6 +110,8 @@ export default {
   data() {
     return {
       registeredScores: [],
+      currentReussite: 100,
+      rank:0,
       nbr_participants:0,
       nbr_questions: 0,
     };
@@ -120,9 +122,25 @@ export default {
     var quizInfoPromise = quizApiService.getQuizInfo();
     var quizInfoApiResult = await quizInfoPromise;
     this.registeredScores = quizInfoApiResult.data.scores;
+    this.currentReussite = this.registeredScores[0].reussite;
     this.nbr_participants = this.registeredScores.length;
     this.nbr_questions = quizInfoApiResult.data.size;
     console.log("Composant Home page 'created'"); 
+  },
+  methods : {
+    set_reussite: function(reussite) {
+      this.currentReussite = reussite
+      return this.currentReussite 
+    },
+    get_rank: function(reussite, position) {
+      if (position == 0) {
+        this.rank = position + 1
+      }
+      else if (reussite != this.currentReussite) {
+        this.rank ++
+      }
+      return this.rank
+    }
   }
 }
 </script>
