@@ -205,10 +205,10 @@ export default {
       this.userScore = participationStorageService.getParticipationScore();
       for (var scoreEntry in this.registeredScores) {
         if (
-          this.registeredScores[scoreEntry].playerName === this.userName &&
-          this.registeredScores[scoreEntry].score == this.userScore
+          // this.registeredScores[scoreEntry].playerName === this.userName &&
+          this.registeredScores[scoreEntry].score > this.userScore
         )
-          this.userRank = parseInt(scoreEntry) + 1;
+          this.userRank += 1;
       }
     },
     restartGame: function () {
