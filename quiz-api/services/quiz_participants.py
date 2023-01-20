@@ -6,7 +6,7 @@ def quiz_info():
 	nb_question = len(get_all_question())
 	# recupère les scores des participants
 	conn = db_connection()
-	participants_scores = conn.execute('SELECT date, player_name, score, reussite FROM participants ORDER BY score DESC').fetchall()
+	participants_scores = conn.execute('SELECT date, player_name, score, reussite FROM participants ORDER BY reussite DESC, date DESC').fetchall()
 	conn.close()
 	scores = []
 	for score in participants_scores:
@@ -54,7 +54,7 @@ def submit_answers() :
 		"score" : score
 	}
 	# ajoute le participant à la table des participants
-	add_participant(payload["playerName"], score, score*100/nb_questions)
+	add_participant(payload["playerName"], score, round((score*100/nb_questions),1))
 	return response
 
 def add_participant(playerName, score, reussite):
