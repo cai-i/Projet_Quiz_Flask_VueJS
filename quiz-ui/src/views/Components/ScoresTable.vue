@@ -43,7 +43,7 @@
           <tbody v-selse class="flex flex-col items-center justify-between overflow-y-auto w-full max-h-[520px]">
             <!-- boucle dans la liste des participants -->
             <template
-              v-for="scoreEntry in registeredScores"
+              v-for="(scoreEntry, position) in registeredScores"
               v-bind:key="scoreEntry.date"
             >
               <tr class="flex w-full py-3 items-center text-xl text-center">
@@ -110,8 +110,8 @@ export default {
   data() {
     return {
       registeredScores: [],
-      currentReussite: 0,
-      rank:1,
+      currentReussite: 100,
+      rank:0,
       nbr_participants:0,
       nbr_questions: 0,
     };
@@ -132,9 +132,12 @@ export default {
       this.currentReussite = reussite
       return this.currentReussite 
     },
-    get_rank: function(reussite) {
-      if (reussite != this.currentReussite) {
-        this.rank = this.rank + 1
+    get_rank: function(reussite, position) {
+      if (position == 0) {
+        this.rank = position + 1
+      }
+      else if (reussite != this.currentReussite) {
+        this.rank ++
       }
       return this.rank
     }
