@@ -2,7 +2,7 @@
   <div
     class="py-11 bg-cover bg-center bg-no-repeat bg-fixed"
     style="
-      background-image: url(https://img.rawpixel.com/private/static/images/website/2022-05/upwk82583677-wikimedia-image-kows5907.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=94d8d8d28d58bcee9ebf690dfa3917c8);
+      background-image: url(./assets/imgs/city_night.jpg);
     "
   >
 

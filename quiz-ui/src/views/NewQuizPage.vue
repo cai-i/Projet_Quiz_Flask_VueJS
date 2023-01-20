@@ -57,7 +57,8 @@ export default {
         backgroundImage:
           // "url(https://images4.alphacoders.com/146/thumb-1920-146664.jpg)",
           // "url(https://img.rawpixel.com/private/static/images/website/2022-05/upwk82583677-wikimedia-image-kows5907.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=94d8d8d28d58bcee9ebf690dfa3917c8)",
-          "url(https://live.staticflickr.com/3579/3654034811_34ce15acac_b.jpg)",
+          //"url(https://live.staticflickr.com/3579/3654034811_34ce15acac_b.jpg)",
+          "url('./assets/imgs/street_market.jpg')"
       },
       myTextStrokeRule: {
         textShadow:

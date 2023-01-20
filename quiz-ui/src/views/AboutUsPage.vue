@@ -17,18 +17,20 @@
         <FlipCard name="Huiying DAI" 
                   presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique"
                   hobby="Philosophie : réfléchir et manger"
-                  backgroundImageURL="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1"
+                  backgroundImageURL="./assets/imgs/dragons.jpg"
                   linkedinURL="https://fr.linkedin.com/in/huiying-dai-7219a71b5"
                   imageURL="https://www.rawpixel.com/image/5924500"
                   licenseURL="https://creativecommons.org/publicdomain/zero/1.0/"
                   >
         </FlipCard>
+        <!-- backgroundImageURL="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1" -->
+                  
 
         <!-- 2ème carte : Emilie CHEN -->
         <FlipCard name="Emilie CHEN" 
                   presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Informatique"
                   hobby="Philosophie : être créative et ambitieuse"
-                  backgroundImageURL="https://upload.wikimedia.org/wikipedia/commons/6/6d/Algorithmically-generated_landscape_artwork_of_forest_with_Shinto_shrine_using_negative_prompt_for_green_trees.png"
+                  backgroundImageURL="./assets/imgs/temples_draw.jpg"
                   linkedinURL="https://fr.linkedin.com/in/emilie-chen-a077b022a/en?trk=people-guest_people_search-card&original_referer=https%3A%2F%2Fwww.google.com%2F"
                   imageURL="https://commons.wikimedia.org/wiki/File:Algorithmically-generated_landscape_artwork_of_forest_with_Shinto_shrine_using_negative_prompt_for_green_trees.png"
                   licenseURL="https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
@@ -39,7 +41,7 @@
         <FlipCard name="Isabelle CAI" 
                   presentation="Etudiante en dernière année d'école d'ingénieur spécialisée en Date Science et Intelligence Artificielle"
                   hobby="Philosophie : survivre aux défis de la vie"
-                  backgroundImageURL="https://img.rawpixel.com/private/static/images/website/2022-05/px1292817-image-kwvy1xs1.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=7c30808c57522f732b2b65e71836deb1"
+                  backgroundImageURL="./assets/imgs/dragons.jpg"
                   linkedinURL="https://fr.linkedin.com/in/isabelle-cai-019a0a221"
                   imageURL="https://www.rawpixel.com/image/5924500"
                   licenseURL="https://creativecommons.org/publicdomain/zero/1.0/"
@@ -51,7 +53,7 @@
         <!-- presentation du projet -->
         <div class="group grow relative items-center justify-center overflow-hidden hover:shadow-black/30 transition-transform-shadow">
           <div class="group h-96 w-full [perspective:1000px] ">
-            <img class="h-full w-full rounded-xl object-cover group-hover:rotate-3 group-hover:scale-125 transition-transform" src="https://live.staticflickr.com/1417/5780094040_c29d039c39_b.jpg"/>
+            <img class="h-full w-full rounded-xl object-cover group-hover:rotate-3 group-hover:scale-125 transition-transform" src="/assets/imgs/boats_night.jpg"/>
           </div>
           <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70"></div>
           <div class="absolute inset-0 text-white flex flex-col items-center justify-center px-9 text-center translate-y-[63%] group-hover:translate-y-0 transition-all">
@@ -101,7 +103,7 @@
         <!-- licences -->
         <div class="group grow relative items-center justify-center overflow-hidden hover:shadow-black/30 transition-transform-shadow">
           <div class="h-96 w-full">
-            <img class="h-full w-full rounded-xl object-cover group-hover:rotate-3 group-hover:scale-125 transition-transform" src="https://live.staticflickr.com/7241/26805877601_40d74d62fe_b.jpg"/>
+            <img class="h-full w-full rounded-xl object-cover group-hover:rotate-3 group-hover:scale-125 transition-transform" src="/assets/imgs/roofs.jpg"/>
           </div>
           <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70"></div>
           <div class="absolute inset-0 mt-3 text-white flex flex-col items-center justify-center px-9 text-center translate-y-[62%] group-hover:translate-y-0 transition-all">
