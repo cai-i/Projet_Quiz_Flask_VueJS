@@ -5,10 +5,6 @@
       background-image: url(https://img.rawpixel.com/private/static/images/website/2022-05/upwk82583677-wikimedia-image-kows5907.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=94d8d8d28d58bcee9ebf690dfa3917c8);
     "
   >
-    <!-- 
-          // "url(https://img.rawpixel.com/private/static/images/website/2022-05/upwk82583677-wikimedia-image-kows5907.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=94d8d8d28d58bcee9ebf690dfa3917c8)",
-          // "url(https://live.staticflickr.com/65535/51216709489_0de8256b15_b.jpg)", 
-          -->
 
     <div class="p-16">
       <div v-if="this.statsLoaded">
@@ -26,7 +22,7 @@
           </div>
 
           <div
-            v-else-if="this.userRank < this.registeredScores.length / 3"
+            v-else-if="this.rate > 2 / 3"
           >
             Bravo {{ this.userName }},
             <div class="animate-bounce ml-4 mr-4 mt-2">sentez-vous supérieur</div>
@@ -35,25 +31,22 @@
           </div>
 
           <div
-            v-else-if="this.userRank > (this.registeredScores.length * 2) / 3"
-          >
-            Aïe {{ this.userName }}, vous vous êtes fait
-            <div class="inline-flex">
-              <div class="animate-bounce">détruire</div>
-              !
-            </div>
-          </div>
-
-          <div
-            v-else-if="
-              this.userRank >= this.registeredScores.length / 3 &&
-              this.userRank <= (this.registeredScores.length * 2) / 3
-            "
+            v-else-if="this.rate > 1 / 3"
           >
             Bof, dans la moyenne...
             <div class="inline-flex">
               <div class="animate-bounce ml-4 mr-4">ouf</div>
               ?
+            </div>
+          </div>
+
+          <div
+            v-else
+          >
+            Aïe {{ this.userName }}, vous vous êtes fait
+            <div class="inline-flex">
+              <div class="animate-bounce">détruire</div>
+              !
             </div>
           </div>
         </div>
@@ -112,10 +105,11 @@
               <!-- Les deux boutons pour clean les variables -->
             <div class="flex flex-col gap-4">
               <button
-                class="flex place-content-center items-center gap-4 w-24 h-24 item-center text-white rounded-full bg-gray-800/80 hover:bg-gray-900 hover:animate-spin"
+                class="flex place-content-center items-center gap-4 w-28 h-28 item-center text-white rounded-full bg-gray-800/80 hover:bg-gray-800"
                 @click="this.restartGame();"
               >
-                <p> Rejouer ! </p>
+                <p class="link link-underline link-underline-white"> Rejouer ! 
+                </p>
               </button>
             </div>
           </div>
@@ -363,6 +357,26 @@ svg {
     stroke-dashoffset: var(--sratio);
   }
 }
+
+/* animation pour score button */
+
+.link-underline {
+  border-bottom-width: 0;
+  background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
+  background-size: 0 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size .5s ease-in-out;
+}
+
+.link-underline-white {
+  background-image: linear-gradient(transparent, transparent), linear-gradient(rgb(190, 164, 114), rgb(167, 160, 128))
+}
+
+.link-underline:hover {
+  background-size: 100% 2px;
+  background-position: 0 100%
+	}
 
 /* Loading animation */
 .outerCircle {
