@@ -162,7 +162,7 @@ export default {
       showAnswers: false,
       myTextStrokeRule: {
         textShadow:
-          "0 4px 6px white, 0 -4px 6px orange, 4px 0 3px CadetBlue, -4px 0 3px CadetBlue",
+          "0 4px 8px white, 0 -2px 8px CadetBlue",
         webkitTextStroke: "0.3px",
         webkitTextStrokeColor: "white",
       },
