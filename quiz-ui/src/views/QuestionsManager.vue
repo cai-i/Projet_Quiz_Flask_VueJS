@@ -122,7 +122,7 @@ export default {
         // "url(https://img.rawpixel.com/private/static/images/website/2022-05/upwk82583677-wikimedia-image-kows5907.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=94d8d8d28d58bcee9ebf690dfa3917c8)",
         // "url(https://live.staticflickr.com/65535/51216709489_0de8256b15_b.jpg)",
 
-        "url(https://c.pxhere.com/photos/7f/7a/fish_ink_painting_china_wind-1235431.jpg!d)",
+        "url(./assets/imgs/koi_fish.jpg)",
       },
       myTextStrokeRule: {
         textShadow:
