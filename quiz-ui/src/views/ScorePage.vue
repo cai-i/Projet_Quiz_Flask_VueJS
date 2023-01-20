@@ -1,12 +1,12 @@
 <template>
   <div
-    class="bg-cover bg-center bg-no-repeat bg-fixed"
+    class="py-11 bg-cover bg-center bg-no-repeat bg-fixed"
     style="
       background-image: url(https://img.rawpixel.com/private/static/images/website/2022-05/upwk82583677-wikimedia-image-kows5907.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=94d8d8d28d58bcee9ebf690dfa3917c8);
     "
   >
 
-    <div class="p-16">
+    <div class="w-5/6 mx-auto">
       <div v-if="this.statsLoaded">
         <!--message pour le joueur-->
         <div
@@ -154,12 +154,10 @@
         </div>
       </div>
       <!-- Début tableau -->
-      <div class="max-w-fit mx-auto">
-        <ScoresTable>
-          <!-- image de fond du tableau -->
-          <div class="ScorePageBody absolute inset-0"></div>
-        </ScoresTable>
-      </div>
+      <ScoresTable>
+        <!-- image de fond du tableau -->
+        <div class="ScorePageBody absolute inset-0"></div>
+      </ScoresTable>
     </div>
   </div>
 </template>
