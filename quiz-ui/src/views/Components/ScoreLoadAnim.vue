@@ -129,6 +129,8 @@ export default {
           incr = 1;
         }
         if (counter >= (100 * this.userScore) / this.nbr_questions -1) {
+          if ((100 * this.userScore) / this.nbr_questions - counter > 0.5)
+          this.scoreDisplay = counter+1 + "%";
           clearInterval();
         } else {
           counter += incr;
