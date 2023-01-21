@@ -25,9 +25,8 @@
             v-else-if="this.rate > 2 / 3"
           >
             Bravo {{ this.userName }},
-            <div class="animate-bounce ml-4 mr-4 mt-2">sentez-vous supérieur</div>
-            à {{ this.registeredScores.length - this.userRank }}
-            joueurs aujourd'hui !
+            <div class="animate-bounce ml-4 mr-4 mt-2">soyez fier</div>
+            de votre culture G !
           </div>
 
           <div
@@ -196,20 +195,22 @@ export default {
   },
   methods: {
     successRate: function (value) {
-      this.rate = String((value * 100) / this.nbr_questions);
+      this.rate = Math.round((value * 100) / this.nbr_questions);
       return this.rate;
     },
     scoreStats: function () {
       this.userName = participationStorageService.getPlayerName();
       this.userScore = participationStorageService.getParticipationScore();
       this.rate = this.successRate(this.userScore);
-      var reussitePrec = this.rate; 
+      var reussitePrec = this.registeredScores[0]; 
       for (var scoreId in this.registeredScores) {
         if ( this.registeredScores[scoreId].reussite <= this.rate ) {
           break;
         }
+        else {
           this.userRank += this.registeredScores[scoreId].reussite!=reussitePrec;        
-          reussitePrec = this.registeredScores[scoreId].reussite;            
+          reussitePrec = this.registeredScores[scoreId].reussite;     
+        }       
       } 
     },
     restartGame: function () {
