@@ -54,7 +54,7 @@ def submit_answers() :
 		"score" : score
 	}
 	# ajoute le participant à la table des participants
-	add_participant(payload["playerName"], score, round((score*100/nb_questions),1))
+	add_participant(payload["playerName"], score, round((score*100/nb_questions),0))
 	return response
 
 def add_participant(playerName, score, reussite):
