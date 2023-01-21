@@ -61,7 +61,6 @@
               :nbr_questions="this.nbr_questions" 
               :userScore="this.userScore">    
             </ScoreLoadAnim>
-
             <!-- Stats du joueur   -->
             <div class="p-6 flex flex-col gap-4 text-3xl text-left">
               <div class="font-mono">
@@ -203,13 +202,15 @@ export default {
     scoreStats: function () {
       this.userName = participationStorageService.getPlayerName();
       this.userScore = participationStorageService.getParticipationScore();
-      for (var scoreEntry in this.registeredScores) {
-        if (
-          // this.registeredScores[scoreEntry].playerName === this.userName &&
-          this.registeredScores[scoreEntry].score > this.userScore
-        )
-          this.userRank += 1;
-      }
+      this.rate = this.successRate(this.userScore);
+      var reussitePrec = this.rate; 
+      for (var scoreId in this.registeredScores) {
+        if ( this.registeredScores[scoreId].reussite <= this.rate ) {
+          break;
+        }
+          this.userRank += this.registeredScores[scoreId].reussite!=reussitePrec;        
+          reussitePrec = this.registeredScores[scoreId].reussite;            
+      } 
     },
     restartGame: function () {
       this.$router.push("/questions");
