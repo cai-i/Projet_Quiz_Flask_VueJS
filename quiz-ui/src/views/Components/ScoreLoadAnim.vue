@@ -128,7 +128,7 @@ export default {
         if (counter >= (100 * this.userScore) / this.nbr_questions - 10) {
           incr = 1;
         }
-        if (counter >= (100 * this.userScore) / this.nbr_questions) {
+        if (counter >= (100 * this.userScore) / this.nbr_questions -1) {
           clearInterval();
         } else {
           counter += incr;
