@@ -6,13 +6,11 @@
     - {{ this.question.questionTitle }} -
   </div>
 
-  <div class="m-2 p-2">
-    <img
-      class="w-1/3 h-auto m-4 object-cover mx-auto"
+    <img id="imgBox"
+      class="w-1/3 h-auto m-6 mb-10 object-cover mx-auto"
       v-if="this.question.questionImage"
       :src="this.question.questionImage"
     />
-  </div>
 
  <div class="p-4 pb-8 border rounded bg-white bg-opacity-40 ">
     <div class="block text-rose-700 text-xl font-bold mb-6">
@@ -21,7 +19,7 @@
 
     <ul>
       <li v-for="(answer,idx) in this.question.possibleAnswers" :key="idx">
-        <button
+        <button id="answerButtons"
           class="mx-auto w-4/5 bg-opacity-80 hover:bg-opacity-100 shadow-md border rounded block m-2 p-2 hover:font-semibold"
           @click="
             $emit(
@@ -61,3 +59,29 @@ export default {
   },
 };
 </script>
+
+
+<style scoped>
+/* changer des parametres selon la taille de la fenetre */
+@media (max-width: 550px) { 
+  #imgBox{    
+    width: 80%;
+  }    
+  #answerButtons{
+    width: 100%;
+  }
+}
+@media (min-width:550px) and (max-width: 768px) { 
+  #imgBox{    
+    width: 50%;
+  }    
+  #answerButtons{
+    width: 90%;
+  }
+}
+@media (min-width:768px) and (max-width: 1024px) { 
+  #imgBox{    
+    width: 50%;
+  }    
+}
+</style>
