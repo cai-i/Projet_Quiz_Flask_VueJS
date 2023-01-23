@@ -15,6 +15,7 @@
           <p class="col-span-1 pt-2 font-semibold">Question: </p>
           <p class="col-span-7"><input class="shadow appearance-none border focus:border-pink-700 rounded w-full h-10 px-3 py-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="text" v-model="this.question.questionText" placeholder="texte de la question"></p>
         </p>
+        <p v-if="this.errorQuestionText" class="text-red-700 text-sm">Ce champ est obligatoire</p>
       </div>
     </div>
     
@@ -91,6 +92,21 @@
         Sauvegarder
       </button>
     </div>
+    <div v-if="this.successSave">
+      <div class="fixed top-0 right-0 m-6">
+        <div
+          class="bg-green-200 text-green-900 rounded-lg shadow-md p-4"
+          style="min-width: 240px"
+        >
+          <div class="flex gap-2 items-center">
+            <p><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+            </p>
+            <p>Question sauvegardée</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   
 </template>
@@ -114,7 +130,9 @@ export default {
     return {
       correctAnswerPosition: null,
       errorPosition: false,
-      errorNoAnswer: false
+      errorNoAnswer: false,
+      errorQuestionText: false,
+      successSave: false
     };
   },
   computed: {
@@ -127,7 +145,9 @@ export default {
       this.loadCorrectAnswerPosition();
       this.errorNoAnswer = false;
       this.errorPosition = false;
+      this.errorQuestionText = false;
       this.initialPosition = this.question.position;
+      this.successSave = false;
     }
   },
   async created() {
@@ -163,17 +183,29 @@ export default {
     async saveQuestion(){
       var maxPosition = this.question.id == null ? this.totalNumberOfQuestion+1 : this.totalNumberOfQuestion;
 
-      if(this.correctAnswerPosition == null || (this.question.position < 1 || this.question.position > maxPosition)) {
+      if(this.question.questionText == "" || this.correctAnswerPosition == null || (this.question.position < 1 || this.question.position > maxPosition)) {
+        
+        if(this.question.questionText == ""){
+          this.errorQuestionText = true;
+        }
+        else{
+          this.errorQuestionText = false;
+        }
+        
         if(this.correctAnswerPosition == null) {
           this.errorNoAnswer = true; 
         }
-        else {this.errorNoAnswer = false;}
+        else{
+          this.errorNoAnswer = false;
+        }
 
         if(this.question.position < 1 || this.question.position > maxPosition) {
           this.errorPosition = true; 
         }
-        else {this.errorPosition = false;}
-
+        else{
+          this.errorPosition = false;
+        }
+        
         return;
       }
       
@@ -194,6 +226,9 @@ export default {
       }
       this.errorNoAnswer = false;
       this.errorPosition = false;
+      this.errorQuestionText = false;
+      this.successSave = true;
+      setTimeout(() => this.successSave = false, 3000);
      
     },
     emitAddQuestion(){
