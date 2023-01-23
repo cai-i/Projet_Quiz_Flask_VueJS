@@ -45,7 +45,7 @@
           <div class="flex-grow">
             <div class="py-8 ml-6">
               <div v-if="this.currentQuestion.id == null" class="text-orange-600 px-4 font-semibold text-2xl">Nouvelle question</div>
-              <QuestionAdminDisplay :question=this.currentQuestion :totalNumberOfQuestion="this.totalNumberOfQuestion" @load-list="loadList()" />
+              <QuestionAdminDisplay :question=this.currentQuestion :totalNumberOfQuestion="this.totalNumberOfQuestion" @add-question-to-list="addQuestionToList" @update-question-from-list="updateQuestionFromList" />
             </div>
           </div>
 
@@ -95,22 +95,31 @@ export default {
       registeredTitles: []
     };
   },
-  watch: {
-    registeredTitles() {
-    }
-  },
   async created() {
     var token = participationStorageService.getAuthentificationToken();
     if(token != null){
       this.adminMode = true;
-      this.loadList();
+      var quizInfoPromise = quizApiService.getQuizInfo();
+      var quizInfoApiResult = await quizInfoPromise;
+      this.totalNumberOfQuestion = quizInfoApiResult.data.size;
+      this.registeredTitles = [];
+      
+      if(this.totalNumberOfQuestion > 0){
+        Promise.all([this.loadAllTitles(), this.loadQuestion(1)]).then((response) => {
+          this.loading = false;
+        })
+      }
+      else {
+        this.loading = false;
+        this.isDisplayingNewForm = true;
+      }
     }
   },
   methods: {
-    selectQuestion(index){
+    selectQuestion(position){
       this.isDisplayingNewForm = false;
-      this.selectedQuestion = index;
-      this.loadQuestion(index);
+      this.selectedQuestion = position;
+      this.loadQuestion(position);
     },
     toggleModal(){
       this.showModal = !this.showModal;
@@ -127,35 +136,62 @@ export default {
       this.currentQuestion.possibleAnswers = [];
     },
 
+    // change registerTitles after api post
+    async addQuestionToList(){
+      this.totalNumberOfQuestion++;
+
+      var questionPromise = quizApiService.getQuestionByPosition(this.currentQuestion.position);
+      var questionApiResult = await questionPromise;
+      var title = questionApiResult.data.title;
+      this.registeredTitles.splice(this.currentQuestion.position-1, 0, title);
+      
+      this.isDisplayingNewForm = false;
+      this.selectedQuestion = this.currentQuestion.position;
+    },
+
+    // change registerTitles after api put
+    async updateQuestionFromList(oldPosition){
+      var questionPromise = quizApiService.getQuestionByPosition(this.currentQuestion.position);
+      var questionApiResult = await questionPromise;
+      var title = questionApiResult.data.title;
+
+      if(this.currentQuestion.position != oldPosition){
+        this.registeredTitles.splice(oldPosition-1, 1);
+        this.registeredTitles.splice(this.currentQuestion.position-1, 0, title);
+      }
+      else{
+        this.registeredTitles[this.currentQuestion.position-1] = title;
+      }
+      this.selectedQuestion = this.currentQuestion.position;
+    },
+
+    // change registerTitles after api delete
     // Cela ne semble pas possible de delete une question par sa position, un getQuestionByPosition est utilisé
-    async removeQuestion(index){
-      var questionPromise = quizApiService.getQuestionByPosition(index);
+    async removeQuestion(position){
+      var questionPromise = quizApiService.getQuestionByPosition(position);
       var questionApiResult = await questionPromise;
       var removeQuestionPromise = quizApiService.removeQuestion(questionApiResult.data.id);
       await removeQuestionPromise;
-      this.loadList();
+
+      this.totalNumberOfQuestion--;
+      this.registeredTitles.splice(position-1, 1);
+      
+      if(this.totalNumberOfQuestion < 1){
+        this.displayNewForm();
+      }
     },
+
+    // change registerTitles after api delete all
     async removeAllQuestions(){
       var questionsPromise = quizApiService.removeAllQuestions();
       await questionsPromise;
-      this.loadList();
-    },
-    async loadList(){
-      var quizInfoPromise = quizApiService.getQuizInfo();
-      var quizInfoApiResult = await quizInfoPromise;
-      this.totalNumberOfQuestion = quizInfoApiResult.data.size;
+      this.toggleModal();
+
+      this.totalNumberOfQuestion = 0;
       this.registeredTitles = [];
-      
-      if(this.totalNumberOfQuestion > 0){
-        Promise.all([this.loadAllTitles(), this.loadQuestion(1)]).then((response) => {
-          this.loading = false;
-        })
-      }
-      else {
-        this.loading = false;
-        this.isDisplayingNewForm = true;
-      }
+      this.displayNewForm();
     },
+
     // Similaire à celui de QuestionManager, mais l'id et la position ont été ajoutée car utile pour le put et/ou post
     async loadQuestion(position) {
         var questionPromise = quizApiService.getQuestionByPosition(position);
@@ -173,9 +209,7 @@ export default {
         var questionApiResult = await questionPromise;
         var title = questionApiResult.data.title;
         this.registeredTitles.push(title);
-        
       }
-      console.log(this.registeredTitles);
     },
   }
 }

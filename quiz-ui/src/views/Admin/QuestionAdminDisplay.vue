@@ -127,11 +127,12 @@ export default {
       this.loadCorrectAnswerPosition();
       this.errorNoAnswer = false;
       this.errorPosition = false;
+      this.initialPosition = this.question.position;
     }
   },
   async created() {
-    this.loadCorrectAnswerPosition()
-   
+    this.loadCorrectAnswerPosition();
+    this.initialPosition = this.question.position;
   },
   methods:{
     imageFileChangedHandler(b64String) {
@@ -184,20 +185,22 @@ export default {
       if(this.question.id == null){
         var postQuestionPromise = quizApiService.postQuestion(this.question);
         await postQuestionPromise;
+        this.emitAddQuestion(this.question.position);
       }
       else{
         var putQuestionPromise = quizApiService.putQuestion(this.question);
         await putQuestionPromise;
+        this.emitUpdateQuestion(this.question.position);
       }
-
       this.errorNoAnswer = false;
       this.errorPosition = false;
-
-      this.loadQuestionsList();
      
     },
-    loadQuestionsList(){
-      this.$emit('load-list');
+    emitAddQuestion(){
+      this.$emit('add-question-to-list');
+    },
+    emitUpdateQuestion(){
+      this.$emit('update-question-from-list', this.initialPosition);
     }
   }
 };
