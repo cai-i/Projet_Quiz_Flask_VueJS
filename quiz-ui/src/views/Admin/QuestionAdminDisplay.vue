@@ -190,9 +190,14 @@ export default {
         await putQuestionPromise;
       }
 
-      // Refresh la page
-      location.reload();
+      this.errorNoAnswer = false;
+      this.errorPosition = false;
+
+      this.loadQuestionsList();
      
+    },
+    loadQuestionsList(){
+      this.$emit('load-list');
     }
   }
 };

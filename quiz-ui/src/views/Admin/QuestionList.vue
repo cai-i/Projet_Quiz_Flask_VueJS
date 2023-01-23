@@ -45,7 +45,7 @@
           <div class="flex-grow">
             <div class="py-8 ml-6">
               <div v-if="this.currentQuestion.id == null" class="text-orange-600 px-4 font-semibold text-2xl">Nouvelle question</div>
-              <QuestionAdminDisplay :question=this.currentQuestion :totalNumberOfQuestion="this.totalNumberOfQuestion" />
+              <QuestionAdminDisplay :question=this.currentQuestion :totalNumberOfQuestion="this.totalNumberOfQuestion" @load-list="loadList()" />
             </div>
           </div>
 
@@ -95,23 +95,15 @@ export default {
       registeredTitles: []
     };
   },
+  watch: {
+    registeredTitles() {
+    }
+  },
   async created() {
     var token = participationStorageService.getAuthentificationToken();
     if(token != null){
       this.adminMode = true;
-      var quizInfoPromise = quizApiService.getQuizInfo();
-      var quizInfoApiResult = await quizInfoPromise;
-      this.totalNumberOfQuestion = quizInfoApiResult.data.size;
-
-      if(this.totalNumberOfQuestion > 0){
-        Promise.all([this.loadAllTitles(), this.loadQuestion(1)]).then((response) => {
-          this.loading = false;
-        })
-      }
-      else {
-        this.loading = false;
-        this.isDisplayingNewForm = true;
-      }
+      this.loadList();
     }
   },
   methods: {
@@ -141,14 +133,29 @@ export default {
       var questionApiResult = await questionPromise;
       var removeQuestionPromise = quizApiService.removeQuestion(questionApiResult.data.id);
       await removeQuestionPromise;
-      location.reload();
+      this.loadList();
     },
     async removeAllQuestions(){
       var questionsPromise = quizApiService.removeAllQuestions();
       await questionsPromise;
-      location.reload();
+      this.loadList();
     },
-
+    async loadList(){
+      var quizInfoPromise = quizApiService.getQuizInfo();
+      var quizInfoApiResult = await quizInfoPromise;
+      this.totalNumberOfQuestion = quizInfoApiResult.data.size;
+      this.registeredTitles = [];
+      
+      if(this.totalNumberOfQuestion > 0){
+        Promise.all([this.loadAllTitles(), this.loadQuestion(1)]).then((response) => {
+          this.loading = false;
+        })
+      }
+      else {
+        this.loading = false;
+        this.isDisplayingNewForm = true;
+      }
+    },
     // Similaire à celui de QuestionManager, mais l'id et la position ont été ajoutée car utile pour le put et/ou post
     async loadQuestion(position) {
         var questionPromise = quizApiService.getQuestionByPosition(position);
@@ -161,12 +168,14 @@ export default {
         this.currentQuestion.possibleAnswers = questionApiResult.data.possibleAnswers;
     },
     async loadAllTitles() {
-        for(let index = 1; index <= this.totalNumberOfQuestion; index++ ){
-          var questionPromise = quizApiService.getQuestionByPosition(index);
-          var questionApiResult = await questionPromise;
-          var title = questionApiResult.data.title;
-          this.registeredTitles.push(title);
-        }
+      for(let index = 1; index <= this.totalNumberOfQuestion; index++ ){
+        var questionPromise = quizApiService.getQuestionByPosition(index);
+        var questionApiResult = await questionPromise;
+        var title = questionApiResult.data.title;
+        this.registeredTitles.push(title);
+        
+      }
+      console.log(this.registeredTitles);
     },
   }
 }
