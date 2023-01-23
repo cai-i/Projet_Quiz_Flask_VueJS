@@ -227,7 +227,8 @@ export default {
       this.errorNoAnswer = false;
       this.errorPosition = false;
       this.errorQuestionText = false;
-      this.successSave = true;
+      
+      setTimeout(() => this.successSave = true, 400);
       setTimeout(() => this.successSave = false, 3000);
      
     },
