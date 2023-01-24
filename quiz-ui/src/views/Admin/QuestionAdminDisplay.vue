@@ -92,21 +92,7 @@
         Sauvegarder
       </button>
     </div>
-    <div v-if="this.successSave">
-      <div class="fixed top-0 right-0 m-6">
-        <div
-          class="bg-green-200 text-green-900 rounded-lg shadow-md p-4"
-          style="min-width: 240px"
-        >
-          <div class="flex gap-2 items-center">
-            <p><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-            </p>
-            <p>Question sauvegardée</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    
   </div>
   
 </template>
@@ -131,8 +117,7 @@ export default {
       correctAnswerPosition: null,
       errorPosition: false,
       errorNoAnswer: false,
-      errorQuestionText: false,
-      successSave: false
+      errorQuestionText: false
     };
   },
   computed: {
@@ -147,7 +132,6 @@ export default {
       this.errorPosition = false;
       this.errorQuestionText = false;
       this.initialPosition = this.question.position;
-      this.successSave = false;
     }
   },
   async created() {
@@ -228,8 +212,8 @@ export default {
       this.errorPosition = false;
       this.errorQuestionText = false;
       
-      setTimeout(() => this.successSave = true, 400);
-      setTimeout(() => this.successSave = false, 3000);
+      setTimeout(() => this.displaySuccessToaster = true, 400);
+      setTimeout(() => this.displaySuccessToaster = false, 3000);
      
     },
     emitAddQuestion(){
