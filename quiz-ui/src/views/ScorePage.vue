@@ -50,9 +50,9 @@
           </div>
         </div>
 
-        <div class="items-center max-w-fit mx-auto">
-          <div
-            class="dynamicCard flex items-center place-content-center gap-4 rounded-t-2xl rounded-l-2xl mt-8 p-6 bg-slate-400 shadow-black/40 shadow-inner"
+        <div id="dynamicCardBorder" class="items-center max-w-fit mx-auto">
+          <div id="dynamicCard"
+            class=" flex items-center place-content-center gap-4 rounded-t-2xl rounded-l-2xl mt-8 p-6 bg-slate-400 shadow-black/40 shadow-inner"
             
           >
             <!-- Cercle de score animé -->
@@ -250,9 +250,17 @@ export default {
 
 /* changer dynamiquement la carte de présentation du joueur */
 @media (max-width: 700px) { 
-  .dynamicCard{
+  #dynamicCard{
    flex-direction: column;
   }    
+}
+@media (min-width:430px) and (max-width: 700px) { 
+  #dynamicCard{    
+    width:100%;
+  }    
+  #dynamicCardBorder{
+    max-width:70%;
+  }
 }
 
 /* animation pour score button */

@@ -35,8 +35,8 @@
             class="text-center shadow-md border rounded bg-white bg-opacity-60"
           >
             
-            <div class="mb-16 mt-8 mx-16 ">
-              <div
+            <div id="wrapperQuestion" class=" mb-16 mt-8 mx-16">
+              <div id="questionNumBox"
                 class="flex place-content-center gap-6 p-2 rounded font-bold text-xl text-sky-700 border bg-white bg-opacity-50"
               >
                 <button
@@ -187,3 +187,24 @@ export default {
 };
 </script>
 
+
+
+<style scoped>
+/* changer des parametres selon la taille de la fenetre */
+@media (max-width: 550px) { 
+  #wrapperQuestion{
+   margin-left: 15px;
+   margin-right: 15px;
+  }    
+
+  #questionNumBox{
+    gap: 4px;
+  }
+}
+@media (min-width:550px) and (max-width: 768px) { 
+  #wrapperQuestion{
+   margin-left: 40px;
+   margin-right: 40px;
+  }    
+}
+</style>
