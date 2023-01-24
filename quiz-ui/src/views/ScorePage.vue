@@ -158,7 +158,7 @@ export default {
       showAnswers: false,
       myTextStrokeRule: {
         textShadow:
-          "0 4px 8px white, 0 -2px 8px CadetBlue",
+          "0 2px 3px white, 0 -2px 4px CadetBlue",
         webkitTextStroke: "0.3px",
         webkitTextStrokeColor: "white",
       },
@@ -202,15 +202,9 @@ export default {
       this.userName = participationStorageService.getPlayerName();
       this.userScore = participationStorageService.getParticipationScore();
       this.rate = this.successRate(this.userScore);
-      var reussitePrec = this.registeredScores[0]; 
       for (var scoreId in this.registeredScores) {
-        if ( this.registeredScores[scoreId].reussite <= this.rate ) {
-          break;
-        }
-        else {
-          this.userRank += this.registeredScores[scoreId].reussite!=reussitePrec;        
-          reussitePrec = this.registeredScores[scoreId].reussite;     
-        }       
+        if (this.registeredScores[scoreId].reussite > this.rate)
+          this.userRank ++;   
       } 
     },
     restartGame: function () {
