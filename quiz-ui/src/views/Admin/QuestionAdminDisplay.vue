@@ -15,6 +15,7 @@
           <p class="col-span-1 pt-2 font-semibold">Question: </p>
           <p class="col-span-7"><input class="shadow appearance-none border focus:border-pink-700 rounded w-full h-10 px-3 py-2 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="text" v-model="this.question.questionText" placeholder="texte de la question"></p>
         </p>
+        <p v-if="this.errorQuestionText" class="text-red-700 text-sm">Ce champ est obligatoire</p>
       </div>
     </div>
     
@@ -91,6 +92,7 @@
         Sauvegarder
       </button>
     </div>
+    
   </div>
   
 </template>
@@ -114,7 +116,8 @@ export default {
     return {
       correctAnswerPosition: null,
       errorPosition: false,
-      errorNoAnswer: false
+      errorNoAnswer: false,
+      errorQuestionText: false
     };
   },
   computed: {
@@ -127,11 +130,13 @@ export default {
       this.loadCorrectAnswerPosition();
       this.errorNoAnswer = false;
       this.errorPosition = false;
+      this.errorQuestionText = false;
+      this.initialPosition = this.question.position;
     }
   },
   async created() {
-    this.loadCorrectAnswerPosition()
-   
+    this.loadCorrectAnswerPosition();
+    this.initialPosition = this.question.position;
   },
   methods:{
     imageFileChangedHandler(b64String) {
@@ -162,17 +167,29 @@ export default {
     async saveQuestion(){
       var maxPosition = this.question.id == null ? this.totalNumberOfQuestion+1 : this.totalNumberOfQuestion;
 
-      if(this.correctAnswerPosition == null || (this.question.position < 1 || this.question.position > maxPosition)) {
+      if(this.question.questionText == "" || this.correctAnswerPosition == null || (this.question.position < 1 || this.question.position > maxPosition)) {
+        
+        if(this.question.questionText == ""){
+          this.errorQuestionText = true;
+        }
+        else{
+          this.errorQuestionText = false;
+        }
+        
         if(this.correctAnswerPosition == null) {
           this.errorNoAnswer = true; 
         }
-        else {this.errorNoAnswer = false;}
+        else{
+          this.errorNoAnswer = false;
+        }
 
         if(this.question.position < 1 || this.question.position > maxPosition) {
           this.errorPosition = true; 
         }
-        else {this.errorPosition = false;}
-
+        else{
+          this.errorPosition = false;
+        }
+        
         return;
       }
       
@@ -184,15 +201,26 @@ export default {
       if(this.question.id == null){
         var postQuestionPromise = quizApiService.postQuestion(this.question);
         await postQuestionPromise;
+        this.emitAddQuestion(this.question.position);
       }
       else{
         var putQuestionPromise = quizApiService.putQuestion(this.question);
         await putQuestionPromise;
+        this.emitUpdateQuestion(this.question.position);
       }
-
-      // Refresh la page
-      location.reload();
+      this.errorNoAnswer = false;
+      this.errorPosition = false;
+      this.errorQuestionText = false;
+      
+      setTimeout(() => this.displaySuccessToaster = true, 400);
+      setTimeout(() => this.displaySuccessToaster = false, 3000);
      
+    },
+    emitAddQuestion(){
+      this.$emit('add-question-to-list');
+    },
+    emitUpdateQuestion(){
+      this.$emit('update-question-from-list', this.initialPosition);
     }
   }
 };

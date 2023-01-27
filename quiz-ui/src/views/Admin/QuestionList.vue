@@ -25,7 +25,7 @@
             <ul>
               <li v-for="index in this.totalNumberOfQuestion" :key="index">
                 <div class="border-b-2 border-orange-300 grid grid-cols-10">
-                  <button @click="selectQuestion(index)" class="col-span-8 grid grid-cols-10 border-r-2 border-orange-300 hover:bg-orange-300 text-orange-700 font-semibold" :class="[this.selectedQuestion === index ? 'bg-orange-300' : 'bg-orange-200']">
+                  <button @click="displayQuestionForm(index)" class="col-span-8 grid grid-cols-10 border-r-2 border-orange-300 hover:bg-orange-300 text-orange-700 font-semibold" :class="[this.selectedQuestion === index ? 'bg-orange-300' : 'bg-orange-200']">
                     <p class="col-span-2 bg-orange-100 rounded-full grid place-content-center px-3 mx-1 py-1 my-2 text-base"> {{index}} </p> 
                     <p class="col-span-8 truncate px-4 py-3">{{ registeredTitles[index-1] }}</p>
                   </button>
@@ -45,7 +45,7 @@
           <div class="flex-grow">
             <div class="py-8 ml-6">
               <div v-if="this.currentQuestion.id == null" class="text-orange-600 px-4 font-semibold text-2xl">Nouvelle question</div>
-              <QuestionAdminDisplay :question=this.currentQuestion :totalNumberOfQuestion="this.totalNumberOfQuestion" />
+              <QuestionAdminDisplay :question=this.currentQuestion :totalNumberOfQuestion="this.totalNumberOfQuestion" @add-question-to-list="addQuestionToList" @update-question-from-list="updateQuestionFromList" />
             </div>
           </div>
 
@@ -54,14 +54,31 @@
           </div>
           <div v-if="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </div>
+
+        <div v-if="this.displaySuccessToaster">
+          <div class="fixed top-0 right-0 m-6">
+            <div
+              class="bg-green-200 text-green-900 rounded-lg shadow-md p-4"
+              style="min-width: 240px"
+            >
+              <div class="flex gap-2 items-center">
+                <p><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                </p>
+                <p>Question sauvegardée</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
   <div v-else class="h-screen bg-orange-100 justify-center mt-32 grid">
     <svg aria-hidden="true" class="mr-2 w-20 h-20 text-gray-200 animate-spin dark:text-gray-600 fill-red-700" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
         <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
     </svg>
   </div>
+
 </template>
 
 <script>
@@ -92,7 +109,8 @@ export default {
       adminMode: false,
       isDisplayingNewForm: false,
       selectedQuestion: 1,
-      registeredTitles: []
+      registeredTitles: [],
+      displaySuccessToaster: false
     };
   },
   async created() {
@@ -102,7 +120,8 @@ export default {
       var quizInfoPromise = quizApiService.getQuizInfo();
       var quizInfoApiResult = await quizInfoPromise;
       this.totalNumberOfQuestion = quizInfoApiResult.data.size;
-
+      this.registeredTitles = [];
+      
       if(this.totalNumberOfQuestion > 0){
         Promise.all([this.loadAllTitles(), this.loadQuestion(1)]).then((response) => {
           this.loading = false;
@@ -115,10 +134,11 @@ export default {
     }
   },
   methods: {
-    selectQuestion(index){
+    displayQuestionForm(position){
       this.isDisplayingNewForm = false;
-      this.selectedQuestion = index;
-      this.loadQuestion(index);
+      this.selectedQuestion = position;
+      this.loadQuestion(position);
+      this.displaySuccessToaster = false;
     },
     toggleModal(){
       this.showModal = !this.showModal;
@@ -135,18 +155,80 @@ export default {
       this.currentQuestion.possibleAnswers = [];
     },
 
+    // change registerTitles after api post
+    async addQuestionToList(){
+      this.totalNumberOfQuestion++;
+
+      var questionPromise = quizApiService.getQuestionByPosition(this.currentQuestion.position);
+      var questionApiResult = await questionPromise;
+      var title = questionApiResult.data.title;
+      this.registeredTitles.splice(this.currentQuestion.position-1, 0, title);
+      
+      this.displayQuestionForm(this.currentQuestion.position);
+      this.displaySuccessToaster = true;
+      setTimeout(() => this.displaySuccessToaster = false, 3000);
+  },
+
+    // change registerTitles after api put
+    async updateQuestionFromList(oldPosition){
+      var questionPromise = quizApiService.getQuestionByPosition(this.currentQuestion.position);
+      var questionApiResult = await questionPromise;
+      var title = questionApiResult.data.title;
+
+      if(this.currentQuestion.position != oldPosition){
+        this.registeredTitles.splice(oldPosition-1, 1);
+        this.registeredTitles.splice(this.currentQuestion.position-1, 0, title);
+      }
+      else{
+        this.registeredTitles[this.currentQuestion.position-1] = title;
+      }
+      this.selectedQuestion = this.currentQuestion.position;
+
+      this.displaySuccessToaster = true;
+      setTimeout(() => this.displaySuccessToaster = false, 3000);
+    },
+
+    // change registerTitles after api delete
     // Cela ne semble pas possible de delete une question par sa position, un getQuestionByPosition est utilisé
-    async removeQuestion(index){
-      var questionPromise = quizApiService.getQuestionByPosition(index);
+    async removeQuestion(position){
+      console.log(position)
+      var questionPromise = quizApiService.getQuestionByPosition(position);
       var questionApiResult = await questionPromise;
       var removeQuestionPromise = quizApiService.removeQuestion(questionApiResult.data.id);
       await removeQuestionPromise;
-      location.reload();
+
+      this.totalNumberOfQuestion--;
+      this.registeredTitles.splice(position-1, 1);
+      
+      if(this.totalNumberOfQuestion < 1){
+        this.displayNewForm();
+        return;
+      }
+
+      if(position < this.currentQuestion.position){
+        this.displayQuestionForm(this.currentQuestion.position-1);
+      }
+
+      if(position == this.currentQuestion.position){
+        if(position == this.totalNumberOfQuestion+1){
+          this.displayQuestionForm(this.currentQuestion.position-1);
+        }
+        else{
+          this.displayQuestionForm(this.currentQuestion.position);
+        }
+      }
+
     },
+
+    // change registerTitles after api delete all
     async removeAllQuestions(){
       var questionsPromise = quizApiService.removeAllQuestions();
       await questionsPromise;
-      location.reload();
+      this.toggleModal();
+
+      this.totalNumberOfQuestion = 0;
+      this.registeredTitles = [];
+      this.displayNewForm();
     },
 
     // Similaire à celui de QuestionManager, mais l'id et la position ont été ajoutée car utile pour le put et/ou post
@@ -161,12 +243,12 @@ export default {
         this.currentQuestion.possibleAnswers = questionApiResult.data.possibleAnswers;
     },
     async loadAllTitles() {
-        for(let index = 1; index <= this.totalNumberOfQuestion; index++ ){
-          var questionPromise = quizApiService.getQuestionByPosition(index);
-          var questionApiResult = await questionPromise;
-          var title = questionApiResult.data.title;
-          this.registeredTitles.push(title);
-        }
+      for(let index = 1; index <= this.totalNumberOfQuestion; index++ ){
+        var questionPromise = quizApiService.getQuestionByPosition(index);
+        var questionApiResult = await questionPromise;
+        var title = questionApiResult.data.title;
+        this.registeredTitles.push(title);
+      }
     },
   }
 }

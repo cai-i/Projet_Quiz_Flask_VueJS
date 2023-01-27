@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div v-else class="mb-6">
-                <QuestionEdition />
+                <QuestionList />
             </div>
         </section>
     </div>
@@ -44,11 +44,11 @@
 <script>
 import quizApiService from "@/services/QuizApiService";
 import participationStorageService from "@/services/ParticipationStorageService";
-import QuestionEdition from "./QuestionEdition.vue";
+import QuestionList from "./QuestionList.vue";
 
 export default {
     components: {
-        QuestionEdition
+        QuestionList
     },
     data() { 
         return {
