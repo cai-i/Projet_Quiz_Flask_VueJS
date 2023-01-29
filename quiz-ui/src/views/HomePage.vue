@@ -35,7 +35,7 @@
           <!-- 1ère slide -->
           <div class="carousel-item active relative float-left items-center w-full">
             <CarouselSlide
-                backgroundImageURL="https://live.staticflickr.com/5554/14615975852_eeb8f169f1_b.jpg" 
+                backgroundImageURL="./assets/imgs/big_door.jpg" 
                 title="欢迎! Welcome! Bienvenue !"
                 imageURL="https://www.flickr.com/photos/seeminglee/14615975852"
                 licenseURL="https://creativecommons.org/licenses/by-nc/2.0/"
@@ -51,7 +51,7 @@
           <!-- 2ème slide -->
           <div class="carousel-item relative float-left items-center w-full">
             <CarouselSlide
-                backgroundImageURL="https://www.cwa-ni.org/wp-content/uploads/2021/02/Hero_Stefano_Borghi_IMG_3706_Hi.jpg" 
+                backgroundImageURL="./assets/imgs/dragon_festival.jpg"
                 title="Montrez nous vos capacités et challengez vous !"
                 imageURL="https://www.cwa-ni.org/history-of-chinese-new-year/"
                 licenseURL="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.fr"
@@ -67,7 +67,7 @@
           <!-- 3ème slide -->
           <div class="carousel-item relative float-left items-center w-full">
             <CarouselSlide
-                backgroundImageURL="https://upload.wikimedia.org/wikipedia/commons/d/d5/Mid-Autumn_Festival-beijing.jpg" 
+                backgroundImageURL="./assets/imgs/dragon_festival_night.jpg"
                 title="Pour participer, c'est par ici !"
                 imageURL="https://commons.wikimedia.org/wiki/File:Mid-Autumn_Festival-beijing.jpg"
                 licenseURL="https://creativecommons.org/licenses/by-sa/2.5/"
@@ -91,7 +91,7 @@
           <!-- 4ème slide -->
           <div class="carousel-item relative float-left items-center w-full">
             <CarouselSlide
-                backgroundImageURL="https://upload.wikimedia.org/wikipedia/commons/3/36/China-Shanghai-YuGarden-the_Lantern_Festival-2012_1828.JPG" 
+                backgroundImageURL="./assets/imgs/street_lanterns.jpg"
                 title="Plus on est de fou, plus on rit !"
                 imageURL="https://commons.wikimedia.org/wiki/File:China-Shanghai-YuGarden-the_Lantern_Festival-2012_1828.JPG"
                 licenseURL="https://creativecommons.org/licenses/by-sa/3.0/"
@@ -125,7 +125,7 @@
         <!-- image de fond du tableau -->
         <div
           class="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
-          style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/c/cc/Celebration_Chinese_Lantern_Festival.jpg');"
+          style="background-image: url('./assets/imgs/lanterns.jpg');"
         ></div>
       </ScoresTable>
 
@@ -135,10 +135,16 @@
         <svg class="w-6 h-6 min-w-max" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
         </svg>
-        <p> 
-          Attention, le nombre de questions peut changer au fil du 
-          temps, donc ne vous fiez pas uniquement au score.
-        </p>
+        <div class="flex flex-col">
+          <p> 
+            Attention, le nombre de questions peut changer au fil du 
+            temps, donc ne vous fiez pas uniquement au score. 
+          </p>
+          <p>  
+            De plus, le classement se fait par 
+            taux de réussite et date de soumission.
+          </p>
+        </div>
       </a>
 
 

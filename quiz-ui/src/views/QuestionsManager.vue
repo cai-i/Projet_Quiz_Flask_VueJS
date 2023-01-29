@@ -5,9 +5,7 @@
     <div class="w-5/6 mx-auto">
       <div v-if="this.loading" class="p-8 pt-24">
         <!-- Loading animation elements -->
-        <div class="outerCircle"></div>
-        <div class="innerCircle"></div>
-        <div class="icon"></div>
+        <loadAnim></loadAnim>
       </div>
       <div v-else >
         <div v-if="this.totalNumberOfQuestion !== 0">
@@ -37,8 +35,8 @@
             class="text-center shadow-md border rounded bg-white bg-opacity-60"
           >
             
-            <div class="mb-16 mt-8 mx-16 ">
-              <div
+            <div id="wrapperQuestion" class=" mb-16 mt-8 mx-16">
+              <div id="questionNumBox"
                 class="flex place-content-center gap-6 p-2 rounded font-bold text-xl text-sky-700 border bg-white bg-opacity-50"
               >
                 <button
@@ -94,11 +92,12 @@
 import QuestionDisplay from "../views/QuestionDisplay.vue";
 import quizApiService from "@/services/QuizApiService";
 import participationStorageService from "@/services/ParticipationStorageService";
+import LoadAnim from './Components/LoadAnim.vue';
 
 export default {
   name: "QuestionsPage",
   components: {
-    QuestionDisplay,
+    QuestionDisplay,LoadAnim
   },
   data() {
     return {
@@ -123,7 +122,7 @@ export default {
         // "url(https://img.rawpixel.com/private/static/images/website/2022-05/upwk82583677-wikimedia-image-kows5907.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=94d8d8d28d58bcee9ebf690dfa3917c8)",
         // "url(https://live.staticflickr.com/65535/51216709489_0de8256b15_b.jpg)",
 
-        "url(https://c.pxhere.com/photos/7f/7a/fish_ink_painting_china_wind-1235431.jpg!d)",
+        "url(./assets/imgs/koi_fish.jpg)",
       },
       myTextStrokeRule: {
         textShadow:
@@ -189,81 +188,23 @@ export default {
 </script>
 
 
-<style scoped>
-/* Loading animation */
-.outerCircle {
-  background-color: transparent;
-  border: 8px solid rgba(97, 82, 72, 0.9);
-  opacity: 0.9;
-  border-right: 5px solid transparent;
-  border-left: 5px solid transparent;
-  border-radius: 100px;
-  width: 103px;
-  height: 103px;
-  margin: 0 auto;
-  -moz-animation: spinPulse 3s infinite ease-in-out;
-  -webkit-animation: spinPulse 3s infinite ease-in-out;
-}
-.innerCircle {
-  background-color: transparent;
-  border: 5px solid rgba(189, 215, 60, 0.6);
-  opacity: 0.9;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-radius: 100px;
-  top: -100px;
-  width: 92px;
-  height: 92px;
-  margin: 0 auto;
-  position: relative;
-  -moz-animation: spinoffPulse 1s infinite linear;
-  -webkit-animation: spinoffPulse 1s infinite linear;
-}
 
-@-moz-keyframes spinPulse {
-  0% {
-    -moz-transform: rotate(160deg);
-    opacity: 0;
-    box-shadow: 0 0 1px #bdd73c;
-  }
-  50% {
-    -moz-transform: rotate(145deg);
-    opacity: 1;
-  }
-  100% {
-    -moz-transform: rotate(-320deg);
-    opacity: 0;
+<style scoped>
+/* changer des parametres selon la taille de la fenetre */
+@media (max-width: 550px) { 
+  #wrapperQuestion{
+   margin-left: 15px;
+   margin-right: 15px;
+  }    
+
+  #questionNumBox{
+    gap: 4px;
   }
 }
-@-moz-keyframes spinoffPulse {
-  0% {
-    -moz-transform: rotate(0deg);
-  }
-  100% {
-    -moz-transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes spinPulse {
-  0% {
-    -webkit-transform: rotate(160deg);
-    opacity: 0;
-    box-shadow: 0 0 1px #bdd73c;
-  }
-  50% {
-    -webkit-transform: rotate(145deg);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: rotate(-320deg);
-    opacity: 0;
-  }
-}
-@-webkit-keyframes spinoffPulse {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
+@media (min-width:550px) and (max-width: 768px) { 
+  #wrapperQuestion{
+   margin-left: 40px;
+   margin-right: 40px;
+  }    
 }
 </style>

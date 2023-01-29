@@ -2,7 +2,7 @@
   <div
     class="py-11 bg-cover bg-center bg-no-repeat bg-fixed"
     style="
-      background-image: url(https://img.rawpixel.com/private/static/images/website/2022-05/upwk82583677-wikimedia-image-kows5907.jpg?w=1200&h=1200&dpr=1&fit=clip&crop=default&fm=jpg&q=75&vib=3&con=3&usm=15&cs=srgb&bg=F4F4F3&ixlib=js-2.2.1&s=94d8d8d28d58bcee9ebf690dfa3917c8);
+      background-image: url(./assets/imgs/city_night.jpg);
     "
   >
 
@@ -25,9 +25,8 @@
             v-else-if="this.rate > 2 / 3"
           >
             Bravo {{ this.userName }},
-            <div class="animate-bounce ml-4 mr-4 mt-2">sentez-vous supérieur</div>
-            à {{ this.registeredScores.length - this.userRank }}
-            joueurs aujourd'hui !
+            <div class="animate-bounce ml-4 mr-4 mt-2">soyez fier</div>
+            de votre culture G !
           </div>
 
           <div
@@ -51,41 +50,16 @@
           </div>
         </div>
 
-        <div class="items-center max-w-fit mx-auto">
-          <div
-            class="flex items-center place-content-center gap-4 rounded-t-2xl rounded-l-2xl mt-8 p-6 bg-slate-400 shadow-black/40 shadow-inner"
+        <div id="dynamicCardBorder" class="items-center max-w-fit mx-auto">
+          <div id="dynamicCard"
+            class=" flex items-center place-content-center gap-4 rounded-t-2xl rounded-l-2xl mt-8 p-6 bg-slate-400 shadow-black/40 shadow-inner"
+            
           >
             <!-- Cercle de score animé -->
-            <div v-if="this.circleStyle['--sratio']" class="skill">
-              <div class="outer">
-                <div class="inner">
-                  <div class="number">
-                    {{ this.scoreDisplay }}
-                  </div>
-                </div>
-              </div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                width="160px"
-                height="160px"
-              >
-                <defs>
-                  <linearGradient id="GradientColor">
-                    <stop offset="0%" stop-color="#e91e63" />
-                    <stop offset="100%" stop-color="#673ab7" />
-                  </linearGradient>
-                </defs>
-                <circle
-                  cx="80"
-                  cy="80"
-                  r="70"
-                  stroke-linecap="round"
-                  :style="circleStyle"
-                />
-              </svg>
-            </div>
-
+            <ScoreLoadAnim 
+              :nbr_questions="this.nbr_questions" 
+              :userScore="this.userScore">    
+            </ScoreLoadAnim>
             <!-- Stats du joueur   -->
             <div class="p-6 flex flex-col gap-4 text-3xl text-left">
               <div class="font-mono">
@@ -130,9 +104,7 @@
 
       <div v-else class="p-8 pt-24">
         <!-- Loading animation elements -->
-        <div class="outerCircle"></div>
-        <div class="innerCircle"></div>
-        <div class="icon"></div>
+        <LoadAnim></LoadAnim>
       </div>
 
       <div v-if="this.showAnswers">
@@ -154,21 +126,25 @@
         </div>
       </div>
       <!-- Début tableau -->
-      <ScoresTable>
-        <!-- image de fond du tableau -->
-        <div class="ScorePageBody absolute inset-0"></div>
-      </ScoresTable>
+        <ScoresTable>
+          <!-- image de fond du tableau -->
+          <div class="bg-neutral-500 bg-opacity-50 absolute inset-0"></div>
+        </ScoresTable>
     </div>
   </div>
 </template>
+
 
 <script>
 import quizApiService from "@/services/QuizApiService";
 import participationStorageService from "@/services/ParticipationStorageService";
 import ScoresTable from './Components/ScoresTable.vue';
+import ScoreLoadAnim from './Components/ScoreLoadAnim.vue';
+import LoadAnim from './Components/LoadAnim.vue';
 
 export default {
   name: "ScorePage",
+  components: { ScoresTable, ScoreLoadAnim, LoadAnim },
   data() {
     return {
       registeredScores: [],
@@ -178,16 +154,11 @@ export default {
       userRank: 1,
       userScore: 0,
       rate: "",
-      scoreDisplay: "",
       statsLoaded: false,
       showAnswers: false,
-      circleStyle: {
-        "--sratio": null,
-        animationPlayState: "paused",
-      },
       myTextStrokeRule: {
         textShadow:
-          "0 4px 6px white, 0 -4px 6px orange, 4px 0 3px CadetBlue, -4px 0 3px CadetBlue",
+          "0 2px 3px white, 0 -2px 4px CadetBlue",
         webkitTextStroke: "0.3px",
         webkitTextStrokeColor: "white",
       },
@@ -202,8 +173,6 @@ export default {
     // charger les stats du joueur
     this.scoreStats();
     this.statsLoaded = true;
-    // compter pour l'animation du score
-    this.scoreLoading();
     // Nettoyer les données du joueur, commenter si test
     //participationStorageService.clear();
     console.log("Composant Score page 'created'");
@@ -226,55 +195,29 @@ export default {
   },
   methods: {
     successRate: function (value) {
-      this.rate = String((value * 100) / this.nbr_questions);
+      this.rate = Math.round((value * 100) / this.nbr_questions);
       return this.rate;
     },
     scoreStats: function () {
       this.userName = participationStorageService.getPlayerName();
       this.userScore = participationStorageService.getParticipationScore();
-      for (var scoreEntry in this.registeredScores) {
-        if (
-          this.registeredScores[scoreEntry].playerName === this.userName &&
-          this.registeredScores[scoreEntry].score == this.userScore
-        )
-          this.userRank = parseInt(scoreEntry) + 1;
-      }
-      this.circleStyle["--sratio"] =
-        472 * (1 + 0.05 - this.userScore / this.nbr_questions) - 1;
-      if (this.userScore == 0) this.circleStyle["--sratio"] = 470;
-    },
-    scoreLoading: function () {
-      this.circleStyle.animationPlayState = "running";
-      // Cas score de 0
-      if (this.userScore == 0) {
-        return (this.scoreDisplay = "0%");
-      }
-      // Cas score sup a 0
-      var counter = 0;
-      var incr = parseInt((10 * this.userScore) / this.nbr_questions, 10);
-      setInterval(() => {
-        if (counter >= (100 * this.userScore) / this.nbr_questions - 10) {
-          incr = 1;
-        }
-        if (counter >= (100 * this.userScore) / this.nbr_questions) {
-          clearInterval();
-        } else {
-          counter += incr;
-          this.scoreDisplay = counter + "%";
-        }
-      });
+      this.rate = this.successRate(this.userScore);
+      for (var scoreId in this.registeredScores) {
+        if (this.registeredScores[scoreId].reussite > this.rate)
+          this.userRank ++;   
+      } 
     },
     restartGame: function () {
       this.$router.push("/questions");
     },
-    async toggleShowAnswers() {
-        
+    async toggleShowAnswers() {        
       this.showAnswers = !this.showAnswers;
     }
-  },
-  components: { ScoresTable }
+  }
 };
 </script>
+
+
 
 <style scoped>
 /* animation pour le background */
@@ -299,65 +242,22 @@ export default {
   }
 }
 
-/* Animation pour le score rate  */
-.skill {
-  width: 160px;
-  height: 160px;
-  position: relative;
+/* changer dynamiquement la carte de présentation du joueur */
+@media (max-width: 700px) { 
+  #dynamicCard{
+   flex-direction: column;
+  }    
 }
-
-.outer {
-  height: 160px;
-  width: 160px;
-  border-radius: 50%;
-  padding: 20px;
-  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.25),
-    -6px -6px 10px -1px rgba(255, 255, 255, 0.25);
-}
-
-.inner {
-  height: 120px;
-  width: 120px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.25),
-    inset -4px -4px 6px -1px rgba(255, 255, 255, 0.25),
-    -0.5px -0.5px 0px rgba(255, 255, 255, 0.5),
-    0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px rgba(0, 0, 0, 0.05);
-}
-
-.number {
-  font-size: xxx-large;
-  font-weight: bold;
-  color: #555;
-}
-
-circle {
-  fill: none;
-  stroke: url(#GradientColor);
-  stroke-width: 20px;
-  stroke-dasharray: 472;
-  stroke-dashoffset: 472;
-  animation: anim 2s linear forwards;
-}
-
-svg {
-  position: absolute;
-  transform: rotate(-90deg);
-  top: 0;
-  left: 0;
-}
-
-@keyframes anim {
-  100% {
-    stroke-dashoffset: var(--sratio);
+@media (min-width:430px) and (max-width: 700px) { 
+  #dynamicCard{    
+    width:100%;
+  }    
+  #dynamicCardBorder{
+    max-width:70%;
   }
 }
 
 /* animation pour score button */
-
 .link-underline {
   border-bottom-width: 0;
   background-image: linear-gradient(transparent, transparent), linear-gradient(#fff, #fff);
@@ -374,82 +274,5 @@ svg {
 .link-underline:hover {
   background-size: 100% 2px;
   background-position: 0 100%
-	}
-
-/* Loading animation */
-.outerCircle {
-  background-color: transparent;
-  border: 8px solid rgba(97, 82, 72, 0.9);
-  opacity: 0.9;
-  border-right: 5px solid transparent;
-  border-left: 5px solid transparent;
-  border-radius: 100px;
-  width: 103px;
-  height: 103px;
-  margin: 0 auto;
-  -moz-animation: spinPulse 3s infinite ease-in-out;
-  -webkit-animation: spinPulse 3s infinite ease-in-out;
-}
-.innerCircle {
-  background-color: transparent;
-  border: 5px solid rgba(189, 215, 60, 0.6);
-  opacity: 0.9;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-radius: 100px;
-  top: -100px;
-  width: 92px;
-  height: 92px;
-  margin: 0 auto;
-  position: relative;
-  -moz-animation: spinoffPulse 1s infinite linear;
-  -webkit-animation: spinoffPulse 1s infinite linear;
-}
-
-@-moz-keyframes spinPulse {
-  0% {
-    -moz-transform: rotate(160deg);
-    opacity: 0;
-    box-shadow: 0 0 1px #bdd73c;
-  }
-  50% {
-    -moz-transform: rotate(145deg);
-    opacity: 1;
-  }
-  100% {
-    -moz-transform: rotate(-320deg);
-    opacity: 0;
-  }
-}
-@-moz-keyframes spinoffPulse {
-  0% {
-    -moz-transform: rotate(0deg);
-  }
-  100% {
-    -moz-transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes spinPulse {
-  0% {
-    -webkit-transform: rotate(160deg);
-    opacity: 0;
-    box-shadow: 0 0 1px #bdd73c;
-  }
-  50% {
-    -webkit-transform: rotate(145deg);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: rotate(-320deg);
-    opacity: 0;
-  }
-}
-@-webkit-keyframes spinoffPulse {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
 }
 </style>
